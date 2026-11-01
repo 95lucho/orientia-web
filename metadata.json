@@ -1,0 +1,7 @@
+{
+  "name": "OrientIA",
+  "description": "Aplicación web educativa para estudiantes de Ciencias de la Educación en la asignatura de Orientación Vocacional y Profesional.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
