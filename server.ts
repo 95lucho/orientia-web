@@ -20,6 +20,8 @@ app.get('/api/health', (_req, res) => {
   res.json({
     status: 'online',
     app: 'OrientIA',
+    institution: 'Universidad Autónoma Gabriel René Moreno (UAGRM)',
+    faculty: 'Facultad de Humanidades',
     discipline: 'Ciencias de la Educación - Orientación Vocacional y Profesional',
     geminiConfigured: Boolean(process.env.GEMINI_API_KEY),
   });
@@ -27,25 +29,29 @@ app.get('/api/health', (_req, res) => {
 
 // System instruction for OrientIA
 const ORIENTIA_SYSTEM_INSTRUCTION = `
-Eres OrientIA, una plataforma y asistente de inteligencia artificial pedagógica diseñada específicamente para estudiantes de la carrera de Ciencias de la Educación que cursan la asignatura de Orientación Vocacional y Profesional.
+Eres OrientIA, una plataforma y asistente de inteligencia artificial pedagógica diseñada específicamente para los estudiantes de la carrera de Ciencias de la Educación de la Universidad Autónoma Gabriel René Moreno (UAGRM), Santa Cruz de la Sierra, Bolivia, en la asignatura Orientación Vocacional y Profesional.
 
 Tus funciones pedagógicas son:
-1. Guiar en conceptos teóricos de la orientación vocacional: teorías de desarrollo vocacional (Super, Holland RIASEC, Ginzberg, Krumboltz), enfoques socioeducativos, madurez vocacional, y proyecto de vida.
-2. Ayudar a analizar el rol orientador del educador/pedagogo en escuelas secundarias, instituciones de nivel superior y entornos no formales.
-3. Apoyar en la comprensión metodológica de instrumentos y tests vocacionales (inventarios de intereses, cuestionarios de preferencias, escalas de autoeficacia) desde una perspectiva formativa y pedagógica, sin reemplazar la evaluación psicopedagógica formal ni diagnosticar.
-4. Fomentar la competencia de formulación de instrucciones efectivas a la IA (Prompt Engineering en educación): evaluar si las preguntas tienen contexto institucional, población destinataria, rol claro y objetivo educativo.
+1. Brindar apoyo formativo sobre los seis instrumentos oficiales de la cátedra:
+   - Cuestionario de Intereses Ocupacionales
+   - Test de Inteligencia Superior – OTIS Superior (Arthur S. Otis)
+   - Determinante de Temperamento de Keirsey (David Keirsey)
+   - Test de Hábitos de Estudio
+   - Intereses y Preferencias Profesionales (IPP - María Victoria de la Cruz)
+   - Differential Aptitude Tests (DAT - batería integrada por 8 pruebas: Razonamiento abstracto, Razonamiento verbal, Cálculo, Velocidad y precisión, Relaciones espaciales, Lenguaje, Ortografía y Razonamiento mecánico). Respecto al DAT, recuerda que los cuadernillos de preguntas físicos forman parte del material impreso de la docente, y se cuenta con la hoja de respuestas y los dos baremos normativos (masculino y femenino).
+2. Guiar en conceptos teóricos y metodológicos de la orientación vocacional y profesional, el rol orientador del educador y el acompañamiento en la construcción de proyectos de vida.
+3. No inventar preguntas, puntuaciones, baremos ni diagnósticos psicométricos automatizados. Tu enfoque es estrictamente educativo y formativo.
 
 Tono y estilo:
-- Académico, claro, profesional, ético y empático.
+- Académico, universitario, claro, ético, respetuoso y empático.
 - Enfoque pedagógico centrado en la toma reflexiva y autónoma de decisiones del estudiante orientado.
-- Siempre en español neutro y formal-cálido.
-- Si el usuario te pide interpretar un test real o inventar reactivos, recuérdale que los instrumentos deben ser aplicados según sus baremos y manuales oficiales validados por la cátedra.
+- En español formal pero cercano para estudiantes universitarios de la UAGRM.
 `;
 
 // Secure Chat endpoint
 app.post('/api/chat', async (req, res) => {
   try {
-    const { messages, userRole, promptEvaluation } = req.body;
+    const { messages } = req.body;
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({ error: 'La conversación debe contener al menos un mensaje.' });
@@ -115,7 +121,7 @@ app.post('/api/chat', async (req, res) => {
     }
 
     // Pedagogical Fallback / Educational Simulator when key is pending
-    const simulatedResponse = generatePedagogicalFallback(userPrompt, promptEvaluation);
+    const simulatedResponse = generatePedagogicalFallback(userPrompt);
     return res.json({
       reply: simulatedResponse,
       source: 'orientia-educational-engine',
@@ -132,42 +138,70 @@ app.post('/api/chat', async (req, res) => {
 });
 
 // Helper for pedagogical context when testing in development without external API calls
-function generatePedagogicalFallback(query: string, evaluation?: any): string {
+function generatePedagogicalFallback(query: string): string {
   const lower = query.toLowerCase();
 
   let advice = '';
-  if (lower.includes('test') || lower.includes('instrumento') || lower.includes('kuder') || lower.includes('holland')) {
-    advice = `### Perspectiva Pedagógica sobre Instrumentos Vocacionales
-En la asignatura **Orientación Vocacional y Profesional**, los instrumentos psicopedagógicos (como el RIASEC de Holland, inventarios de intereses o escalas de autoeficacia) deben ser concebidos como **herramientas de mediación y autoconocimiento**, no como etiquetas predictivas determinantes.
+  if (lower.includes('dat') || lower.includes('aptitud') || lower.includes('batería')) {
+    advice = `### Sobre el Differential Aptitude Tests (DAT)
+En la cátedra de **Orientación Vocacional y Profesional**, la batería **DAT** se analiza como una herramienta multifactorial integrada por **ocho pruebas independientes**:
+1. Razonamiento Abstracto (AR)
+2. Razonamiento Verbal (VR)
+3. Cálculo (NA)
+4. Velocidad y Precisión (CSA)
+5. Relaciones Espaciales (SR)
+6. Lenguaje (LU)
+7. Ortografía (SP)
+8. Razonamiento Mecánico (MR)
 
-**Recomendaciones para el pedagogo:**
-1. **Contextualización:** Analizar siempre las condiciones socioeconómicas, culturales e institucionales del sujeto.
-2. **Triangulación:** Complementar los reactivos con entrevistas de orientación, biografía escolar y exploración de proyectos de vida.
-3. **Rol del educador:** Facilitar la reflexión crítica del estudiante sobre sus habilidades percibidas y oportunidades del entorno laboral.`;
+**Aspectos clave para el pedagogo:**
+- Los cuadernillos de preguntas físicos forman parte del texto de avance de la docente.
+- La cátedra dispone de la hoja de respuestas unificada y de los dos baremos normativos (masculino y femenino).
+- Se debe interpretar el perfil diferencial de fortalezas y debilidades aptitudinales en lugar de emitir una puntuación global única.`;
+  } else if (lower.includes('otis') || lower.includes('inteligencia')) {
+    advice = `### Sobre el Test de Inteligencia Superior (OTIS Superior)
+El **OTIS Superior** (Arthur S. Otis) evalúa la agilidad mental general y el razonamiento lógico bajo tiempo cronometrado estricto (30 minutos de ejecución).
+
+**Recomendaciones pedagógicas:**
+- Aclarar al orientado que las preguntas tienen dificultad creciente.
+- No calificar de forma aislada; contrastar el nivel de rendimiento intelectual con los hábitos de estudio y los intereses vocacionales manifestados.`;
+  } else if (lower.includes('keirsey') || lower.includes('temperamento')) {
+    advice = `### Sobre el Determinante de Temperamento de Keirsey
+Basado en las tipologías junguianas, clasifica la personalidad en cuatro grandes temperamentos: **Artesanos (SP)**, **Guardianes (SJ)**, **Idealistas (NF)** y **Racionales (NT)**.
+
+**Pautas para la orientación:**
+- Ningún temperamento es superior a otro; cada uno aporta dones distintivos en distintos campos de desempeño profesional.
+- Es un instrumento de autoexploración reflexiva que no debe utilizarse como etiqueta rígida o determinante.`;
+  } else if (lower.includes('ipp') || lower.includes('intereses')) {
+    advice = `### Sobre los Instrumentos de Intereses (IPP e Intereses Ocupacionales)
+El **IPP** (María Victoria de la Cruz) y el **Cuestionario de Intereses Ocupacionales** exploran la atracción o rechazo hacia 17 campos profesionales y actividades concretas de trabajo.
+
+**Pautas de mediación pedagógica:**
+- Comparar si existe congruencia entre el gusto por una profesión y el agrado hacia las tareas de estudio requeridas para formarse en ella.
+- Vincular las áreas de interés con las carreras vigentes en la UAGRM y la oferta formativa técnica y superior.`;
+  } else if (lower.includes('hábito') || lower.includes('estudio')) {
+    advice = `### Sobre el Test de Hábitos de Estudio
+Permite diagnosticar las condiciones ambientales, la planificación del tiempo, las técnicas de lectura comprensiva y la preparación para exámenes en la educación superior.
+
+**Acción orientadora:**
+- Es el punto de partida para programas de tutoría pedagógica y prevención del abandono universitario en los primeros semestres de la UAGRM.`;
   } else if (lower.includes('rol') || lower.includes('educación') || lower.includes('pedagogo') || lower.includes('docente')) {
     advice = `### El Rol del Licenciado en Ciencias de la Educación en la Orientación
-El orientador educativo no "elige" la carrera del sujeto; su función esencial es **acompañar el proceso de toma de decisiones conscientes y autónomas**.
+El orientador educativo no "elige" la carrera del estudiante; su función esencial es **acompañar la toma de decisiones conscientes, informadas y autónomas**.
 
-**Áreas clave de intervención pedagógica:**
-- **Prevención y acompañamiento:** Fortalecer la permanencia educativa y prevenir la deserción en transiciones críticas (secundaria-universidad).
-- **Desarrollo de competencias de elección:** Enseñar a buscar información vocacional confiable, ponderar alternativas y gestionar la incertidumbre.
-- **Enfoque transversal:** Articular con directivos, tutores y familias para crear un clima institucional propicio para la orientación continua.`;
-  } else if (lower.includes('prompt') || lower.includes('instrucción') || lower.includes('ia') || lower.includes('inteligencia artificial')) {
-    advice = `### Competencias de Formulación de Instrucciones a la IA (Prompt Engineering Educativo)
-Para obtener respuestas rigurosas de sistemas de inteligencia artificial en orientación vocacional, aplica la estructura **R-C-T-R**:
-- **Rol:** Especifica la postura técnica (ej. *"Actúa como asesor pedagógico en orientación profesional..."*).
-- **Contexto:** Describe el nivel formativo, edad y contexto institucional (ej. *"Estudiantes de último año de secundaria en escuela técnica pública..."*).
-- **Tarea:** Formula con precisión el producto pedagógico requerido (ej. *"Diseña una secuencia didáctica de 3 sesiones de autoconocimiento vocacional..."*).
-- **Restricciones:** Define enfoque teórico y formato (ej. *"Basado en el enfoque de proyecto de vida de Guichard, sin emitir juicios deterministas y en formato tabla..."*).`;
+**Áreas clave de intervención:**
+- **Acompañamiento reflexivo:** Fortalecer la autonomía del sujeto en su deliberación vocacional.
+- **Triangulación pedagógica:** Contrastar intereses, aptitudes, hábitos de estudio y condiciones socioeconómicas.
+- **Proyecto de vida:** Concebir la vocación no como un destino predeterminado, sino como una trayectoria construida activamente.`;
   } else {
-    advice = `Gracias por tu consulta a **OrientIA**. 
+    advice = `Gracias por tu consulta a **OrientIA**.
 
-Como futuro profesional de **Ciencias de la Educación**, el abordaje de la Orientación Vocacional y Profesional exige articular el marco teórico (teorías del desarrollo y factores psicosociales) con la práctica institucional situada.
+Como estudiante de **Ciencias de la Educación** en la **UAGRM**, estoy aquí para acompañarte en la asignatura **Orientación Vocacional y Profesional**.
 
-¿Deseas profundizar en alguna de estas dimensiones?
-- **Fundamentos y teorías vocacionales** (Holland, Super, enfoques críticos latinoamericanos).
-- **Metodología de aplicación de instrumentos** y análisis pedagógico de datos vocacionales.
-- **Técnicas de formulación de prompts educativos** para diseñar actividades de orientación asistidas con IA.`;
+¿En cuál de estos aspectos deseas profundizar?
+- Fundamentos y metodología de los **6 instrumentos de la cátedra** (Intereses Ocupacionales, OTIS Superior, Keirsey, Hábitos de Estudio, IPP y batería DAT).
+- Criterios de administración y uso de la hoja de respuestas y baremos normativos.
+- El rol orientador del pedagogo en la formulación de proyectos de vida.`;
   }
 
   return advice;

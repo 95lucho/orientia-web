@@ -2,158 +2,258 @@ import { VocationalInstrument } from '../types/vocational';
 
 export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
   {
-    id: 'riasec-holland',
-    name: 'Cuestionario de Intereses Profesionales (Modelo Tipológico RIASEC)',
-    shortName: 'RIASEC - Holland',
-    category: 'Intereses',
-    academicAuthor: 'John L. Holland (Adaptaciones pedagógicas iberoamericanas)',
-    theoreticalFramework: 'Teoría de la congruencia persona-ambiente vocacional de John Holland',
-    targetAudience: 'Estudiantes de educación secundaria superior, bachillerato y primer año universitario',
-    estimatedDuration: '25 a 35 minutos',
-    applicationMode: 'Autoadministrado o grupal guiado por el pedagogo orientador',
-    description:
-      'Instrumento psicopedagógico ampliamente utilizado en orientación vocacional para evaluar la inclinación del orientado hacia seis ambientes y tipos de personalidad: Realista (R), Investigador (I), Artístico (A), Social (S), Emprendedor (E) y Convencional (C). Permite explorar congruencias con campos ocupacionales y trayectorias formativas.',
-    objectives: [
-      'Facilitar la autoexploración de intereses y actividades de agrado en contextos formativos y laborales.',
-      'Generar un código tipológico primario (ej. SEC, AIR) que oriente la búsqueda de carreras y campos profesionales afines.',
-      'Servir como disparador de entrevistas reflexivas sobre el proyecto de vida en el aula.'
-    ],
-    applicatorInstructions: [
-      'Verificar que el espacio de aplicación cuente con condiciones adecuadas de silencio y concentración.',
-      'Aclarar al orientado que no existen respuestas correctas o incorrectas, sino preferencias personales sinceras.',
-      'Recordar que este instrumento es una guía para el autoconocimiento reflexivo, no una determinación taxativa del futuro profesional.'
-    ],
-    studentInstructions: [
-      'Lee detenidamente cada actividad o afirmación que se presentará en este instrumento oficial.',
-      'Valora tu grado de interés o agrado con total honestidad, pensando en lo que verdaderamente disfrutas hacer.',
-      'No te dejes influir por la opinión de tus compañeros o la remuneración económica en esta etapa de exploración de intereses genuinos.'
-    ],
-    status: 'pending_items',
-    itemCountExpected: 60,
-    itemFormatDescription: 'Escala Likert o pares de actividades organizados en las 6 dimensiones RIASEC.'
-  },
-  {
-    id: 'kuder-c',
-    name: 'Inventario de Preferencias Vocacionales Kuder (Forma C)',
-    shortName: 'Kuder-C',
-    category: 'Intereses',
-    academicAuthor: 'G. Frederic Kuder',
-    theoreticalFramework: 'Medición de intereses vocacionales por áreas ocupacionales amplias',
-    targetAudience: 'Adolescentes y adultos jóvenes en proceso de elección de carrera o cambio vocacional',
+    id: 'intereses-ocupacionales',
+    name: 'Cuestionario de Intereses Ocupacionales',
+    shortName: 'Intereses Ocupacionales',
+    category: 'Intereses Vocacionales',
+    academicAuthor: 'Instrumento curricular adaptado para orientación vocacional y profesional',
+    theoreticalFramework: 'Enfoque de autoexploración de preferencias ocupacionales y campos de desempeño laboral',
+    targetAudience: 'Estudiantes de educación secundaria superior, preuniversitarios y aspirantes a carreras universitarias',
     estimatedDuration: '30 a 45 minutos',
-    applicationMode: 'Individual o colectiva con técnica de elección forzada',
+    applicationMode: 'Autoadministrado o grupal con supervisión orientadora del educador',
     description:
-      'Instrumento clásico de la orientación profesional que clasifica los intereses del estudiante en diez áreas vocacionales fundamentales: Trabajo al aire libre, Interés mecánico, Interés para el cálculo, Interés científico, Interés persuasivo, Interés artístico, Interés literario, Interés musical, Interés por el servicio social e Interés en el trabajo de oficina.',
+      'Instrumento de orientación vocacional diseñado para registrar las inclinaciones, preferencias y expectativas del estudiante hacia diversos campos ocupacionales. Permite contrastar áreas de trabajo con proyectos personales de formación técnica y universitaria.',
     objectives: [
-      'Identificar áreas de mayor y menor interés vocacional a través de tríadas de elección forzada.',
-      'Contrastar el perfil de intereses con perfiles ocupacionales estandarizados de la educación superior.',
-      'Promover en el estudiante de Ciencias de la Educación la destreza para triangular perfiles vocacionales con trayectorias académicas.'
+      'Facilitar la autoexploración de intereses laborales y campos ocupacionales afines.',
+      'Identificar áreas de mayor y menor motivación vocacional para encauzar el proyecto de vida.',
+      'Servir como punto de partida en la entrevista de orientación vocacional y pedagógica.'
     ],
     applicatorInstructions: [
-      'Explicar con claridad el formato de respuesta por tríadas (elegir la actividad que MÁS le gusta y la que MENOS le gusta del grupo).',
-      'Controlar la escala de verificación (escala V) para evaluar la sinceridad y validez del protocolo.',
-      'Acompañar la devolución de resultados con un diálogo pedagógico sobre opciones de formación técnica y universitaria.'
+      'Asegurar un clima propicio, libre de presiones sobre prestigio social o remuneración económica.',
+      'Indicar que el cuestionario explora intereses sinceros y no mide habilidades técnicas o conocimientos previos.',
+      'Acompañar la interpretación con un diálogo reflexivo sobre la oferta académica local y regional en la UAGRM.'
     ],
     studentInstructions: [
-      'En cada grupo de tres actividades propuestas, deberás señalar cuál es la que MÁS te gustaría realizar y cuál la que MENOS te agradaría.',
-      'Procura responder todas las tríadas sin dejar ninguna en blanco.',
-      'Elige basándote en la actividad misma y no en si crees que posees o no la habilidad técnica para llevarla a cabo actualmente.'
+      'Lee cada enunciado o actividad ocupacional y califica tu grado de agrado o preferencia con total sinceridad.',
+      'Responde pensando en lo que verdaderamente te gustaría realizar en tu vida profesional.',
+      'No dejes ninguna afirmación sin responder.'
     ],
     status: 'pending_items',
-    itemCountExpected: 168,
-    itemFormatDescription: 'Tríadas de elección forzada (Más preferida / Menos preferida).'
+    itemCountExpected: 'Variable según versión curricular',
+    itemFormatDescription: 'Escala de preferencias por actividades o campos de ocupación laboral.',
+    materialNotes: 'Estructura lista para la integración del protocolo oficial de la cátedra.'
   },
   {
-    id: 'cdmse-autoeficacia',
-    name: 'Escala de Autoeficacia para la Toma de Decisiones de Carrera (CDMSE)',
-    shortName: 'CDMSE - Autoeficacia',
-    category: 'Autoeficacia',
-    academicAuthor: 'Nancy E. Betz y Karen M. Taylor',
-    theoreticalFramework: 'Teoría Cognitiva Social del Desarrollo de Carrera (SCCT) de Lent, Brown y Hackett',
-    targetAudience: 'Estudiantes de últimos años de nivel medio, aspirantes universitarios y personas en reorientación',
-    estimatedDuration: '20 a 30 minutos',
-    applicationMode: 'Autoadministrado en formato digital o papel',
+    id: 'otis-superior',
+    name: 'Test de Inteligencia Superior – OTIS Superior',
+    shortName: 'OTIS Superior',
+    category: 'Inteligencia General',
+    academicAuthor: 'Arthur S. Otis',
+    theoreticalFramework: 'Teoría del Factor General de Inteligencia (Factor G) y rendimiento intelectual en tareas de razonamiento',
+    targetAudience: 'Estudiantes del ciclo secundario superior, universitarios y postulantes a educación superior',
+    estimatedDuration: '30 minutos cronometrados de ejecución efectiva (más 10 min de instrucciones)',
+    applicationMode: 'Individual o colectiva con estricto control de tiempo cronometrado',
     description:
-      'Evalúa el grado de confianza o seguridad que una persona percibe en sí misma para llevar a cabo con éxito las tareas y procesos implicados en la toma de decisiones vocacionales. Explora cinco subescalas esenciales: Autoevaluación, Recolección de información ocupacional, Selección de metas, Planificación de pasos futuros y Resolución de problemas.',
+      'Prueba psicopedagógica clásica estandarizada para evaluar la capacidad mental general y la agilidad de razonamiento abstracto, verbal y numérico. Proporciona una estimación del nivel intelectual indispensable para fundamentar la exigencia académica de diversas carreras universitarias.',
     objectives: [
-      'Detectar bloqueos, indecisión vocacional o falta de confianza en la propia capacidad de elección.',
-      'Identificar áreas pedagógicas específicas donde el orientador debe intervenir (ej. búsqueda de información, metas realistas).',
-      'Promover la agencia y autonomía de los orientados en sus proyectos de vida.'
+      'Evaluar la rapidez y flexibilidad del pensamiento para resolver problemas lógicos y conceptuales.',
+      'Identificar la capacidad del orientado para adaptarse a demandas intelectuales de nivel universitario.',
+      'Aportar elementos objetivos para el asesoramiento pedagógico en trayectorias formativas complejas.'
     ],
     applicatorInstructions: [
-      'Enfatizar que la autoeficacia mide la creencia en la propia capacidad de acción, no un rasgo inmutable de personalidad.',
-      'Utilizar los resultados para diseñar talleres de desarrollo de habilidades decisionales en el aula o gabinete de orientación.',
-      'Monitorear indicadores de ansiedad vocacional asociada a la toma de decisiones complejas.'
+      'Controlar estrictamente el tiempo de 30 minutos desde la orden de inicio hasta la orden de detenerse.',
+      'Resolver detenidamente los ejemplos demostrativos de práctica junto con los orientados antes de iniciar.',
+      'Aclarar que los reactivos tienen dificultad creciente y que es preferible no detenerse demasiado en una pregunta difícil.'
     ],
     studentInstructions: [
-      'Indica qué tan seguro(a) o capaz te sientes de realizar cada una de las tareas presentadas relacionadas con tu futuro académico y laboral.',
-      'Responde con honestidad, reconociendo tanto tus fortalezas como aquellos aspectos donde aún sientes dudas o inseguridad.',
-      'Tus respuestas serán utilizadas confidencialmente para acompañarte en tu proceso orientador.'
+      'Esta prueba contiene preguntas de razonamiento verbal, numérico y lógico.',
+      'Para cada pregunta, elige la alternativa correcta entre las opciones disponibles.',
+      'Trabaja con la mayor rapidez y exactitud posible. Dispones de un tiempo límite de 30 minutos.'
     ],
     status: 'pending_items',
-    itemCountExpected: 25,
-    itemFormatDescription: 'Escala de confianza de 5 puntos (1: Ninguna confianza - 5: Total confianza).'
+    itemCountExpected: 75,
+    itemFormatDescription: '75 reactivos de opción múltiple con 5 alternativas (A, B, C, D, E).',
+    materialNotes: 'Reactivos de dificultad progresiva con límite estricto de tiempo.'
   },
   {
-    id: 'cmi-madurez-vocacional',
-    name: 'Cuestionario de Madurez Vocacional (CMI)',
-    shortName: 'CMI - Madurez Vocacional',
-    category: 'Madurez Vocacional',
-    academicAuthor: 'John O. Crites',
-    theoreticalFramework: 'Teoría del Desarrollo Vocacional de Donald E. Super',
-    targetAudience: 'Estudiantes del ciclo diversificado y preuniversitarios',
+    id: 'keirsey-temperamento',
+    name: 'Determinante de Temperamento de Keirsey',
+    shortName: 'Keirsey',
+    category: 'Temperamento y Personalidad',
+    academicAuthor: 'David Keirsey',
+    theoreticalFramework: 'Teoría tipológica de cuatro temperamentos (Artesano, Guardián, Idealista, Racional) basada en Jung y Myers-Briggs',
+    targetAudience: 'Jóvenes y adultos en procesos de orientación vocacional, profesional o desarrollo organizacional',
     estimatedDuration: '25 a 35 minutos',
-    applicationMode: 'Individual o grupal con supervisión orientadora',
+    applicationMode: 'Autoadministrado individual o grupal',
     description:
-      'Instrumento diseñado para evaluar el grado de desarrollo evolutivo vocacional y la disposición del sujeto para abordar las tareas evolutivas propias de su etapa vital. Comprende la Escala de Actitudes (decisión, independencia, compromiso) y la Escala de Competencias (información ocupacional, resolución de dilemas vocacionales).',
+      'Cuestionario de autoobservación que clasifica el temperamento en cuatro grandes patrones conductuales: Guardianes (SJ), Artesanos (SP), Idealistas (NF) y Racionales (NT). Permite al estudiante comprender sus estilos preferenciales de interacción, toma de decisiones y ambientes laborales más congruentes con su personalidad.',
     objectives: [
-      'Medir la madurez del juicio vocacional y el nivel de realismo respecto al mundo formativo-laboral.',
-      'Discriminar entre una indecisión evolutiva esperable y dificultades estructurales en el proceso de elección.',
-      'Servir como insumo de diagnóstico curricular en programas institucionales de orientación educativa.'
+      'Identificar el temperamento dominante y las preferencias disposicionales del sujeto.',
+      'Reconocer entornos de trabajo, estilos de liderazgo y metodologías de estudio acordes a la propia tipología.',
+      'Promover el autoconocimiento reflexivo sin etiquetar de forma estática la conducta humana.'
     ],
     applicatorInstructions: [
-      'Aclarar al grupo el concepto de madurez vocacional como un proceso continuo y formativo.',
-      'No calificar como "inmaduro" al estudiante de forma despectiva; la madurez vocacional es una competencia que se estimula pedagógicamente.',
-      'Propiciar debates grupales a partir de las actitudes vocacionales analizadas en la prueba.'
+      'Enfatizar que ningún temperamento es mejor o peor que otro; todos presentan fortalezas y áreas de desarrollo.',
+      'Instar a responder con base en la conducta habitual y espontánea, no en lo que se considere socialmente deseable.',
+      'Utilizar los resultados como disparador de diálogo sobre afinidades con perfiles profesionales.'
     ],
     studentInstructions: [
-      'Lee cada enunciado relativo a cómo piensas y sientes sobre la elección de tu futuro profesional.',
-      'Expresa si estás de acuerdo o en desacuerdo con cada una de las posturas planteadas.',
-      'No hay respuestas correctas predeterminadas; se busca conocer tu punto de vista actual sobre tu proyecto de vida.'
+      'En cada uno de los ítems se presentan dos alternativas (A y B).',
+      'Elige aquella que mejor describa tu manera espontánea de actuar o sentir en la mayoría de las situaciones.',
+      'Procura no pensar demasiado la respuesta; tu primera inclinación suele ser la más certera.'
     ],
     status: 'pending_items',
-    itemCountExpected: 50,
-    itemFormatDescription: 'Enunciados actitudinales con opción dicotómica (De acuerdo / En desacuerdo) o escala de acuerdo.'
+    itemCountExpected: 70,
+    itemFormatDescription: '70 preguntas con formato de elección forzada dicotómica (Opción A vs. Opción B).',
+    materialNotes: 'Explora las dimensiones E/I, S/N, T/F y J/P según el modelo Keirsey.'
   },
   {
-    id: 'valores-ocupacionales',
-    name: 'Cuestionario de Valores Ocupacionales y Laborales',
-    shortName: 'Valores Laborales',
-    category: 'Valores Ocupacionales',
-    academicAuthor: 'Basado en el marco de Donald Super y aportes iberoamericanos de orientación educativa',
-    theoreticalFramework: 'Teoría axiológica y de satisfacción vocacional del trabajo',
-    targetAudience: 'Estudiantes de secundaria alta, universitarios y docentes en formación',
-    estimatedDuration: '15 a 25 minutos',
-    applicationMode: 'Autoadministrado con guía reflexiva',
+    id: 'habitos-estudio',
+    name: 'Test de Hábitos de Estudio',
+    shortName: 'Hábitos de Estudio',
+    category: 'Hábitos y Técnicas de Estudio',
+    academicAuthor: 'Instrumento psicopedagógico de evaluación formativa de técnicas de estudio',
+    theoreticalFramework: 'Psicología educativa del aprendizaje autorregulado y métodos de trabajo intelectual',
+    targetAudience: 'Estudiantes de educación secundaria y estudiantes universitarios (especialmente de primeros semestres)',
+    estimatedDuration: '20 a 30 minutos',
+    applicationMode: 'Individual o grupal en aula o gabinete psicopedagógico',
     description:
-      'Instrumento orientado a identificar cuáles son las prioridades axiológicas y las motivaciones intrínsecas y extrínsecas que guían la elección ocupacional: prestigio, altruismo y servicio a la comunidad, seguridad económica, autonomía creativa, relaciones humanas, variedad e independencia.',
+      'Instrumento de diagnóstico pedagógico indispensable en Ciencias de la Educación para evaluar las conductas de estudio: distribución del tiempo, condiciones ambientales del lugar de estudio, métodos de lectura y síntesis, toma de apuntes y preparación para exámenes.',
     objectives: [
-      'Hacer conscientes las jerarquías de valor que sustentan las aspiraciones profesionales de los estudiantes.',
-      'Prevenir conflictos de valor entre la carrera elegida y el estilo de vida deseado.',
-      'Vincular los valores personales con el compromiso social transformador desde la mirada de las Ciencias de la Educación.'
+      'Detectar hábitos de estudio deficientes que obstaculizan el rendimiento académico.',
+      'Diseñar planes de mejora pedagógica, tutorías universitarias y técnicas de estudio personalizadas.',
+      'Apoyar la permanencia estudiantil y prevenir la deserción en la educación superior.'
     ],
     applicatorInstructions: [
-      'Promover un clima de respeto y pluralidad axiológica.',
-      'Estimular la reflexión acerca de cómo los valores familiares y comunitarios influyen en las representaciones del éxito profesional.',
-      'Articular los resultados de valores con las opciones ocupacionales prioritarias.'
+      'Explicar al estudiante que el objetivo es ayudarle a mejorar su método de estudio cotidiano.',
+      'Garantizar la confidencialidad de las respuestas para fomentar total honestidad.',
+      'Articular la devolución de resultados con un taller práctico de técnicas de aprendizaje autorregulado.'
     ],
     studentInstructions: [
-      'Evalúa qué tan importante es para ti cada condición o valor laboral al momento de pensar en tu futuro trabajo o profesión.',
-      'Clasifica los aspectos de mayor a menor relevancia para tu bienestar personal y social.',
-      'Recuerda que no existen valores superiores a otros en este cuestionario, sino aquello que da sentido a tu vocación.'
+      'Lee cada una de las afirmaciones referidas a tu forma habitual de estudiar y organizar tus materias.',
+      'Marca la opción que mejor refleje la frecuencia con la que realizas esa conducta (Siempre, A veces, Rara vez o Nunca).',
+      'Sé sincero(a); esto permitirá identificar qué técnicas te ayudarán a estudiar con menor esfuerzo y mejores resultados.'
     ],
     status: 'pending_items',
-    itemCountExpected: 30,
-    itemFormatDescription: 'Escala de importancia de 4 puntos (1: Sin importancia - 4: Muy importante).'
+    itemCountExpected: '30 a 50 ítems según escala',
+    itemFormatDescription: 'Escala de frecuencia tipo Likert (Siempre / A veces / Rara vez / Nunca).',
+    materialNotes: 'Diagnóstico formativo aplicable a tutorías de la carrera Ciencias de la Educación.'
+  },
+  {
+    id: 'ipp-intereses',
+    name: 'Intereses y Preferencias Profesionales (IPP)',
+    shortName: 'IPP',
+    category: 'Intereses Profesionales',
+    academicAuthor: 'María Victoria de la Cruz López',
+    theoreticalFramework: 'Evaluación multifactorial de intereses en profesiones y tareas de aprendizaje (TEA Ediciones)',
+    targetAudience: 'Jóvenes a partir de 13-14 años, bachilleres y estudiantes universitarios',
+    estimatedDuration: '30 a 50 minutos',
+    applicationMode: 'Individual o colectiva',
+    description:
+      'Instrumento riguroso de orientación profesional que evalúa los intereses hacia 17 campos profesionales distintos, contrastando la preferencia por realizar tareas concretas frente a la atracción por las profesiones u ocupaciones correspondientes. Permite identificar la consistencia entre el gusto por la labor cotidiana y el título profesional.',
+    objectives: [
+      'Evaluar el grado de atracción o rechazo hacia 17 áreas vocacionales fundamentales (Científica, Técnica, Sanitaria, Artística, Social, etc.).',
+      'Comparar los intereses manifestados hacia tareas específicas frente a profesiones reconocidas.',
+      'Orientar la elección de carreras universitarias y técnicas con base en perfiles vocacionales consistentes.'
+    ],
+    applicatorInstructions: [
+      'Instruir claramente sobre las 4 opciones de respuesta para cada actividad o profesión propuesta.',
+      'Comprobar que los estudiantes entiendan que deben valorar tanto profesiones como tareas formativas.',
+      'Analizar las discrepancias entre agrado por la profesión y rechazo a las materias de formación requeridas.'
+    ],
+    studentInstructions: [
+      'Se presentan diversas actividades, tareas y profesiones.',
+      'Indica para cada una tu grado de preferencia: A (Me gusta mucho), B (Me gusta algo / Indiferente), C (No me gusta) o D (Desconozco la actividad).',
+      'Responde según tu interés real y no según si consideras que es fácil o difícil de estudiar.'
+    ],
+    status: 'pending_items',
+    itemCountExpected: '204 elementos (profesiones y tareas)',
+    itemFormatDescription: 'Escala de 4 alternativas (A: Me gusta / B: Indiferente / C: No me gusta / D: Desconozco).',
+    materialNotes: 'Comprende 17 campos profesionales y escalas de consistencia interna.'
+  },
+  {
+    id: 'dat-aptitudes',
+    name: 'Differential Aptitude Tests (DAT) – Batería Completa de 8 Pruebas',
+    shortName: 'DAT',
+    category: 'Batería de Aptitudes Diferenciales',
+    academicAuthor: 'George K. Bennett, Harold G. Seashore y Alexander G. Wesman',
+    theoreticalFramework: 'Teoría psicométrica de evaluación multifactorial de aptitudes intelectuales diferenciales',
+    targetAudience: 'Estudiantes de educación secundaria superior, bachillerato y educación universitaria',
+    estimatedDuration: 'Aplicación en varias sesiones (cada subprueba dispone de su propio límite cronometrado de 20 a 30 min)',
+    applicationMode: 'Colectiva o individual con hoja de respuestas estandarizada y tiempos independientes por prueba',
+    description:
+      'Batería clásica e integrada compuesta por ocho pruebas psicopedagógicas diseñadas para medir la capacidad de aprender o desarrollar habilidades en áreas específicas del rendimiento intelectual. En el marco de la cátedra de Orientación Vocacional y Profesional, esta batería se concibe como una unidad que articula ocho dimensiones cognitivas.',
+    objectives: [
+      'Evaluar de forma diferenciada las fortalezas y áreas de mejora en 8 aptitudes cognitivas clave.',
+      'Proporcionar un perfil aptitudinal objetivo para orientar hacia áreas científicas, tecnológicas, humanísticas, administrativas o artísticas.',
+      'Contrastar el perfil de aptitudes con los intereses declarados por el estudiante para orientar decisiones realistas y fundamentadas.'
+    ],
+    applicatorInstructions: [
+      'IMPORTANTE: La batería DAT consta de 8 pruebas independientes que deben aplicarse con cronometraje estricto para cada subcuadernillo.',
+      'Utilizar la hoja de respuestas oficial donde el estudiante marca sus elecciones.',
+      'Para la corrección e interpretación se deben contrastar las puntuaciones directas con los dos baremos normativos diferenciados: baremo masculino y baremo femenino.',
+      'No calificar globalmente; el valor de la batería radica en el perfil diferencial entre las ocho aptitudes.'
+    ],
+    studentInstructions: [
+      'La batería DAT evalúa diversas capacidades a través de ocho cuadernillos de ejercicios.',
+      'Para cada prueba dispondrás de un tiempo determinado de trabajo.',
+      'Registra todas tus respuestas exclusivamente en la hoja de respuestas proporcionada, rellenando el espacio correspondiente.',
+      'No escribas en los cuadernillos de preguntas físicos.'
+    ],
+    status: 'pending_items',
+    itemCountExpected: 'Ocho cuadernillos independientes con tiempo cronometrado',
+    itemFormatDescription: '8 pruebas con ítems de opción múltiple con hoja de respuestas unificada y baremos masculino y femenino.',
+    materialNotes:
+      'AVISO DE LA CÁTEDRA: Los ocho cuadernillos con las preguntas están dentro del texto físico de avance de la docente (sin versión digitalizada actual). Se dispone formalmente de la hoja de respuestas y de los dos baremos de interpretación normativos: masculino y femenino. En apego a los principios éticos y metodológicos, no se inventan reactivos ni se implementa corrección automática.',
+    hasPhysicalBooklets: true,
+    hasAnswerSheetAndNorms: true,
+    subtests: [
+      {
+        id: 'dat-ar',
+        name: 'Razonamiento Abstracto',
+        shortCode: 'AR',
+        evaluationArea: 'Razonamiento no verbal y resolución lógica de problemas visuales',
+        description: 'Evalúa la capacidad para razonar con figuras y patrones geométricos sin intervención del lenguaje verbal.'
+      },
+      {
+        id: 'dat-vr',
+        name: 'Razonamiento Verbal',
+        shortCode: 'VR',
+        evaluationArea: 'Comprensión y estructuración conceptual del lenguaje',
+        description: 'Mide la habilidad para comprender conceptos abstractos formulados en palabras y relaciones analógicas complejas.'
+      },
+      {
+        id: 'dat-na',
+        name: 'Cálculo',
+        shortCode: 'NA',
+        evaluationArea: 'Habilidad matemática y razonamiento cuantitativo',
+        description: 'Examina la capacidad para resolver operaciones numéricas, problemas aritméticos y razonamiento cuantitativo.'
+      },
+      {
+        id: 'dat-csa',
+        name: 'Velocidad y Precisión',
+        shortCode: 'CSA',
+        evaluationArea: 'Atención sostenida y rapidez perceptiva clerical',
+        description: 'Mide la rapidez y exactitud al comparar y cotejar secuencias de letras y números bajo presión de tiempo.'
+      },
+      {
+        id: 'dat-sr',
+        name: 'Relaciones Espaciales',
+        shortCode: 'SR',
+        evaluationArea: 'Visualización y manipulación tridimensional de objetos',
+        description: 'Evalúa la habilidad para visualizarMentalmente objetos tridimensionales a partir de patrones bidimensionales plegados.'
+      },
+      {
+        id: 'dat-lu',
+        name: 'Lenguaje',
+        shortCode: 'LU',
+        evaluationArea: 'Uso normativo, puntuación y sintaxis del idioma',
+        description: 'Mide la corrección gramatical, sintáctica y la estructura adecuada del discurso escrito.'
+      },
+      {
+        id: 'dat-sp',
+        name: 'Ortografía',
+        shortCode: 'SP',
+        evaluationArea: 'Reconocimiento y discriminación ortográfica',
+        description: 'Examina el dominio ortográfico al discriminar palabras escritas correcta o incorrectamente.'
+      },
+      {
+        id: 'dat-mr',
+        name: 'Razonamiento Mecánico',
+        shortCode: 'MR',
+        evaluationArea: 'Comprensión práctica de leyes físicas y principios mecánicos',
+        description: 'Evalúa la comprensión intuitiva de principios físicos y mecánicos en situaciones cotidianas e industriales.'
+      }
+    ]
   }
 ];
