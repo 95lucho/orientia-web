@@ -361,6 +361,80 @@
       line-height: 1.55;
     }
 
+    /* Caja de descarga de documento PDF oficial */
+    .pdf-document-box {
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    .pdf-box-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .pdf-info-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .pdf-badge-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.85rem;
+      background-color: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+    .btn-pdf-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: var(--uagrm-blue);
+      color: #ffffff;
+      padding: 0.65rem 1.25rem;
+      border-radius: 0.75rem;
+      font-size: 0.825rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+    .btn-pdf-primary:hover {
+      background-color: #012250;
+      transform: translateY(-1px);
+    }
+    .btn-pdf-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background-color: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      padding: 0.65rem 1rem;
+      border-radius: 0.75rem;
+      font-size: 0.825rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-pdf-secondary:hover {
+      background-color: #e2e8f0;
+      color: #0f172a;
+    }
+
     /* Nota de cierre ético */
     .ethical-closing {
       background-color: #eff6ff;
@@ -701,20 +775,56 @@
         </div>
       </div>
 
-      <div class="placeholder-card">
-        <div class="placeholder-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
-            <polyline points="10 9 9 9 8 9"></polyline>
-          </svg>
+      <div class="pdf-document-box">
+        <div class="pdf-box-header">
+          <div class="pdf-info-group">
+            <div class="pdf-badge-icon">
+              PDF
+            </div>
+            <div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
+                <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin: 0;">
+                  Documento Oficial: Test de Hábitos de Estudio
+                </h3>
+                <span style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; background-color: #fee2e2; color: #b91c1c; padding: 0.2rem 0.5rem; border-radius: 0.35rem; border: 1px solid #fecaca;">
+                  PDF Oficial
+                </span>
+              </div>
+              <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.25rem;">
+                Protocolo formativo para la asignatura Orientación Vocacional y Profesional · UAGRM
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+            <a href="/instruments/habitos-estudio.pdf" target="_blank" rel="noopener noreferrer" class="btn-pdf-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Descargar instrumento PDF</span>
+            </a>
+
+            <a href="/instruments/habitos-estudio.pdf" target="_blank" rel="noopener noreferrer" class="btn-pdf-secondary">
+              <span>Consultar en el navegador</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
         </div>
-        <h3 class="placeholder-title">Documento PDF Oficial en Proceso de Digitalización</h3>
-        <p class="placeholder-text">
-          Esta sección queda estructurada para incorporar el botón de descarga del documento oficial completo una vez que el archivo digital sea proporcionado y cuente con los permisos académicos correspondientes. No se generan enlaces ficticios ni archivos provisionales.
+
+        <p style="font-size: 0.825rem; color: #475569; line-height: 1.6; margin: 0 0 0.75rem 0;">
+          Este archivo PDF contiene el protocolo y reactivos correspondientes al <strong>Test de Hábitos de Estudio</strong> para el acompañamiento y diagnóstico formativo de los estudiantes de la carrera Ciencias de la Educación. Puedes consultarlo directamente en el visor de tu navegador o descargarlo para su estudio y aplicación didáctica.
         </p>
+
+        <div style="font-size: 0.75rem; color: #64748b; background-color: #f8fafc; padding: 0.5rem 0.75rem; border-radius: 0.5rem; border: 1px solid #e2e8f0; display: inline-flex; align-items: center; gap: 0.5rem;">
+          <strong style="color: #334155;">Ruta del archivo:</strong>
+          <code style="font-family: monospace; color: var(--uagrm-blue); font-weight: 600;">/instruments/habitos-estudio.pdf</code>
+        </div>
       </div>
     </section>
 

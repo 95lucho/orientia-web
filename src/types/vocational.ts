@@ -27,23 +27,27 @@ export interface VocationalInstrument {
   estimatedDuration: string;
   applicationMode: string;
   description: string;
+
+  // Official PDF document integration
   pdfPath?: string;
-pdfButtonLabel?: string;
-pdfDescription?: string;
+  pdfButtonLabel?: string;
+  pdfDescription?: string;
+
   objectives: string[];
   applicatorInstructions: string[];
   studentInstructions: string[];
   status: 'pending_items' | 'ready';
   itemCountExpected?: number | string;
   itemFormatDescription: string;
+
   // Specific notes regarding physical and digital materials
   materialNotes?: string;
   hasPhysicalBooklets?: boolean;
   hasAnswerSheetAndNorms?: boolean;
+
   // Specific for batteries like DAT
   subtests?: DATSubtest[];
 }
-
 export interface ChatMessage {
   id: string;
   role: 'user' | 'assistant';

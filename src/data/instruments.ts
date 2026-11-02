@@ -13,7 +13,6 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     applicationMode: 'Autoadministrado o grupal con supervisión orientadora del educador',
       description:
       'Instrumento de orientación vocacional diseñado para registrar las inclinaciones, preferencias y expectativas del estudiante hacia diversos campos ocupacionales. Permite contrastar áreas de trabajo con proyectos personales de formación técnica y universitaria.',
-    pdfPath: '/instruments/intereses-ocupacionales.pdf',
       objectives: [
       'Facilitar la autoexploración de intereses laborales y campos ocupacionales afines.',
       'Identificar áreas de mayor y menor motivación vocacional para encauzar el proyecto de vida.',
@@ -32,7 +31,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     status: 'pending_items',
     itemCountExpected: 'Variable según versión curricular',
     itemFormatDescription: 'Escala de preferencias por actividades o campos de ocupación laboral.',
-    materialNotes: 'Estructura lista para la integración del protocolo oficial de la cátedra.'
+    materialNotes: 'Estructura lista para la integración del protocolo oficial de la cátedra.',
+    pdfPath: '/instruments/intereses-ocupacionales.pdf',
+    pdfButtonLabel: 'Descargar instrumento PDF',
+    pdfDescription: 'Protocolo completo del Cuestionario de Intereses Ocupacionales para exploración vocacional.'
   },
   {
     id: 'otis-superior',
@@ -46,7 +48,6 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     applicationMode: 'Individual o colectiva con estricto control de tiempo cronometrado',
       description:
       'Prueba psicopedagógica clásica estandarizada para evaluar la capacidad mental general y la agilidad de razonamiento abstracto, verbal y numérico. Proporciona una estimación del nivel intelectual indispensable para fundamentar la exigencia académica de diversas carreras universitarias.',
-    pdfPath: '/instruments/otis-superior.pdf',
       objectives: [
       'Evaluar la rapidez y flexibilidad del pensamiento para resolver problemas lógicos y conceptuales.',
       'Identificar la capacidad del orientado para adaptarse a demandas intelectuales de nivel universitario.',
@@ -65,7 +66,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     status: 'pending_items',
     itemCountExpected: 75,
     itemFormatDescription: '75 reactivos de opción múltiple con 5 alternativas (A, B, C, D, E).',
-    materialNotes: 'Reactivos de dificultad progresiva con límite estricto de tiempo.'
+    materialNotes: 'Reactivos de dificultad progresiva con límite estricto de tiempo.',
+    pdfPath: '/instruments/otis-superior.pdf',
+    pdfButtonLabel: 'Descargar instrumento PDF',
+    pdfDescription: 'Protocolo y cuadernillo oficial del Test de Inteligencia Superior OTIS Superior.'
   },
   {
     id: 'keirsey-temperamento',
@@ -79,7 +83,6 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     applicationMode: 'Autoadministrado individual o grupal',
       description:
       'Cuestionario de autoobservación que clasifica el temperamento en cuatro grandes patrones conductuales: Guardianes (SJ), Artesanos (SP), Idealistas (NF) y Racionales (NT). Permite al estudiante comprender sus estilos preferenciales de interacción, toma de decisiones y ambientes laborales más congruentes con su personalidad.',
-    pdfPath: '/instruments/keirsey.pdf',
       objectives: [
       'Identificar el temperamento dominante y las preferencias disposicionales del sujeto.',
       'Reconocer entornos de trabajo, estilos de liderazgo y metodologías de estudio acordes a la propia tipología.',
@@ -98,7 +101,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     status: 'pending_items',
     itemCountExpected: 70,
     itemFormatDescription: '70 preguntas con formato de elección forzada dicotómica (Opción A vs. Opción B).',
-    materialNotes: 'Explora las dimensiones E/I, S/N, T/F y J/P según el modelo Keirsey.'
+    materialNotes: 'Explora las dimensiones E/I, S/N, T/F y J/P según el modelo Keirsey.',
+    pdfPath: '/instruments/keirsey.pdf',
+    pdfButtonLabel: 'Descargar instrumento PDF',
+    pdfDescription: 'Protocolo y cuestionario de autoobservación del Determinante de Temperamento de Keirsey.'
   },
   {
     id: 'habitos-estudio',
@@ -112,7 +118,6 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     applicationMode: 'Individual o grupal en aula o gabinete psicopedagógico',
       description:
       'Instrumento de diagnóstico pedagógico indispensable en Ciencias de la Educación para evaluar las conductas de estudio: distribución del tiempo, condiciones ambientales del lugar de estudio, métodos de lectura y síntesis, toma de apuntes y preparación para exámenes.',
-    pdfPath: '/instruments/habitos-estudio.pdf',
       objectives: [
       'Detectar hábitos de estudio deficientes que obstaculizan el rendimiento académico.',
       'Diseñar planes de mejora pedagógica, tutorías universitarias y técnicas de estudio personalizadas.',
@@ -131,7 +136,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     status: 'pending_items',
     itemCountExpected: '30 a 50 ítems según escala',
     itemFormatDescription: 'Escala de frecuencia tipo Likert (Siempre / A veces / Rara vez / Nunca).',
-    materialNotes: 'Diagnóstico formativo aplicable a tutorías de la carrera Ciencias de la Educación.'
+    materialNotes: 'Diagnóstico formativo aplicable a tutorías de la carrera Ciencias de la Educación.',
+    pdfPath: '/instruments/habitos-estudio.pdf',
+    pdfButtonLabel: 'Descargar instrumento PDF',
+    pdfDescription: 'Protocolo oficial del Test de Hábitos de Estudio para Ciencias de la Educación.'
   },
   {
     id: 'ipp-intereses',
@@ -145,7 +153,6 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     applicationMode: 'Individual o colectiva',
       description:
       'Instrumento riguroso de orientación profesional que evalúa los intereses hacia 17 campos profesionales distintos, contrastando la preferencia por realizar tareas concretas frente a la atracción por las profesiones u ocupaciones correspondientes. Permite identificar la consistencia entre el gusto por la labor cotidiana y el título profesional.',
-    pdfPath: '/instruments/ipp.pdf',
       objectives: [
       'Evaluar el grado de atracción o rechazo hacia 17 áreas vocacionales fundamentales (Científica, Técnica, Sanitaria, Artística, Social, etc.).',
       'Comparar los intereses manifestados hacia tareas específicas frente a profesiones reconocidas.',
@@ -164,7 +171,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     status: 'pending_items',
     itemCountExpected: '204 elementos (profesiones y tareas)',
     itemFormatDescription: 'Escala de 4 alternativas (A: Me gusta / B: Indiferente / C: No me gusta / D: Desconozco).',
-    materialNotes: 'Comprende 17 campos profesionales y escalas de consistencia interna.'
+    materialNotes: 'Comprende 17 campos profesionales y escalas de consistencia interna.',
+    pdfPath: '/instruments/ipp.pdf',
+    pdfButtonLabel: 'Descargar instrumento PDF',
+    pdfDescription: 'Cuadernillo y protocolo de Intereses y Preferencias Profesionales (IPP).'
   },
   {
     id: 'dat-aptitudes',
@@ -178,7 +188,6 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     applicationMode: 'Colectiva o individual con hoja de respuestas estandarizada y tiempos independientes por prueba',
       description:
       'Batería clásica e integrada compuesta por ocho pruebas psicopedagógicas diseñadas para medir la capacidad de aprender o desarrollar habilidades en áreas específicas del rendimiento intelectual. En el marco de la cátedra de Orientación Vocacional y Profesional, esta batería se concibe como una unidad que articula ocho dimensiones cognitivas.',
-    pdfPath: '/instruments/dat.pdf',
       objectives: [
       'Evaluar de forma diferenciada las fortalezas y áreas de mejora en 8 aptitudes cognitivas clave.',
       'Proporcionar un perfil aptitudinal objetivo para orientar hacia áreas científicas, tecnológicas, humanísticas, administrativas o artísticas.',
@@ -203,6 +212,9 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
       'AVISO DE LA CÁTEDRA: Los ocho cuadernillos con las preguntas están dentro del texto físico de avance de la docente (sin versión digitalizada actual). Se dispone formalmente de la hoja de respuestas y de los dos baremos de interpretación normativos: masculino y femenino. En apego a los principios éticos y metodológicos, no se inventan reactivos ni se implementa corrección automática.',
     hasPhysicalBooklets: true,
     hasAnswerSheetAndNorms: true,
+    pdfPath: '/instruments/dat.pdf',
+    pdfButtonLabel: 'Descargar DAT y material de corrección',
+    pdfDescription: 'Documento oficial completo que reúne el instrumento DAT, la hoja de respuestas estandarizada y el material de corrección con los baremos normativos (masculino y femenino) autorizados por la cátedra.',
     subtests: [
       {
         id: 'dat-ar',
