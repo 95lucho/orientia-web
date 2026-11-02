@@ -11,9 +11,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     targetAudience: 'Estudiantes de educación secundaria superior, preuniversitarios y aspirantes a carreras universitarias',
     estimatedDuration: '30 a 45 minutos',
     applicationMode: 'Autoadministrado o grupal con supervisión orientadora del educador',
-    description:
+      description:
       'Instrumento de orientación vocacional diseñado para registrar las inclinaciones, preferencias y expectativas del estudiante hacia diversos campos ocupacionales. Permite contrastar áreas de trabajo con proyectos personales de formación técnica y universitaria.',
-    objectives: [
+    pdfPath: '/instruments/intereses-ocupacionales.pdf',
+      objectives: [
       'Facilitar la autoexploración de intereses laborales y campos ocupacionales afines.',
       'Identificar áreas de mayor y menor motivación vocacional para encauzar el proyecto de vida.',
       'Servir como punto de partida en la entrevista de orientación vocacional y pedagógica.'
@@ -43,9 +44,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     targetAudience: 'Estudiantes del ciclo secundario superior, universitarios y postulantes a educación superior',
     estimatedDuration: '30 minutos cronometrados de ejecución efectiva (más 10 min de instrucciones)',
     applicationMode: 'Individual o colectiva con estricto control de tiempo cronometrado',
-    description:
+      description:
       'Prueba psicopedagógica clásica estandarizada para evaluar la capacidad mental general y la agilidad de razonamiento abstracto, verbal y numérico. Proporciona una estimación del nivel intelectual indispensable para fundamentar la exigencia académica de diversas carreras universitarias.',
-    objectives: [
+    pdfPath: '/instruments/otis-superior.pdf',
+      objectives: [
       'Evaluar la rapidez y flexibilidad del pensamiento para resolver problemas lógicos y conceptuales.',
       'Identificar la capacidad del orientado para adaptarse a demandas intelectuales de nivel universitario.',
       'Aportar elementos objetivos para el asesoramiento pedagógico en trayectorias formativas complejas.'
@@ -75,9 +77,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     targetAudience: 'Jóvenes y adultos en procesos de orientación vocacional, profesional o desarrollo organizacional',
     estimatedDuration: '25 a 35 minutos',
     applicationMode: 'Autoadministrado individual o grupal',
-    description:
+      description:
       'Cuestionario de autoobservación que clasifica el temperamento en cuatro grandes patrones conductuales: Guardianes (SJ), Artesanos (SP), Idealistas (NF) y Racionales (NT). Permite al estudiante comprender sus estilos preferenciales de interacción, toma de decisiones y ambientes laborales más congruentes con su personalidad.',
-    objectives: [
+    pdfPath: '/instruments/keirsey.pdf',
+      objectives: [
       'Identificar el temperamento dominante y las preferencias disposicionales del sujeto.',
       'Reconocer entornos de trabajo, estilos de liderazgo y metodologías de estudio acordes a la propia tipología.',
       'Promover el autoconocimiento reflexivo sin etiquetar de forma estática la conducta humana.'
@@ -107,9 +110,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     targetAudience: 'Estudiantes de educación secundaria y estudiantes universitarios (especialmente de primeros semestres)',
     estimatedDuration: '20 a 30 minutos',
     applicationMode: 'Individual o grupal en aula o gabinete psicopedagógico',
-    description:
+      description:
       'Instrumento de diagnóstico pedagógico indispensable en Ciencias de la Educación para evaluar las conductas de estudio: distribución del tiempo, condiciones ambientales del lugar de estudio, métodos de lectura y síntesis, toma de apuntes y preparación para exámenes.',
-    objectives: [
+    pdfPath: '/instruments/habitos-estudio.pdf',
+      objectives: [
       'Detectar hábitos de estudio deficientes que obstaculizan el rendimiento académico.',
       'Diseñar planes de mejora pedagógica, tutorías universitarias y técnicas de estudio personalizadas.',
       'Apoyar la permanencia estudiantil y prevenir la deserción en la educación superior.'
@@ -139,9 +143,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     targetAudience: 'Jóvenes a partir de 13-14 años, bachilleres y estudiantes universitarios',
     estimatedDuration: '30 a 50 minutos',
     applicationMode: 'Individual o colectiva',
-    description:
+      description:
       'Instrumento riguroso de orientación profesional que evalúa los intereses hacia 17 campos profesionales distintos, contrastando la preferencia por realizar tareas concretas frente a la atracción por las profesiones u ocupaciones correspondientes. Permite identificar la consistencia entre el gusto por la labor cotidiana y el título profesional.',
-    objectives: [
+    pdfPath: '/instruments/ipp.pdf',
+      objectives: [
       'Evaluar el grado de atracción o rechazo hacia 17 áreas vocacionales fundamentales (Científica, Técnica, Sanitaria, Artística, Social, etc.).',
       'Comparar los intereses manifestados hacia tareas específicas frente a profesiones reconocidas.',
       'Orientar la elección de carreras universitarias y técnicas con base en perfiles vocacionales consistentes.'
@@ -171,9 +176,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     targetAudience: 'Estudiantes de educación secundaria superior, bachillerato y educación universitaria',
     estimatedDuration: 'Aplicación en varias sesiones (cada subprueba dispone de su propio límite cronometrado de 20 a 30 min)',
     applicationMode: 'Colectiva o individual con hoja de respuestas estandarizada y tiempos independientes por prueba',
-    description:
+      description:
       'Batería clásica e integrada compuesta por ocho pruebas psicopedagógicas diseñadas para medir la capacidad de aprender o desarrollar habilidades en áreas específicas del rendimiento intelectual. En el marco de la cátedra de Orientación Vocacional y Profesional, esta batería se concibe como una unidad que articula ocho dimensiones cognitivas.',
-    objectives: [
+    pdfPath: '/instruments/dat.pdf',
+      objectives: [
       'Evaluar de forma diferenciada las fortalezas y áreas de mejora en 8 aptitudes cognitivas clave.',
       'Proporcionar un perfil aptitudinal objetivo para orientar hacia áreas científicas, tecnológicas, humanísticas, administrativas o artísticas.',
       'Contrastar el perfil de aptitudes con los intereses declarados por el estudiante para orientar decisiones realistas y fundamentadas.'

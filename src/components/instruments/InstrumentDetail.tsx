@@ -129,6 +129,51 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
         )}
       </div>
 
+       {/* Official PDF Documents */}
+      {instrument.pdfPath && (
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-blue-200 shadow-2xs space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+              <FileText className="w-5 h-5 text-[#023273]" />
+            </div>
+            <div>
+              <h3 className="font-bold text-lg text-slate-900">
+                Documento del instrumento
+              </h3>
+              <p className="text-xs text-slate-500">
+                Material de consulta y descarga
+              </p>
+            </div>
+          </div>
+
+          {instrument.pdfDescription && (
+            <p className="text-sm text-slate-600 leading-relaxed">
+              {instrument.pdfDescription}
+            </p>
+          )}
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a
+              href={instrument.pdfPath}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#023273] hover:bg-[#012250] text-white text-sm font-bold transition-all"
+            >
+              <FileText className="w-4 h-4" />
+              Abrir documento PDF
+            </a>
+
+            <a
+              href={instrument.pdfPath}
+              download
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-[#023273] text-[#023273] hover:bg-blue-50 text-sm font-bold transition-all"
+            >
+              <FileSpreadsheet className="w-4 h-4" />
+              {instrument.pdfButtonLabel || 'Descargar instrumento PDF'}
+            </a>
+          </div>
+        </div>
+      )}
       {/* Tabs */}
       <div className="flex border-b border-slate-200 bg-white rounded-2xl p-1.5 shadow-2xs gap-1.5 overflow-x-auto">
         <button

@@ -27,6 +27,9 @@ export interface VocationalInstrument {
   estimatedDuration: string;
   applicationMode: string;
   description: string;
+  pdfPath?: string;
+pdfButtonLabel?: string;
+pdfDescription?: string;
   objectives: string[];
   applicatorInstructions: string[];
   studentInstructions: string[];
