@@ -31,7 +31,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     status: 'pending_items',
     itemCountExpected: 'Variable según versión curricular',
     itemFormatDescription: 'Escala de preferencias por actividades o campos de ocupación laboral.',
-    materialNotes: 'Estructura lista para la integración del protocolo oficial de la cátedra.'
+    materialNotes: 'Estructura lista para la integración del protocolo oficial de la cátedra.',
+    pdfPath: '/instruments/intereses-ocupacionales.pdf',
+    pdfButtonLabel: 'Descargar instrumento PDF',
+    pdfDescription: 'Protocolo completo del Cuestionario de Intereses Ocupacionales para exploración vocacional.'
   },
   {
     id: 'otis-superior',
@@ -63,7 +66,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     status: 'pending_items',
     itemCountExpected: 75,
     itemFormatDescription: '75 reactivos de opción múltiple con 5 alternativas (A, B, C, D, E).',
-    materialNotes: 'Reactivos de dificultad progresiva con límite estricto de tiempo.'
+    materialNotes: 'Reactivos de dificultad progresiva con límite estricto de tiempo.',
+    pdfPath: '/instruments/otis-superior.pdf',
+    pdfButtonLabel: 'Descargar instrumento PDF',
+    pdfDescription: 'Protocolo y cuadernillo oficial del Test de Inteligencia Superior OTIS Superior.'
   },
   {
     id: 'keirsey-temperamento',
@@ -95,7 +101,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     status: 'pending_items',
     itemCountExpected: 70,
     itemFormatDescription: '70 preguntas con formato de elección forzada dicotómica (Opción A vs. Opción B).',
-    materialNotes: 'Explora las dimensiones E/I, S/N, T/F y J/P según el modelo Keirsey.'
+    materialNotes: 'Explora las dimensiones E/I, S/N, T/F y J/P según el modelo Keirsey.',
+    pdfPath: '/instruments/keirsey.pdf',
+    pdfButtonLabel: 'Descargar instrumento PDF',
+    pdfDescription: 'Protocolo y cuestionario de autoobservación del Determinante de Temperamento de Keirsey.'
   },
   {
     id: 'habitos-estudio',
@@ -127,7 +136,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     status: 'pending_items',
     itemCountExpected: '30 a 50 ítems según escala',
     itemFormatDescription: 'Escala de frecuencia tipo Likert (Siempre / A veces / Rara vez / Nunca).',
-    materialNotes: 'Diagnóstico formativo aplicable a tutorías de la carrera Ciencias de la Educación.'
+    materialNotes: 'Diagnóstico formativo aplicable a tutorías de la carrera Ciencias de la Educación.',
+    pdfPath: '/instruments/habitos-estudio.pdf',
+    pdfButtonLabel: 'Descargar instrumento PDF',
+    pdfDescription: 'Protocolo oficial del Test de Hábitos de Estudio para Ciencias de la Educación.'
   },
   {
     id: 'ipp-intereses',
@@ -159,7 +171,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     status: 'pending_items',
     itemCountExpected: '204 elementos (profesiones y tareas)',
     itemFormatDescription: 'Escala de 4 alternativas (A: Me gusta / B: Indiferente / C: No me gusta / D: Desconozco).',
-    materialNotes: 'Comprende 17 campos profesionales y escalas de consistencia interna.'
+    materialNotes: 'Comprende 17 campos profesionales y escalas de consistencia interna.',
+    pdfPath: '/instruments/ipp.pdf',
+    pdfButtonLabel: 'Descargar instrumento PDF',
+    pdfDescription: 'Cuadernillo y protocolo de Intereses y Preferencias Profesionales (IPP).'
   },
   {
     id: 'dat-aptitudes',
@@ -197,6 +212,9 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
       'AVISO DE LA CÁTEDRA: Los ocho cuadernillos con las preguntas están dentro del texto físico de avance de la docente (sin versión digitalizada actual). Se dispone formalmente de la hoja de respuestas y de los dos baremos de interpretación normativos: masculino y femenino. En apego a los principios éticos y metodológicos, no se inventan reactivos ni se implementa corrección automática.',
     hasPhysicalBooklets: true,
     hasAnswerSheetAndNorms: true,
+    pdfPath: '/instruments/dat.pdf',
+    pdfButtonLabel: 'Descargar DAT y material de corrección',
+    pdfDescription: 'Documento oficial completo que reúne el instrumento DAT, la hoja de respuestas estandarizada y el material de corrección con los baremos normativos (masculino y femenino) autorizados por la cátedra.',
     subtests: [
       {
         id: 'dat-ar',

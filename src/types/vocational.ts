@@ -39,6 +39,10 @@ export interface VocationalInstrument {
   hasAnswerSheetAndNorms?: boolean;
   // Specific for batteries like DAT
   subtests?: DATSubtest[];
+  // Official PDF document integration
+  pdfPath?: string;
+  pdfButtonLabel?: string;
+  pdfDescription?: string;
 }
 
 export interface ChatMessage {
