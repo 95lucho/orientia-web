@@ -1,4 +1,4 @@
-export type NavigationTab = 'inicio' | 'tests' | 'chatbot';
+export type NavigationTab = 'inicio' | 'tests' | 'chatbot' | 'acerca';
 
 export type InstrumentCategory = 
   | 'Intereses Vocacionales'

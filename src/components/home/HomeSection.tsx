@@ -224,6 +224,29 @@ export const HomeSection: React.FC<HomeSectionProps> = ({ onNavigate }) => {
           </p>
         </div>
       </section>
+
+      {/* Sección Institucional y Créditos UAGRM */}
+      <section className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="space-y-1 text-center sm:text-left">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-100">
+            Filiación Académica & Créditos
+          </span>
+          <h4 className="font-bold text-slate-900 text-sm sm:text-base">
+            OrientIA · Universidad Autónoma Gabriel René Moreno (UAGRM)
+          </h4>
+          <p className="text-xs text-slate-500">
+            Referencia académica: <strong className="text-slate-800">Lic. Delia Claudia Jaldín Arroyo</strong> · Creador y desarrollador: <strong className="text-slate-800">Luis Enrique Justiniano Mercado</strong>
+          </p>
+        </div>
+
+        <button
+          onClick={() => onNavigate('acerca')}
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-[#023273] text-[#023273] hover:text-white font-bold text-xs transition-colors shrink-0 border border-slate-200 cursor-pointer"
+        >
+          <span>Conocer más acerca de OrientIA</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </button>
+      </section>
     </div>
   );
 };

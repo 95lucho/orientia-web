@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Compass, Sparkles, BookOpen, MessageSquare, Menu, X, GraduationCap, Building2 } from 'lucide-react';
+import { Compass, Sparkles, BookOpen, MessageSquare, Menu, X, GraduationCap, Building2, Users } from 'lucide-react';
 import { NavigationTab } from '../../types/vocational';
 
 interface NavbarProps {
@@ -105,6 +105,18 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab }) => {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C8102E]"></span>
               </span>
             </button>
+
+            <button
+              onClick={() => handleNav('acerca')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                activeTab === 'acerca'
+                  ? 'bg-[#023273] text-white shadow-sm'
+                  : 'text-slate-700 hover:text-[#023273] hover:bg-white/80'
+              }`}
+            >
+              <Users className="w-4 h-4" />
+              <span>Acerca de OrientIA</span>
+            </button>
           </nav>
 
           {/* Right Action: Academic Badge */}
@@ -189,6 +201,23 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab }) => {
               <div>Chatbot OrientIA</div>
               <div className={`text-xs ${activeTab === 'chatbot' ? 'text-slate-200' : 'text-slate-500'} font-normal`}>
                 Consultas pedagógicas de la asignatura
+              </div>
+            </div>
+          </button>
+
+          <button
+            onClick={() => handleNav('acerca')}
+            className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+              activeTab === 'acerca'
+                ? 'bg-[#023273] text-white'
+                : 'text-slate-700 hover:bg-slate-50'
+            }`}
+          >
+            <Users className="w-5 h-5" />
+            <div className="text-left">
+              <div>Acerca de OrientIA</div>
+              <div className={`text-xs ${activeTab === 'acerca' ? 'text-slate-200' : 'text-slate-500'} font-normal`}>
+                Créditos institucionales, referencia docente y autoría
               </div>
             </div>
           </button>

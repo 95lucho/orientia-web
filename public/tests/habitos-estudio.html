@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hábitos de Estudio · Instrumento de Orientación Vocacional | OrientIA - UAGRM</title>
+  <meta name="description" content="Página independiente del instrumento Hábitos de Estudio para estudiantes de Ciencias de la Educación en la UAGRM.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --uagrm-blue: #023273;
+      --uagrm-blue-dark: #012250;
+      --uagrm-red: #C8102E;
+      --bg-slate: #f8fafc;
+      --surface: #ffffff;
+      --border-color: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-slate);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Contenedor principal centrado */
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Barra institucional UAGRM */
+    .top-institutional-bar {
+      background-color: var(--uagrm-blue);
+      color: #ffffff;
+      font-size: 0.75rem;
+      padding: 0.4rem 1rem;
+      border-bottom: 2px solid var(--uagrm-red);
+    }
+    .top-institutional-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* Header de navegación */
+    .site-header {
+      background-color: rgba(255, 255, 255, 0.98);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 0;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.75rem;
+      background-color: var(--uagrm-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+    }
+    .brand-icon::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--uagrm-red);
+    }
+    .brand-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+    .brand-name span {
+      color: var(--uagrm-blue);
+    }
+    .brand-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      background-color: #f1f5f9;
+      color: var(--uagrm-blue);
+      padding: 0.15rem 0.4rem;
+      border-radius: 0.35rem;
+      border: 1px solid #e2e8f0;
+      margin-left: 0.35rem;
+      vertical-align: middle;
+    }
+    .brand-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Botón Volver */
+    .btn-return {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: #ffffff;
+      color: var(--uagrm-blue);
+      border: 1px solid #cbd5e1;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      font-size: 0.825rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-return:hover {
+      background-color: var(--uagrm-blue);
+      color: #ffffff;
+      border-color: var(--uagrm-blue);
+    }
+
+    /* Hero del Instrumento */
+    .instrument-hero {
+      background-color: var(--uagrm-blue);
+      color: #ffffff;
+      border-radius: 1.5rem;
+      padding: 2.25rem 2rem;
+      margin: 1.5rem 0;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #1e3a8a;
+      box-shadow: 0 10px 25px -5px rgba(2, 50, 115, 0.25);
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background-color: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-size: 0.725rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .hero-desc {
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      max-width: 800px;
+      line-height: 1.6;
+    }
+
+    /* Secciones y Tarjetas */
+    .content-section {
+      background-color: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .section-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 0.65rem;
+      background-color: #eff6ff;
+      color: var(--uagrm-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .section-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Rejilla de preguntas/respuestas de la presentación */
+    .qa-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .qa-card {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      padding: 1.25rem;
+    }
+    .qa-question {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--uagrm-blue);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .qa-answer {
+      font-size: 0.825rem;
+      color: #334155;
+      line-height: 1.55;
+    }
+
+    /* Tabla de Características */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .spec-item {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.85rem;
+      padding: 1rem;
+    }
+    .spec-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+    .spec-value {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+    .spec-note {
+      font-size: 0.75rem;
+      color: #d97706;
+      font-style: italic;
+      margin-top: 0.2rem;
+    }
+
+    /* Lista de Orientaciones */
+    .guidelines-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .guideline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: #334155;
+      background-color: #f8fafc;
+      padding: 0.9rem 1rem;
+      border-radius: 0.85rem;
+      border: 1px solid #e2e8f0;
+    }
+    .guideline-num {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      background-color: var(--uagrm-blue);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.725rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    /* Contenedor preparado para la demostración */
+    .placeholder-card {
+      border: 2px dashed #cbd5e1;
+      background-color: #f8fafc;
+      border-radius: 1rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .placeholder-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background-color: #e2e8f0;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.75rem;
+      font-size: 1.25rem;
+    }
+    .placeholder-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 0.35rem;
+    }
+    .placeholder-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.55;
+    }
+
+    /* Nota de cierre ético */
+    .ethical-closing {
+      background-color: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-left: 4px solid var(--uagrm-blue);
+      border-radius: 1rem;
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .ethical-closing-text {
+      font-size: 0.85rem;
+      color: #1e3a8a;
+      line-height: 1.6;
+    }
+    .ethical-closing-text strong {
+      color: var(--uagrm-blue);
+    }
+
+    /* Barra de navegación de pie de página del instrumento */
+    .footer-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-top: 1.5rem;
+      margin-bottom: 2rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* Pie institucional */
+    .site-footer {
+      background-color: var(--uagrm-blue);
+      color: #ffffff;
+      border-top: 4px solid var(--uagrm-red);
+      padding: 2rem 0;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-credits {
+      color: #e2e8f0;
+      font-size: 0.775rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      .hero-title {
+        font-size: 1.5rem;
+      }
+      .instrument-hero {
+        padding: 1.5rem 1.25rem;
+      }
+      .content-section {
+        padding: 1.25rem;
+      }
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .btn-return {
+        width: 100%;
+        justify-content: center;
+      }
+      .footer-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra Institucional Superior UAGRM -->
+  <div class="top-institutional-bar">
+    <div class="top-institutional-inner">
+      <div>
+        <strong>Universidad Autónoma Gabriel René Moreno · UAGRM</strong> | Facultad de Humanidades · Ciencias de la Educación
+      </div>
+      <div>
+        Orientación Vocacional y Profesional · Santa Cruz, Bolivia
+      </div>
+    </div>
+  </div>
+
+  <!-- Encabezado de Navegación -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="../" class="brand" title="Ir a la portada de OrientIA">
+          <div class="brand-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+            </svg>
+          </div>
+          <div>
+            <div class="brand-name">Orient<span>IA</span> <span class="brand-badge">UAGRM</span></div>
+            <div class="brand-sub">Orientación Vocacional y Profesional · Carrera Ciencias de la Educación</div>
+          </div>
+        </a>
+
+        <!-- Botón para regresar al catálogo de instrumentos de OrientIA -->
+        <a href="../?tab=tests" class="btn-return" title="Volver al catálogo completo de instrumentos en OrientIA">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>← Volver al Catálogo de Instrumentos</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal del Instrumento -->
+  <main class="container">
+
+    <!-- Hero / Banner de Hábitos de Estudio -->
+    <section class="instrument-hero">
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
+        <span>Instrumento N° 4 · Cátedra UAGRM</span>
+      </div>
+      <h1 class="hero-title">Hábitos de Estudio</h1>
+      <p class="hero-desc">
+        Recurso psicopedagógico formativo orientado al diagnóstico reflexivo de las prácticas, métodos, organización del tiempo y condiciones ambientales del aprendizaje en la educación secundaria y universitaria.
+      </p>
+    </section>
+
+    <!-- B. Presentación: Fundamentación Conceptual -->
+    <section class="content-section">
+      <div class="section-header">
+        <div class="section-icon">💡</div>
+        <div>
+          <h2 class="section-title">Presentación del Instrumento</h2>
+          <p class="section-subtitle">Fundamentación psicopedagógica para estudiantes de Ciencias de la Educación</p>
+        </div>
+      </div>
+
+      <p style="font-size: 0.875rem; color: #334155; margin-bottom: 0.75rem;">
+        En la formación de los futuros pedagogos y orientadores educativos de la UAGRM, la evaluación y el acompañamiento en los hábitos de estudio constituyen un eje nodal para promover la permanencia académica y prevenir el fracaso escolar o la deserción universitaria.
+      </p>
+
+      <div class="qa-grid">
+        <div class="qa-card">
+          <div class="qa-question">
+            <span>¿Qué son los hábitos de estudio?</span>
+          </div>
+          <div class="qa-answer">
+            Son pautas y costumbres adquiridas de manera constante y regular por el estudiante para organizar, procesar, asimilar y retener información. Comprenden tanto aspectos conductuales (horarios, lugar) como cognitivos (estrategias de comprensión y síntesis).
+          </div>
+        </div>
+
+        <div class="qa-card">
+          <div class="qa-question">
+            <span>¿Cuál es la finalidad de conocerlos?</span>
+          </div>
+          <div class="qa-answer">
+            Permite al estudiante identificar objetivamente sus fortalezas y debilidades metodológicas, facilitando al pedagogo el diseño de intervenciones personalizadas que favorezcan el estudio autónomo y eficiente.
+          </div>
+        </div>
+
+        <div class="qa-card">
+          <div class="qa-question">
+            <span>¿Por qué son importantes en el aprendizaje?</span>
+          </div>
+          <div class="qa-answer">
+            El rendimiento académico en la educación superior no depende exclusivamente de la capacidad intelectual general, sino del rigor en la administración del tiempo, la autorregulación emocional y el método personal de trabajo intelectual.
+          </div>
+        </div>
+
+        <div class="qa-card">
+          <div class="qa-question">
+            <span>¿En qué situaciones puede utilizarse?</span>
+          </div>
+          <div class="qa-answer">
+            En gabinetes psicopedagógicos escolares, programas de inducción y tutoría universitaria en la UAGRM, talleres de orientación vocacional y en el diagnóstico inicial de estudiantes con dificultades de rendimiento.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- C. Características del Instrumento -->
+    <section class="content-section">
+      <div class="section-header">
+        <div class="section-icon">📋</div>
+        <div>
+          <h2 class="section-title">Características del Instrumento</h2>
+          <p class="section-subtitle">Aspectos que explora y especificaciones técnicas curriculares</p>
+        </div>
+      </div>
+
+      <p style="font-size: 0.875rem; color: #334155; line-height: 1.6;">
+        El instrumento explora de manera estructurada las dimensiones esenciales del quehacer estudiantil cotidiano:
+      </p>
+
+      <div class="specs-grid">
+        <div class="spec-item">
+          <div class="spec-label">Dimensión 1</div>
+          <div class="spec-value">Planificación del Tiempo</div>
+          <p style="font-size: 0.775rem; color: #64748b; margin-top: 0.25rem;">Distribución de horarios de estudio, descansos y cumplimiento de metas académicas.</p>
+        </div>
+
+        <div class="spec-item">
+          <div class="spec-label">Dimensión 2</div>
+          <div class="spec-value">Condiciones Ambientales</div>
+          <p style="font-size: 0.775rem; color: #64748b; margin-top: 0.25rem;">Iluminación, ventilación, orden, ergonomía y control de distractores en el lugar de estudio.</p>
+        </div>
+
+        <div class="spec-item">
+          <div class="spec-label">Dimensión 3</div>
+          <div class="spec-value">Métodos y Técnicas</div>
+          <p style="font-size: 0.775rem; color: #64748b; margin-top: 0.25rem;">Lectura comprensiva, toma de apuntes, elaboración de esquemas, resúmenes y mapas conceptuales.</p>
+        </div>
+
+        <div class="spec-item">
+          <div class="spec-label">Dimensión 4</div>
+          <div class="spec-value">Preparación de Exámenes</div>
+          <p style="font-size: 0.775rem; color: #64748b; margin-top: 0.25rem;">Estrategias de repaso, anticipación, manejo de la ansiedad y actitud durante las pruebas de evaluación.</p>
+        </div>
+      </div>
+
+      <!-- Ficha Técnica con datos verificados y pendientes según norma del proyecto -->
+      <div style="margin-top: 1.5rem; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 1rem; padding: 1.25rem;">
+        <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--uagrm-blue); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em;">
+          Ficha Técnica del Instrumento (Estado Curricular)
+        </h3>
+        <div class="specs-grid">
+          <div class="spec-item">
+            <div class="spec-label">Nombre oficial</div>
+            <div class="spec-value">Test / Cuestionario de Hábitos de Estudio</div>
+          </div>
+
+          <div class="spec-item">
+            <div class="spec-label">Autoría y Editorial</div>
+            <div class="spec-value">Instrumento adaptado para la cátedra</div>
+            <div class="spec-note">* Versión exacta pendiente de confirmación en material oficial</div>
+          </div>
+
+          <div class="spec-item">
+            <div class="spec-label">Población destinataria</div>
+            <div class="spec-value">Secundaria superior y nivel universitario</div>
+          </div>
+
+          <div class="spec-item">
+            <div class="spec-label">Formato de respuesta</div>
+            <div class="spec-value">Escala de frecuencia tipo Likert</div>
+            <div class="spec-note">(Siempre / A veces / Rara vez / Nunca)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- D. Orientaciones para el Estudiante -->
+    <section class="content-section">
+      <div class="section-header">
+        <div class="section-icon">🎯</div>
+        <div>
+          <h2 class="section-title">Orientaciones para el Estudiante</h2>
+          <p class="section-subtitle">Pautas para responder y prepararse adecuadamente</p>
+        </div>
+      </div>
+
+      <p style="font-size: 0.875rem; color: #334155;">
+        Para que los resultados de este instrumento sean verdaderamente útiles en tu proceso de orientación y formación docente, ten en cuenta las siguientes recomendaciones:
+      </p>
+
+      <ul class="guidelines-list">
+        <li class="guideline-item">
+          <div class="guideline-num">1</div>
+          <div>
+            <strong>Responde con sinceridad y realismo:</strong> No contestes pensando en lo que &ldquo;deberías hacer&rdquo; o en lo que crees que el docente espera leer, sino en lo que efectivamente realizas en tu rutina actual de estudio.
+          </div>
+        </li>
+        <li class="guideline-item">
+          <div class="guideline-num">2</div>
+          <div>
+            <strong>Dispon de un espacio tranquilo:</strong> Procura responder en un momento sin apuros, donde puedas concentrarte y reflexionar acerca de tus hábitos reales.
+          </div>
+        </li>
+        <li class="guideline-item">
+          <div class="guideline-num">3</div>
+          <div>
+            <strong>Reconoce áreas de mejora sin juzgarte:</strong> Identificar que tienes dificultades para planificar o que estudias con distracciones es el primer paso indispensable para mejorar tu técnica de aprendizaje.
+          </div>
+        </li>
+        <li class="guideline-item">
+          <div class="guideline-num">4</div>
+          <div>
+            <strong>Aviso de la cátedra:</strong> Las instrucciones definitivas, número exacto de ítems y hojas de respuesta corresponden al material original autorizado proporcionado por la docente de la asignatura.
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- E. Demostración Didáctica (Espacio Preparado) -->
+    <section class="content-section">
+      <div class="section-header">
+        <div class="section-icon">🧩</div>
+        <div>
+          <h2 class="section-title">Demostración Didáctica</h2>
+          <p class="section-subtitle">Módulo interactivo de práctica y familiarización con el formato</p>
+        </div>
+      </div>
+
+      <div class="placeholder-card">
+        <div class="placeholder-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </div>
+        <h3 class="placeholder-title">Espacio Preparado para la Demostración Interactiva</h3>
+        <p class="placeholder-text">
+          En cumplimiento estricto del principio de <strong>no inventar preguntas ni ejercicios psicométricos simulados</strong>, este espacio se activará durante la fase de desarrollo correspondiente cuando se cuente con los ejemplos didácticos del documento original autorizado por la cátedra.
+        </p>
+      </div>
+    </section>
+
+    <!-- F. Material de Apoyo (Descarga de Documento) -->
+    <section class="content-section">
+      <div class="section-header">
+        <div class="section-icon">📥</div>
+        <div>
+          <h2 class="section-title">Material de Apoyo y Documentación</h2>
+          <p class="section-subtitle">Acceso a protocolos y materiales oficiales autorizados</p>
+        </div>
+      </div>
+
+      <div class="placeholder-card">
+        <div class="placeholder-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <h3 class="placeholder-title">Documento PDF Oficial en Proceso de Digitalización</h3>
+        <p class="placeholder-text">
+          Esta sección queda estructurada para incorporar el botón de descarga del documento oficial completo una vez que el archivo digital sea proporcionado y cuente con los permisos académicos correspondientes. No se generan enlaces ficticios ni archivos provisionales.
+        </p>
+      </div>
+    </section>
+
+    <!-- G. Cierre: Mensaje Ético y Reflexivo -->
+    <div class="ethical-closing">
+      <div style="font-size: 1.5rem; line-height: 1;">🛡️</div>
+      <div class="ethical-closing-text">
+        <strong>Mensaje Ético de la Cátedra:</strong> Este instrumento es un recurso pedagógico de apoyo a la reflexión sobre las propias prácticas de estudio y aprendizaje. Sus resultados nunca deben interpretarse como un diagnóstico definitivo ni como una etiqueta limitante sobre la capacidad intelectual del estudiante. Su propósito en Ciencias de la Educación es servir como punto de partida para el autoconocimiento y el fortalecimiento continuo de las habilidades académicas.
+      </div>
+    </div>
+
+    <!-- Navegación inferior / Acciones de Retorno -->
+    <div class="footer-actions">
+      <a href="../?tab=tests" class="btn-return" style="background-color: var(--uagrm-blue); color: #ffffff; border-color: var(--uagrm-blue);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>← Volver al Catálogo de Instrumentos</span>
+      </a>
+
+      <a href="../" class="btn-return">
+        <span>Ir a la Portada de OrientIA</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Pie de Página Institucional -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-credits">
+          <strong>OrientIA</strong> | Creado y desarrollado por <strong>Luis Enrique Justiniano Mercado</strong> | Referencia académica: <strong>Lic. Delia Claudia Jaldín Arroyo</strong> | UAGRM.
+        </div>
+        <div style="font-size: 0.725rem; color: #cbd5e1;">
+          Facultad de Humanidades · Carrera Ciencias de la Educación · Santa Cruz, Bolivia
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

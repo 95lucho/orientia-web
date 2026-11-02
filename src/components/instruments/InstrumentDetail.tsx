@@ -45,13 +45,25 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
           <span>Volver al catálogo de instrumentos</span>
         </button>
 
-        <button
-          onClick={() => onOpenChatWithContext(`Actúa como docente de la asignatura Orientación Vocacional y Profesional de la carrera Ciencias de la Educación en la UAGRM. Explícame en detalle la fundamentación teórica, características y precauciones para la administración del instrumento "${instrument.name}" (${instrument.academicAuthor}).`)}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#023273] text-xs font-bold transition-all border border-slate-300 cursor-pointer shadow-2xs"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-[#023273]" />
-          <span>Consultar sobre este test en OrientIA</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          {instrument.id === 'habitos-estudio' && (
+            <a
+              href="./tests/habitos-estudio.html"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#023273] hover:bg-[#012250] text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Abrir página HTML independiente</span>
+            </a>
+          )}
+
+          <button
+            onClick={() => onOpenChatWithContext(`Actúa como docente de la asignatura Orientación Vocacional y Profesional de la carrera Ciencias de la Educación en la UAGRM. Explícame en detalle la fundamentación teórica, características y precauciones para la administración del instrumento "${instrument.name}" (${instrument.academicAuthor}).`)}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#023273] text-xs font-bold transition-all border border-slate-300 cursor-pointer shadow-2xs"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-[#023273]" />
+            <span>Consultar sobre este test en OrientIA</span>
+          </button>
+        </div>
       </div>
 
       {/* Main Header Card UAGRM */}

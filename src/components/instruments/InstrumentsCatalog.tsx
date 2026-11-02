@@ -220,11 +220,23 @@ export const InstrumentsCatalog: React.FC<InstrumentsCatalogProps> = ({ onSelect
 
               {/* Action footer */}
               <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-[11px] font-semibold text-slate-500">
-                  {instrument.shortName}
-                </span>
+                {instrument.id === 'habitos-estudio' ? (
+                  <span className="text-[10px] font-bold text-[#023273] bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                    Página HTML activa
+                  </span>
+                ) : (
+                  <span className="text-[11px] font-semibold text-slate-500">
+                    {instrument.shortName}
+                  </span>
+                )}
                 <button
-                  onClick={() => onSelectInstrument(instrument.id)}
+                  onClick={() => {
+                    if (instrument.id === 'habitos-estudio') {
+                      window.location.href = './tests/habitos-estudio.html';
+                    } else {
+                      onSelectInstrument(instrument.id);
+                    }
+                  }}
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#023273] hover:bg-[#012250] text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
                 >
                   <span>Conocer instrumento</span>

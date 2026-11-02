@@ -68,6 +68,14 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab }) => {
                   Chatbot OrientIA
                 </button>
               </li>
+              <li>
+                <button
+                  onClick={() => onSelectTab('acerca')}
+                  className="hover:text-white hover:underline transition-colors text-left font-medium text-slate-100"
+                >
+                  Acerca de OrientIA (Créditos)
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -96,10 +104,13 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab }) => {
           </div>
         </div>
 
-        <div className="pt-6 border-t border-blue-900/80 text-xs text-slate-300 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} OrientIA · Universidad Autónoma Gabriel René Moreno (UAGRM).</p>
-          <p className="text-center sm:text-right text-[11px]">
-            Diseñado con rigor pedagógico para la formación docente en orientación vocacional.
+        {/* Resumen Oficial de Créditos y Autoría */}
+        <div className="pt-6 border-t border-blue-900/80 text-xs text-slate-300 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+          <p className="font-medium text-slate-200">
+            OrientIA | Creado y desarrollado por <strong className="text-white font-semibold">Luis Enrique Justiniano Mercado</strong> | Referencia académica: <strong className="text-white font-semibold">Lic. Delia Claudia Jaldín Arroyo</strong> | UAGRM.
+          </p>
+          <p className="text-[11px] text-slate-400 shrink-0">
+            © {new Date().getFullYear()} OrientIA · Santa Cruz, Bolivia
           </p>
         </div>
       </div>

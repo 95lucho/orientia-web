@@ -5,11 +5,21 @@ import { HomeSection } from './components/home/HomeSection';
 import { InstrumentsCatalog } from './components/instruments/InstrumentsCatalog';
 import { InstrumentDetail } from './components/instruments/InstrumentDetail';
 import { ChatbotSection } from './components/chat/ChatbotSection';
+import { AboutSection } from './components/about/AboutSection';
 import { NavigationTab, VocationalInstrument } from './types/vocational';
 import { VOCATIONAL_INSTRUMENTS } from './data/instruments';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<NavigationTab>('inicio');
+  const [activeTab, setActiveTab] = useState<NavigationTab>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get('tab');
+      if (tab === 'tests' || tab === 'chatbot' || tab === 'acerca') {
+        return tab;
+      }
+    }
+    return 'inicio';
+  });
   const [selectedInstrumentId, setSelectedInstrumentId] = useState<string | null>(null);
   const [initialChatPrompt, setInitialChatPrompt] = useState<string | null>(null);
 
@@ -76,6 +86,10 @@ export default function App() {
             initialPrompt={initialChatPrompt || undefined}
             onClearInitialPrompt={() => setInitialChatPrompt(null)}
           />
+        )}
+
+        {activeTab === 'acerca' && (
+          <AboutSection onNavigate={handleNavigate} />
         )}
       </main>
 

@@ -217,6 +217,9 @@ async function startServer() {
       res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
     });
   } else {
+    // Serve static files from public/ directly (such as tests/*.html and instruments/*.pdf)
+    app.use(express.static(path.resolve(__dirname, 'public')));
+
     const vite = await createViteServer({
       server: {
         middlewareMode: true,
