@@ -73,6 +73,342 @@ Tono y estilo:
 - En español formal pero cercano para estudiantes universitarios de la UAGRM.
 `;
 
+// Helper to safely serialize objects to JSON without throwing on circular references or non-serializable fields
+function safeStringify(obj: any): string {
+  if (obj === null || obj === undefined) return '';
+  if (typeof obj === 'string') return obj;
+  if (typeof obj === 'number' || typeof obj === 'boolean') return String(obj);
+
+  const seen = new WeakSet();
+
+  try {
+    return JSON.stringify(obj, (_key, value) => {
+      if (value instanceof Error) {
+        const errObj: Record<string, any> = {
+          name: value.name,
+          message: value.message,
+          stack: value.stack,
+        };
+        for (const k of Object.getOwnPropertyNames(value)) {
+          errObj[k] = (value as any)[k];
+        }
+        return errObj;
+      }
+      if (typeof value === 'object' && value !== null) {
+        if (seen.has(value)) {
+          return '[Circular]';
+        }
+        seen.add(value);
+      }
+      if (typeof value === 'bigint') {
+        return value.toString();
+      }
+      if (typeof value === 'function') {
+        return undefined;
+      }
+      return value;
+    });
+  } catch {
+    try {
+      return String(obj);
+    } catch {
+      return '[Unserializable]';
+    }
+  }
+}
+
+interface StructuredQuotaInfo {
+  quotaMetric?: string;
+  quotaId?: string;
+  retryDelay?: string | number;
+  isDaily: boolean;
+  isPerMinute: boolean;
+}
+
+// Helper to extract structured Google API quota details (google.rpc.QuotaFailure, google.rpc.ErrorInfo, google.rpc.RetryInfo)
+function extractStructuredQuota(error: any): StructuredQuotaInfo {
+  let quotaMetric: string | undefined =
+    error?.quotaMetric ||
+    error?.error?.quotaMetric ||
+    error?.quota_metric ||
+    error?.error?.quota_metric;
+
+  let quotaId: string | undefined =
+    error?.quotaId ||
+    error?.error?.quotaId ||
+    error?.quota_id ||
+    error?.error?.quota_id;
+
+  let retryDelay: string | number | undefined =
+    error?.retryDelay ||
+    error?.error?.retryDelay ||
+    error?.retry_delay ||
+    error?.error?.retry_delay;
+
+  const rawDetails: any[] = [];
+  if (Array.isArray(error?.details)) rawDetails.push(...error.details);
+  if (Array.isArray(error?.error?.details)) rawDetails.push(...error.error.details);
+  if (Array.isArray(error?.response?.data?.error?.details)) rawDetails.push(...error.response.data.error.details);
+
+  for (const detail of rawDetails) {
+    if (!detail || typeof detail !== 'object') continue;
+
+    if (!quotaMetric) {
+      quotaMetric = detail.quotaMetric || detail.quota_metric || detail.metadata?.quota_metric;
+    }
+    if (!quotaId) {
+      quotaId = detail.quotaId || detail.quota_id || detail.metadata?.quota_id;
+    }
+    if (!retryDelay) {
+      retryDelay = detail.retryDelay || detail.retry_delay;
+    }
+
+    if (Array.isArray(detail.violations)) {
+      for (const violation of detail.violations) {
+        if (!violation || typeof violation !== 'object') continue;
+        if (!quotaMetric && (violation.quotaMetric || violation.quota_metric)) {
+          quotaMetric = violation.quotaMetric || violation.quota_metric;
+        }
+        if (!quotaId && (violation.quotaId || violation.quota_id)) {
+          quotaId = violation.quotaId || violation.quota_id;
+        }
+      }
+    }
+  }
+
+  const metricStr = `${quotaMetric || ''} ${quotaId || ''}`.toLowerCase();
+
+  const isDaily =
+    metricStr.includes('per_day') ||
+    metricStr.includes('per-day') ||
+    metricStr.includes('requests_per_day') ||
+    metricStr.includes('queries_per_day') ||
+    metricStr.includes('daily') ||
+    metricStr.includes('rpd');
+
+  const isPerMinute =
+    metricStr.includes('per_minute') ||
+    metricStr.includes('per-minute') ||
+    metricStr.includes('requests_per_minute') ||
+    metricStr.includes('queries_per_minute') ||
+    metricStr.includes('tokens_per_minute') ||
+    metricStr.includes('rpm') ||
+    metricStr.includes('tpm') ||
+    Boolean(retryDelay);
+
+  return {
+    quotaMetric,
+    quotaId,
+    retryDelay,
+    isDaily,
+    isPerMinute,
+  };
+}
+
+// Helper to parse status and error message from API response with deep inspection of nested structures
+function parseErrorInfo(error: any): {
+  status?: number;
+  message: string;
+  code: string;
+  deepDetails: string;
+  quotaDetails: StructuredQuotaInfo;
+} {
+  const status =
+    typeof error?.status === 'number'
+      ? error.status
+      : typeof error?.statusCode === 'number'
+      ? error.statusCode
+      : typeof error?.response?.status === 'number'
+      ? error.response.status
+      : typeof error?.error?.code === 'number'
+      ? error.error.code
+      : undefined;
+
+  const code =
+    error?.code ||
+    error?.error?.status ||
+    error?.statusText ||
+    error?.name ||
+    '';
+
+  const primaryMsg = error?.message ? String(error.message) : '';
+  const nestedMsg = error?.error?.message ? String(error.error.message) : '';
+  const responseData = error?.response?.data ? safeStringify(error.response.data) : '';
+  const details = error?.error?.details ? safeStringify(error.error.details) : '';
+  const cause = error?.cause ? safeStringify(error.cause) : '';
+  const serialized = safeStringify(error);
+
+  // Consolidated deep text for comprehensive pattern matching across all nested structures
+  const deepDetails = [primaryMsg, nestedMsg, responseData, details, cause, serialized]
+    .filter(Boolean)
+    .join(' ');
+
+  const quotaDetails = extractStructuredQuota(error);
+
+  return {
+    status,
+    message: primaryMsg || nestedMsg || 'Error desconocido',
+    code: String(code),
+    deepDetails,
+    quotaDetails,
+  };
+}
+
+interface ErrorEvaluation {
+  isRecoverable: boolean;
+  reason: string;
+}
+
+// Distinguish recoverable transient errors (503, 429 rate limit per minute, 500, 502, 504, timeout) from definitive errors (401, 403, 400, quota diaria o de cuenta agotada)
+function isRecoverableGeminiError(error: any): ErrorEvaluation {
+  const { status, message, code, deepDetails, quotaDetails } = parseErrorInfo(error);
+  const lowerDeep = deepDetails.toLowerCase();
+  const lowerCode = String(code).toLowerCase();
+
+  // Errores definitivos de autenticación o permisos (no reintentar)
+  if (
+    status === 401 ||
+    status === 403 ||
+    lowerDeep.includes('api_key_invalid') ||
+    lowerDeep.includes('api key not valid') ||
+    lowerDeep.includes('permission_denied') ||
+    lowerCode.includes('permission_denied') ||
+    lowerDeep.includes('unauthorized') ||
+    lowerDeep.includes('forbidden')
+  ) {
+    return {
+      isRecoverable: false,
+      reason: 'Error definitivo de autenticación o permisos (API Key inválida o no autorizada)',
+    };
+  }
+
+  // Errores de solicitud inválida o recurso inexistente (no reintentar)
+  if (
+    status === 400 ||
+    status === 404 ||
+    lowerDeep.includes('invalid_argument') ||
+    lowerCode.includes('invalid_argument')
+  ) {
+    return {
+      isRecoverable: false,
+      reason: 'Solicitud rechazada (parámetros no válidos o recurso no encontrado)',
+    };
+  }
+
+  // Error 429: diferenciar cuota diaria/de cuenta vs cuota por minuto/transitoria
+  if (
+    status === 429 ||
+    lowerDeep.includes('429') ||
+    lowerDeep.includes('resource_exhausted') ||
+    lowerCode.includes('resource_exhausted')
+  ) {
+    const isHardQuota =
+      quotaDetails.isDaily ||
+      lowerDeep.includes('per_day') ||
+      lowerDeep.includes('requests per day') ||
+      lowerDeep.includes('daily quota') ||
+      lowerDeep.includes('rpd limit') ||
+      lowerDeep.includes('quota_exceeded') ||
+      lowerDeep.includes('quota exceeded') ||
+      lowerDeep.includes('insufficient_quota') ||
+      lowerDeep.includes('insufficient quota') ||
+      lowerDeep.includes('exceeded your current quota') ||
+      lowerDeep.includes('free tier limit') ||
+      lowerDeep.includes('free_tier_limit') ||
+      lowerDeep.includes('check your plan and billing') ||
+      lowerDeep.includes('billing not active') ||
+      lowerDeep.includes('project_billing_not_active');
+
+    if (isHardQuota) {
+      const metricLabel = quotaDetails.quotaMetric ? ` [métrica: ${quotaDetails.quotaMetric}]` : '';
+      return {
+        isRecoverable: false,
+        reason: `Cuota diaria o de cuenta agotada en Gemini API${metricLabel} (no reintentable)`,
+      };
+    }
+
+    const metricInfo = quotaDetails.quotaMetric
+      ? ` [métrica: ${quotaDetails.quotaMetric}]`
+      : quotaDetails.retryDelay
+      ? ` [retryDelay: ${quotaDetails.retryDelay}]`
+      : '';
+
+    return {
+      isRecoverable: true,
+      reason: `Límite de tasa por minuto o saturación temporal recuperable (429/RESOURCE_EXHAUSTED)${metricInfo}`,
+    };
+  }
+
+  // Errores 503, 500, 502, 504, timeout y caídas de red transitorias
+  if (
+    status === 503 ||
+    status === 500 ||
+    status === 502 ||
+    status === 504 ||
+    lowerDeep.includes('503') ||
+    lowerDeep.includes('unavailable') ||
+    lowerDeep.includes('high demand') ||
+    lowerDeep.includes('overloaded') ||
+    lowerDeep.includes('deadline_exceeded') ||
+    lowerDeep.includes('timeout') ||
+    lowerDeep.includes('aborterror') ||
+    lowerDeep.includes('timeouterror') ||
+    lowerDeep.includes('econnreset') ||
+    lowerDeep.includes('etimedout') ||
+    lowerDeep.includes('fetch failed')
+  ) {
+    return {
+      isRecoverable: true,
+      reason: 'Indisponibilidad transitoria del servicio o saturación temporal de Gemini (503/504/timeout)',
+    };
+  }
+
+  return {
+    isRecoverable: false,
+    reason: `Error no catalogado como recuperable: ${message.slice(0, 120)}`,
+  };
+}
+
+// Timeout wrapper that guarantees real network cancellation via AbortController and native @google/genai httpOptions
+async function callGeminiWithTimeout(
+  ai: GoogleGenAI,
+  contents: any[],
+  timeoutMs: number = 15000
+): Promise<any> {
+  const controller = new AbortController();
+  let timer: NodeJS.Timeout | null = null;
+
+  try {
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      timer = setTimeout(() => {
+        // Cancelar activamente la solicitud HTTP subyacente para liberar sockets y recursos
+        controller.abort();
+        const timeoutErr = new Error(`Tiempo de espera de ${timeoutMs}ms superado en llamada a Gemini`);
+        (timeoutErr as any).name = 'TimeoutError';
+        reject(timeoutErr);
+      }, timeoutMs);
+    });
+
+    const apiCallPromise = ai.models.generateContent({
+      model: 'gemini-3.8-flash',
+      contents,
+      config: {
+        systemInstruction: ORIENTIA_SYSTEM_INSTRUCTION,
+        abortSignal: controller.signal,
+        httpOptions: {
+          timeout: timeoutMs,
+        },
+      },
+    });
+
+    return await Promise.race([apiCallPromise, timeoutPromise]);
+  } finally {
+    if (timer) {
+      clearTimeout(timer);
+    }
+  }
+}
+
 // Secure Chat endpoint
 app.post('/api/chat', async (req, res) => {
   try {
@@ -85,7 +421,7 @@ app.post('/api/chat', async (req, res) => {
     const lastMessage = messages[messages.length - 1];
     const userPrompt = lastMessage?.content || '';
 
-    // If Gemini API Key is available, invoke Gemini 3.8 Flash server-side
+    // If Gemini API Key is available, invoke Gemini 3.8 Flash server-side with controlled retries
     if (process.env.GEMINI_API_KEY) {
       try {
         const ai = new GoogleGenAI({
@@ -118,30 +454,53 @@ app.post('/api/chat', async (req, res) => {
           });
         }
 
-        // 12-second timeout wrapper to prevent any blocking
-        const timeoutPromise = new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error('Gemini API timeout')), 12000)
-        );
+        const MAX_RETRIES = 2; // Intento 0 inicial + hasta 2 reintentos (máximo 3 llamadas)
+        let replyText: string | null = null;
 
-        const apiCallPromise = ai.models.generateContent({
-          model: 'gemini-3.8-flash',
-          contents: userAndModelMessages,
-          config: {
-            systemInstruction: ORIENTIA_SYSTEM_INSTRUCTION,
-          },
-        });
+        for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+          try {
+            if (attempt > 0) {
+              // Espera progresiva: ~1500ms en intento 1 y ~3000ms en intento 2, con variación aleatoria (+/- 150ms)
+              const baseDelay = attempt === 1 ? 1500 : 3000;
+              const jitter = Math.floor(Math.random() * 300) - 150;
+              const waitTime = Math.max(1000, baseDelay + jitter);
 
-        const response: any = await Promise.race([apiCallPromise, timeoutPromise]);
-        const replyText = response.text || 'No fue posible generar una respuesta en este momento.';
+              console.warn(`[OrientIA Gemini] Reintento ${attempt}/${MAX_RETRIES} programado tras espera de ${waitTime}ms...`);
+              await new Promise((resolve) => setTimeout(resolve, waitTime));
+            }
 
-        return res.json({
-          reply: replyText,
-          source: 'gemini-3.8-flash',
-          timestamp: new Date().toISOString(),
-        });
-      } catch (geminiError: any) {
-        console.error('Error invoking Gemini API server-side:', geminiError);
-        // Fallback to structured pedagogical responder if API error occurs
+            const response: any = await callGeminiWithTimeout(ai, userAndModelMessages, 15000);
+            replyText = response?.text || 'No fue posible generar una respuesta en este momento.';
+            break; // Éxito
+          } catch (geminiError: any) {
+            const { isRecoverable, reason } = isRecoverableGeminiError(geminiError);
+            console.warn(
+              `[OrientIA Gemini] Intento ${attempt + 1}/${MAX_RETRIES + 1} no completado: ${reason}. Detalle: ${geminiError?.message || geminiError}`
+            );
+
+            // Detener reintentos si el error no es transitorio/recuperable
+            if (!isRecoverable) {
+              console.warn('[OrientIA Gemini] Error clasificado como no recuperable; se suspenden reintentos adicionales.');
+              break;
+            }
+
+            if (attempt === MAX_RETRIES) {
+              console.warn('[OrientIA Gemini] Se agotaron los 2 reintentos adicionales sin éxito.');
+            }
+          }
+        }
+
+        if (replyText) {
+          return res.json({
+            reply: replyText,
+            source: 'gemini-3.8-flash',
+            timestamp: new Date().toISOString(),
+          });
+        }
+
+        console.warn('[OrientIA Gemini] Conectando con fallback pedagógico tras agotar intentos con Gemini.');
+      } catch (geminiInitError: any) {
+        console.error('Error al inicializar cliente de Gemini:', geminiInitError);
       }
     }
 
