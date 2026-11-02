@@ -11,6 +11,9 @@ import {
 } from 'lucide-react';
 import { ChatMessage } from '../../types/vocational';
 
+// Backend base URL: uses Render deployment in production, relative path in local development
+const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://orientia-web.onrender.com' : '');
+
 interface ChatbotSectionProps {
   initialPrompt?: string;
   onClearInitialPrompt?: () => void;
@@ -72,7 +75,7 @@ Estoy a tu disposición para ayudarte con:
 
   // Check health and server-side config on mount
   useEffect(() => {
-    fetch('/api/health')
+    fetch(`${API_BASE_URL}/api/health`)
       .then((res) => res.json())
       .then((data) => {
         setServerStatus({
@@ -104,7 +107,7 @@ Estoy a tu disposición para ayudarte con:
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
