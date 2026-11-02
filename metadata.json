@@ -2,6 +2,7 @@
   "name": "OrientIA",
   "description": "Aplicación web educativa para estudiantes de Ciencias de la Educación de la UAGRM en la asignatura Orientación Vocacional y Profesional.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
-
