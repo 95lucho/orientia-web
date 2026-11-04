@@ -13,7 +13,7 @@ import { ChatMessage } from '../../types/vocational';
 import { MarkdownContent } from './MarkdownContent';
 
 // Backend base URL: uses Render deployment in production, relative path in local development
-const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://orientia-web.onrender.com' : '');
+const API_BASE_URL = (import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://orientia-web.onrender.com' : '')).replace(/\/+$/, '');
 
 const OFFICIAL_WELCOME_MESSAGE = `¡Hola! Soy OrientIA, tu asistente académico para la asignatura Orientación Vocacional y Profesional de Ciencias de la Educación de la UAGRM.
 

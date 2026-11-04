@@ -32,6 +32,7 @@ export interface VocationalInstrument {
   pdfPath?: string;
   pdfButtonLabel?: string;
   pdfDescription?: string;
+  pdfWarning?: string;
 
   objectives: string[];
   applicatorInstructions: string[];

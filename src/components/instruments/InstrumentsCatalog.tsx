@@ -214,7 +214,7 @@ export const InstrumentsCatalog: React.FC<InstrumentsCatalogProps> = ({ onSelect
                   </div>
                   <div className="flex items-center gap-1.5 text-[#023273] font-semibold">
                     <FileText className="w-3.5 h-3.5 text-[#023273] shrink-0" />
-                    <span>PDF oficial</span>
+                    <span>{instrument.pdfWarning ? 'PDF en revisión' : 'PDF disponible'}</span>
                   </div>
                 </div>
               </div>
@@ -223,7 +223,7 @@ export const InstrumentsCatalog: React.FC<InstrumentsCatalogProps> = ({ onSelect
               <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-2">
                 {instrument.id === 'habitos-estudio' ? (
                   <a
-                    href="./tests/habitos-estudio.html"
+                    href={resolveAssetUrl('/tests/habitos-estudio.html')}
                     className="text-[10px] font-bold text-[#023273] bg-blue-50 px-2 py-1 rounded-md border border-blue-200 hover:bg-blue-100 transition-colors inline-flex items-center gap-1"
                     title="Abrir página HTML independiente"
                   >

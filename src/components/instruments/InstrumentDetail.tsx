@@ -64,7 +64,7 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
 
           {instrument.id === 'habitos-estudio' && (
             <a
-              href="./tests/habitos-estudio.html"
+              href={resolveAssetUrl('/tests/habitos-estudio.html')}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#023273] text-xs font-bold transition-all border border-slate-300 shadow-2xs cursor-pointer"
             >
               <BookOpen className="w-3.5 h-3.5" />
@@ -157,8 +157,8 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
                 <div className="flex flex-wrap items-center gap-2">
                   <h2 className="font-bold text-base sm:text-lg text-slate-900">
                     {instrument.id === 'dat-aptitudes'
-                      ? 'Material Completo del DAT'
-                      : `Documento Oficial en PDF · ${instrument.shortName}`}
+                      ? 'Hojas y material de corrección del DAT'
+                      : `Documento PDF disponible · ${instrument.shortName}`}
                   </h2>
                   <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-md bg-red-100 text-red-700 border border-red-200">
                     PDF
@@ -194,6 +194,12 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
             </div>
           </div>
 
+          {instrument.pdfWarning && (
+            <div role="note" className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-sm text-amber-950">
+              <strong>Revisión documental pendiente: </strong>{instrument.pdfWarning}
+            </div>
+          )}
+
           {instrument.pdfDescription && (
             <p className="text-xs text-slate-600 leading-relaxed">
               {instrument.pdfDescription}
@@ -208,8 +214,9 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
               </div>
               <p className="text-[11px] leading-relaxed text-amber-900">
                 El archivo PDF reúne el material disponible de la batería DAT,
-                incluyendo la hoja de respuestas y los baremos normativos
-                masculino y femenino. OrientIA no aplica corrección algorítmica
+                incluyendo hojas de respuestas, claves de corrección y baremos
+                masculino y femenino. No incluye los cuadernillos de preguntas.
+                OrientIA no aplica corrección algorítmica
                 ni utiliza baremos ficticios. La valoración debe seguir el
                 procedimiento establecido por la cátedra.
               </p>

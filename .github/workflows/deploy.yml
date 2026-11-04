@@ -2,9 +2,6 @@
 name: Deploy OrientIA to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
@@ -26,13 +23,21 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: 22
+          node-version-file: .node-version
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --package-lock=false
+
+      - name: Check TypeScript
+        run: npm run lint
 
       - name: Build OrientIA
         run: npm run build
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL || 'https://orientia-web.onrender.com' }}
+
+      - name: Verify deployment contract
+        run: npm run test:deployment
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
