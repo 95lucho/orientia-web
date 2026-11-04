@@ -6,10 +6,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     name: 'Cuestionario de Intereses Ocupacionales',
     shortName: 'Intereses Ocupacionales',
     category: 'Intereses Vocacionales',
-    academicAuthor: 'Instrumento curricular adaptado para orientación vocacional y profesional',
+    academicAuthor: 'Autoría original y edición pendientes de confirmación',
     theoreticalFramework: 'Enfoque de autoexploración de preferencias ocupacionales y campos de desempeño laboral',
     targetAudience: 'Estudiantes de educación secundaria superior, preuniversitarios y aspirantes a carreras universitarias',
-    estimatedDuration: '30 a 45 minutos',
+    estimatedDuration: 'No indicada en el PDF; confirmar con la cátedra',
     applicationMode: 'Autoadministrado o grupal con supervisión orientadora del educador',
       description:
       'Instrumento de orientación vocacional diseñado para registrar las inclinaciones, preferencias y expectativas del estudiante hacia diversos campos ocupacionales. Permite contrastar áreas de trabajo con proyectos personales de formación técnica y universitaria.',
@@ -29,12 +29,12 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
       'No dejes ninguna afirmación sin responder.'
     ],
     status: 'pending_items',
-    itemCountExpected: 'Variable según versión curricular',
-    itemFormatDescription: 'Escala de preferencias por actividades o campos de ocupación laboral.',
-    materialNotes: 'Estructura lista para la integración del protocolo oficial de la cátedra.',
+    itemCountExpected: '60 actividades distribuidas en 10 secciones (A–J)',
+    itemFormatDescription: '10 secciones de 6 actividades; escala de 1 (me desagrada mucho) a 5 (me gusta mucho).',
+    materialNotes: 'PDF disponible: 3 páginas con instrucciones, secciones A–J y clasificación de intereses. No corresponde a los 17 campos del IPP. Autoría original, edición y tiempo de aplicación pendientes de confirmación.',
     pdfPath: '/instruments/intereses-ocupacionales.pdf',
     pdfButtonLabel: 'Descargar instrumento PDF',
-    pdfDescription: 'Protocolo completo del Cuestionario de Intereses Ocupacionales para exploración vocacional.'
+    pdfDescription: 'Cuestionario disponible de Intereses Ocupacionales: instrucciones, actividades y clasificación por diez áreas.'
   },
   {
     id: 'otis-superior',
@@ -44,7 +44,7 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     academicAuthor: 'Arthur S. Otis',
     theoreticalFramework: 'Teoría del Factor General de Inteligencia (Factor G) y rendimiento intelectual en tareas de razonamiento',
     targetAudience: 'Estudiantes del ciclo secundario superior, universitarios y postulantes a educación superior',
-    estimatedDuration: '30 minutos cronometrados de ejecución efectiva (más 10 min de instrucciones)',
+    estimatedDuration: '30 minutos de ejecución, según las instrucciones del PDF',
     applicationMode: 'Individual o colectiva con estricto control de tiempo cronometrado',
       description:
       'Prueba psicopedagógica clásica estandarizada para evaluar la capacidad mental general y la agilidad de razonamiento abstracto, verbal y numérico. Proporciona una estimación del nivel intelectual indispensable para fundamentar la exigencia académica de diversas carreras universitarias.',
@@ -64,9 +64,9 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
       'Trabaja con la mayor rapidez y exactitud posible. Dispones de un tiempo límite de 30 minutos.'
     ],
     status: 'pending_items',
-    itemCountExpected: 75,
-    itemFormatDescription: '75 reactivos de opción múltiple con 5 alternativas (A, B, C, D, E).',
-    materialNotes: 'Reactivos de dificultad progresiva con límite estricto de tiempo.',
+    itemCountExpected: 50,
+    itemFormatDescription: '50 preguntas de opción múltiple con 5 alternativas (A, B, C, D, E).',
+    materialNotes: 'PDF disponible: 9 páginas. Sus instrucciones indican 50 preguntas y 30 minutos; no debe confundirse con versiones de 75 reactivos. La edición exacta queda pendiente de confirmación.',
     pdfPath: '/instruments/otis-superior.pdf',
     pdfButtonLabel: 'Descargar instrumento PDF',
     pdfDescription: 'Protocolo y cuadernillo oficial del Test de Inteligencia Superior OTIS Superior.'
@@ -79,7 +79,7 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     academicAuthor: 'David Keirsey',
     theoreticalFramework: 'Teoría tipológica de cuatro temperamentos (Artesano, Guardián, Idealista, Racional) basada en Jung y Myers-Briggs',
     targetAudience: 'Jóvenes y adultos en procesos de orientación vocacional, profesional o desarrollo organizacional',
-    estimatedDuration: '25 a 35 minutos',
+    estimatedDuration: 'No indicada en el PDF; confirmar con la cátedra',
     applicationMode: 'Autoadministrado individual o grupal',
       description:
       'Cuestionario de autoobservación que clasifica el temperamento en cuatro grandes patrones conductuales: Guardianes (SJ), Artesanos (SP), Idealistas (NF) y Racionales (NT). Permite al estudiante comprender sus estilos preferenciales de interacción, toma de decisiones y ambientes laborales más congruentes con su personalidad.',
@@ -101,7 +101,7 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     status: 'pending_items',
     itemCountExpected: 70,
     itemFormatDescription: '70 preguntas con formato de elección forzada dicotómica (Opción A vs. Opción B).',
-    materialNotes: 'Explora las dimensiones E/I, S/N, T/F y J/P según el modelo Keirsey.',
+    materialNotes: 'PDF disponible: 12 páginas con 70 preguntas A/B y material de respuestas e interpretación. La edición exacta y el tiempo de aplicación quedan pendientes de confirmación.',
     pdfPath: '/instruments/keirsey.pdf',
     pdfButtonLabel: 'Descargar instrumento PDF',
     pdfDescription: 'Protocolo y cuestionario de autoobservación del Determinante de Temperamento de Keirsey.'
@@ -111,10 +111,10 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     name: 'Test de Hábitos de Estudio',
     shortName: 'Hábitos de Estudio',
     category: 'Hábitos y Técnicas de Estudio',
-    academicAuthor: 'Instrumento psicopedagógico de evaluación formativa de técnicas de estudio',
+    academicAuthor: 'Autoría original y edición pendientes de confirmación',
     theoreticalFramework: 'Psicología educativa del aprendizaje autorregulado y métodos de trabajo intelectual',
     targetAudience: 'Estudiantes de educación secundaria y estudiantes universitarios (especialmente de primeros semestres)',
-    estimatedDuration: '20 a 30 minutos',
+    estimatedDuration: 'No indicada en el PDF; confirmar con la cátedra',
     applicationMode: 'Individual o grupal en aula o gabinete psicopedagógico',
       description:
       'Instrumento de diagnóstico pedagógico indispensable en Ciencias de la Educación para evaluar las conductas de estudio: distribución del tiempo, condiciones ambientales del lugar de estudio, métodos de lectura y síntesis, toma de apuntes y preparación para exámenes.',
@@ -130,13 +130,13 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     ],
     studentInstructions: [
       'Lee cada una de las afirmaciones referidas a tu forma habitual de estudiar y organizar tus materias.',
-      'Marca la opción que mejor refleje la frecuencia con la que realizas esa conducta (Siempre, A veces, Rara vez o Nunca).',
+      'Anota 3 si lo haces siempre, 2 si lo haces algunas veces y 1 si nunca lo haces, según las instrucciones del PDF.',
       'Sé sincero(a); esto permitirá identificar qué técnicas te ayudarán a estudiar con menor esfuerzo y mejores resultados.'
     ],
     status: 'pending_items',
-    itemCountExpected: '30 a 50 ítems según escala',
-    itemFormatDescription: 'Escala de frecuencia tipo Likert (Siempre / A veces / Rara vez / Nunca).',
-    materialNotes: 'Diagnóstico formativo aplicable a tutorías de la carrera Ciencias de la Educación.',
+    itemCountExpected: 40,
+    itemFormatDescription: '40 preguntas con tres respuestas: Siempre (3), Algunas veces (2) y Nunca (1).',
+    materialNotes: 'PDF disponible: 4 páginas con instrucciones, 40 preguntas y hoja de respuestas. La clave menciona Hábitos Higiénicos, Condiciones Materiales, Hábitos de Estudio y Capacidad de Estudio. Existe una discrepancia de siglas ME/HE en la hoja; su corrección e interpretación requieren confirmación de la cátedra. No se calcula una puntuación automática.',
     pdfPath: '/instruments/habitos-estudio.pdf',
     pdfButtonLabel: 'Descargar instrumento PDF',
     pdfDescription: 'Protocolo oficial del Test de Hábitos de Estudio para Ciencias de la Educación.'
@@ -149,7 +149,7 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     academicAuthor: 'María Victoria de la Cruz López',
     theoreticalFramework: 'Evaluación multifactorial de intereses en profesiones y tareas de aprendizaje (TEA Ediciones)',
     targetAudience: 'Jóvenes a partir de 13-14 años, bachilleres y estudiantes universitarios',
-    estimatedDuration: '30 a 50 minutos',
+    estimatedDuration: 'No indicada en el PDF; confirmar con la cátedra',
     applicationMode: 'Individual o colectiva',
       description:
       'Instrumento riguroso de orientación profesional que evalúa los intereses hacia 17 campos profesionales distintos, contrastando la preferencia por realizar tareas concretas frente a la atracción por las profesiones u ocupaciones correspondientes. Permite identificar la consistencia entre el gusto por la labor cotidiana y el título profesional.',
@@ -159,32 +159,33 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
       'Orientar la elección de carreras universitarias y técnicas con base en perfiles vocacionales consistentes.'
     ],
     applicatorInstructions: [
-      'Instruir claramente sobre las 4 opciones de respuesta para cada actividad o profesión propuesta.',
+      'Confirmar con la cátedra las instrucciones y alternativas de respuesta de esta edición antes de administrarla.',
       'Comprobar que los estudiantes entiendan que deben valorar tanto profesiones como tareas formativas.',
       'Analizar las discrepancias entre agrado por la profesión y rechazo a las materias de formación requeridas.'
     ],
     studentInstructions: [
       'Se presentan diversas actividades, tareas y profesiones.',
-      'Indica para cada una tu grado de preferencia: A (Me gusta mucho), B (Me gusta algo / Indiferente), C (No me gusta) o D (Desconozco la actividad).',
+      'Solicita las instrucciones de respuesta de la versión utilizada; el PDF publicado no permite verificar el significado de las alternativas.',
       'Responde según tu interés real y no según si consideras que es fácil o difícil de estudiar.'
     ],
     status: 'pending_items',
     itemCountExpected: '204 elementos (profesiones y tareas)',
-    itemFormatDescription: 'Escala de 4 alternativas (A: Me gusta / B: Indiferente / C: No me gusta / D: Desconozco).',
-    materialNotes: 'Comprende 17 campos profesionales y escalas de consistencia interna.',
+    itemFormatDescription: '204 elementos numerados y hoja organizada en 17 campos (I–XVII). Las alternativas de respuesta requieren confirmación.',
+    materialNotes: 'PDF disponible: 11 páginas. La página 11 (hoja de respuestas) presenta errores internos de compresión detectados por dos lectores. Se necesita una copia íntegra y confirmar edición, instrucciones y correspondencia de campos antes de su aplicación.',
     pdfPath: '/instruments/ipp.pdf',
     pdfButtonLabel: 'Descargar instrumento PDF',
-    pdfDescription: 'Cuadernillo y protocolo de Intereses y Preferencias Profesionales (IPP).'
+    pdfDescription: 'Documento IPP disponible con elementos numerados hasta 204 y hoja de respuestas. Integridad de la página 11 pendiente de resolución.',
+    pdfWarning: 'El PDF de IPP presenta errores internos en la página 11, correspondiente a la hoja de respuestas. Su visualización puede estar incompleta. Se requiere una copia íntegra antes de utilizarla para aplicar o corregir el instrumento.'
   },
   {
     id: 'dat-aptitudes',
-    name: 'Differential Aptitude Tests (DAT) – Batería Completa de 8 Pruebas',
+    name: 'Differential Aptitude Tests (DAT) – Batería de 8 Pruebas',
     shortName: 'DAT',
     category: 'Batería de Aptitudes Diferenciales',
     academicAuthor: 'George K. Bennett, Harold G. Seashore y Alexander G. Wesman',
     theoreticalFramework: 'Teoría psicométrica de evaluación multifactorial de aptitudes intelectuales diferenciales',
     targetAudience: 'Estudiantes de educación secundaria superior, bachillerato y educación universitaria',
-    estimatedDuration: 'Aplicación en varias sesiones (cada subprueba dispone de su propio límite cronometrado de 20 a 30 min)',
+    estimatedDuration: 'Tiempos por subprueba: consultar los cuadernillos físicos y el manual de la cátedra',
     applicationMode: 'Colectiva o individual con hoja de respuestas estandarizada y tiempos independientes por prueba',
       description:
       'Batería clásica e integrada compuesta por ocho pruebas psicopedagógicas diseñadas para medir la capacidad de aprender o desarrollar habilidades en áreas específicas del rendimiento intelectual. En el marco de la cátedra de Orientación Vocacional y Profesional, esta batería se concibe como una unidad que articula ocho dimensiones cognitivas.',
@@ -213,8 +214,8 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
     hasPhysicalBooklets: true,
     hasAnswerSheetAndNorms: true,
     pdfPath: '/instruments/dat.pdf',
-    pdfButtonLabel: 'Descargar DAT y material de corrección',
-    pdfDescription: 'Documento oficial completo que reúne el instrumento DAT, la hoja de respuestas estandarizada y el material de corrección con los baremos normativos (masculino y femenino) autorizados por la cátedra.',
+    pdfButtonLabel: 'Descargar hojas y material de corrección DAT',
+    pdfDescription: 'PDF de 8 páginas: hojas de respuestas (páginas 1–4), claves de corrección (5–6) y baremos masculino y femenino (7–8). No incluye los ocho cuadernillos de preguntas, que permanecen en soporte físico.',
     subtests: [
       {
         id: 'dat-ar',
@@ -249,7 +250,7 @@ export const VOCATIONAL_INSTRUMENTS: VocationalInstrument[] = [
         name: 'Relaciones Espaciales',
         shortCode: 'SR',
         evaluationArea: 'Visualización y manipulación tridimensional de objetos',
-        description: 'Evalúa la habilidad para visualizarMentalmente objetos tridimensionales a partir de patrones bidimensionales plegados.'
+        description: 'Evalúa la habilidad para visualizar mentalmente objetos tridimensionales a partir de patrones bidimensionales plegados.'
       },
       {
         id: 'dat-lu',
