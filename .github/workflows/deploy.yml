@@ -31,6 +31,9 @@ jobs:
       - name: Check TypeScript
         run: npm run lint
 
+      - name: Check backend safeguards
+        run: npm run test:backend
+
       - name: Build OrientIA
         run: npm run build
         env:

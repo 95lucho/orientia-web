@@ -13,7 +13,8 @@
     "start": "node server.ts",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "test:deployment": "node --test tests/deployment.test.mjs"
+    "test:deployment": "node --test tests/deployment.test.mjs",
+    "test:backend": "node --test --test-isolation=none tests/backend.test.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

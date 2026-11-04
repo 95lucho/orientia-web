@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { ChatMessage } from '../../types/vocational';
 import { MarkdownContent } from './MarkdownContent';
+import { buildChatPayload } from '../../utils/chatPayload';
 
 // Backend base URL: uses Render deployment in production, relative path in local development
 const API_BASE_URL = (import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://orientia-web.onrender.com' : '')).replace(/\/+$/, '');
@@ -44,8 +45,8 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
 
   const [inputPrompt, setInputPrompt] = useState(initialPrompt || '');
   const [isLoading, setIsLoading] = useState(false);
-  const [, setServerStatus] = useState<{ online: boolean; gemini: boolean }>({
-    online: true,
+  const [serverStatus, setServerStatus] = useState<{ online: boolean | null; gemini: boolean }>({
+    online: null,
     gemini: false,
   });
 
@@ -70,8 +71,8 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
 
   // Check health and server-side config on mount
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/health`)
-      .then((res) => res.json())
+    fetch(`${API_BASE_URL}/api/health`, { signal: AbortSignal.timeout(10000) })
+      .then((res) => { if (!res.ok) throw new Error('Health unavailable'); return res.json(); })
       .then((data) => {
         setServerStatus({
           online: data.status === 'online',
@@ -107,26 +108,25 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          messages: updatedMessages.map((m) => ({
-            role: m.role,
-            content: m.content,
-          })),
-        }),
+        body: JSON.stringify(buildChatPayload(updatedMessages)),
+        signal: AbortSignal.timeout(25000),
       });
 
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error(`Error en el servidor: ${response.status}`);
+        throw new Error(typeof data.error === 'string' ? data.error : `Error en el servidor: ${response.status}`);
       }
 
-      const data = await response.json();
+      if (typeof data.reply !== 'string' || !data.reply.trim()) throw new Error('El servidor no devolvió una respuesta válida.');
 
       const assistantMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
         content: data.reply || 'No se obtuvo respuesta del asistente.',
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        source: data.source || 'gemini-3.8-flash',
+        source: ['gemini', 'gemini-3.8-flash', 'orientia-educational-engine'].includes(data.source) ? data.source : 'system',
+        model: typeof data.model === 'string' ? data.model : undefined,
+        note: typeof data.note === 'string' ? data.note : undefined,
       };
 
       setMessages((prev) => [...prev, assistantMsg]);
@@ -164,16 +164,17 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
     '¿Qué áreas explora el Test de Hábitos de Estudio en la universidad?',
   ];
 
-  const getSourceDisplay = (source?: string) => {
+  const getSourceDisplay = (source?: string, model?: string) => {
     switch (source) {
       case 'gemini-3.8-flash':
+      case 'gemini':
         return {
-          label: 'Modelo Gemini 3.8 Flash (Procesamiento IA)',
+          label: model ? `Gemini · ${model}` : 'Gemini',
           isLiveAI: true,
         };
       case 'orientia-educational-engine':
         return {
-          label: 'Servidor Educativo OrientIA (Base de Conocimiento de Cátedra)',
+          label: 'Respuesta educativa local',
           isLiveAI: false,
         };
       case 'system':
@@ -183,7 +184,7 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
         };
       default:
         return {
-          label: 'Servidor Educativo OrientIA',
+          label: 'Fuente sin verificar',
           isLiveAI: false,
         };
     }
@@ -212,6 +213,12 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
           <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
             Asistente pedagógico para consultas teóricas, análisis de los 6 instrumentos y contenidos curriculares de Orientación Vocacional y Profesional.
           </p>
+          <p className="text-xs text-slate-500" role="status">
+            {serverStatus.online === null ? 'Comprobando disponibilidad del servidor.' : !serverStatus.online
+              ? 'No se pudo comprobar la conexión. Puedes volver a intentarlo con una consulta.' : serverStatus.gemini
+              ? 'Servidor conectado. Gemini configurado; cada respuesta indica su fuente real.'
+              : 'Servidor conectado en modo educativo local.'}
+          </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
@@ -232,7 +239,7 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 bg-slate-50/60">
           {messages.map((message) => {
             const isUser = message.role === 'user';
-            const sourceInfo = !isUser && message.source ? getSourceDisplay(message.source) : null;
+            const sourceInfo = !isUser && message.source ? getSourceDisplay(message.source, message.model) : null;
 
             return (
               <div
@@ -271,6 +278,7 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
                     }`}
                   >
                     <MarkdownContent content={message.content} isUser={isUser} />
+                    {message.note && <p className="text-xs text-amber-800 bg-amber-50 rounded-lg p-2">{message.note}</p>}
 
                     {sourceInfo && (
                       <div className="pt-2.5 mt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-400">
@@ -342,6 +350,8 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
             }}
             placeholder="Escribe tu consulta pedagógica sobre los 6 instrumentos o la asignatura..."
             rows={1}
+            maxLength={4000}
+            aria-label="Consulta para OrientIA (máximo 4000 caracteres)"
             className="flex-1 px-4 py-2.5 rounded-2xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#023273]/20 focus:border-[#023273] text-xs sm:text-sm text-slate-800 placeholder-slate-400 resize-none max-h-32 bg-slate-50/50"
           />
 

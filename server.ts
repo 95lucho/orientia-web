@@ -3,6 +3,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
+import { createChatLimits, requestGemini, shouldRetryGemini, toGeminiContents, validateMessages } from './backend/chat.ts';
+import type { GeminiFailure, Message } from './backend/chat.ts';
 
 dotenv.config();
 
@@ -12,7 +14,10 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
-app.use(express.json({ limit: '2mb' }));
+// Render terminates the public connection at its reverse proxy.
+if (process.env.RENDER === 'true') app.set('trust proxy', 1);
+const GEMINI_MODEL = process.env.GEMINI_MODEL?.trim() || 'gemini-3.8-flash';
+const chatLimits = createChatLimits();
 
 // CORS configuration for GitHub Pages frontend and local environments
 const ALLOWED_ORIGINS = [
@@ -23,6 +28,9 @@ const ALLOWED_ORIGINS = [
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
+  if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    return res.status(403).json({ error: 'Origen no permitido.', code: 'ORIGIN_NOT_ALLOWED' });
+  }
   if (origin && ALLOWED_ORIGINS.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
     res.setHeader('Vary', 'Origin');
@@ -39,6 +47,13 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.json({ limit: '64kb' }));
+app.use((error: any, _req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (error?.type === 'entity.too.large') return res.status(413).json({ error: 'La solicitud es demasiado grande.', code: 'BODY_TOO_LARGE' });
+  if (error?.type === 'entity.parse.failed') return res.status(400).json({ error: 'El cuerpo debe ser JSON válido.', code: 'INVALID_JSON' });
+  next(error);
+});
+
 // Healthcheck endpoint
 app.get('/api/health', (_req, res) => {
   res.json({
@@ -47,7 +62,10 @@ app.get('/api/health', (_req, res) => {
     institution: 'Universidad Autónoma Gabriel René Moreno (UAGRM)',
     faculty: 'Facultad de Humanidades',
     discipline: 'Ciencias de la Educación - Orientación Vocacional y Profesional',
-    geminiConfigured: Boolean(process.env.GEMINI_API_KEY),
+    geminiConfigured: Boolean(process.env.GEMINI_API_KEY?.trim()),
+    geminiModel: GEMINI_MODEL,
+    geminiStatus: process.env.GEMINI_API_KEY?.trim() ? 'configured-unverified' : 'not-configured',
+    version: process.env.RENDER_GIT_COMMIT?.slice(0, 7) || 'local',
   });
 });
 
@@ -73,460 +91,82 @@ Tono y estilo:
 - En español formal pero cercano para estudiantes universitarios de la UAGRM.
 `;
 
-// Helper to safely serialize objects to JSON without throwing on circular references or non-serializable fields
-function safeStringify(obj: any): string {
-  if (obj === null || obj === undefined) return '';
-  if (typeof obj === 'string') return obj;
-  if (typeof obj === 'number' || typeof obj === 'boolean') return String(obj);
-
-  const seen = new WeakSet();
-
+// Validate before spending provider quota. Limits apply per running server instance.
+app.post('/api/chat', async (req, res) => {
+  let messages: Message[];
   try {
-    return JSON.stringify(obj, (_key, value) => {
-      if (value instanceof Error) {
-        const errObj: Record<string, any> = {
-          name: value.name,
-          message: value.message,
-          stack: value.stack,
-        };
-        for (const k of Object.getOwnPropertyNames(value)) {
-          errObj[k] = (value as any)[k];
-        }
-        return errObj;
+    messages = validateMessages(req.body);
+  } catch (error) {
+    return res.status(400).json({ error: (error as Error).message, code: 'INVALID_MESSAGES' });
+  }
+  const permit = chatLimits.acquire(req.ip || req.socket.remoteAddress || 'unknown');
+  if (!permit.ok) {
+    res.setHeader('Retry-After', permit.retryAfter);
+    return res.status(429).json({ error: 'Se alcanzó el límite temporal de consultas. Inténtalo más tarde.', code: 'CHAT_LIMIT' });
+  }
+
+  const controller = new AbortController();
+  const disconnect = () => { if (!res.writableEnded) controller.abort(); };
+  res.on('close', disconnect);
+  try {
+    let reason: GeminiFailure | 'not-configured' = 'not-configured';
+    if (process.env.GEMINI_API_KEY?.trim()) {
+      const ai = new GoogleGenAI({
+        apiKey: process.env.GEMINI_API_KEY,
+        httpOptions: { retryOptions: { attempts: 1 } },
+      });
+      const result = await requestGemini({
+        signal: controller.signal,
+        recoverable: shouldRetryGemini,
+        generate: (signal) => ai.models.generateContent({
+          model: GEMINI_MODEL,
+          contents: toGeminiContents(messages),
+          config: {
+            systemInstruction: ORIENTIA_SYSTEM_INSTRUCTION,
+            maxOutputTokens: 1500,
+            abortSignal: signal,
+            httpOptions: { timeout: 10000, retryOptions: { attempts: 1 } },
+          },
+        }),
+      });
+      if ('reply' in result) {
+        return res.json({ reply: result.reply, source: 'gemini', model: GEMINI_MODEL, mode: 'gemini', timestamp: new Date().toISOString() });
       }
-      if (typeof value === 'object' && value !== null) {
-        if (seen.has(value)) {
-          return '[Circular]';
-        }
-        seen.add(value);
-      }
-      if (typeof value === 'bigint') {
-        return value.toString();
-      }
-      if (typeof value === 'function') {
-        return undefined;
-      }
-      return value;
+      reason = result.reason;
+      // Do not log raw SDK errors: they may contain request details or credentials.
+      console.warn(`[OrientIA] Gemini no disponible: ${reason}`);
+    }
+    const notes: Record<GeminiFailure | 'not-configured', string> = {
+      'not-configured': 'Respuesta educativa local. Gemini no está configurado en este servidor.',
+      authentication: 'Respuesta educativa local. Gemini rechazó el acceso; el administrador debe revisar la configuración en Render.',
+      'model-unavailable': 'Respuesta educativa local. El modelo configurado no está disponible para este servicio.',
+      quota: 'Respuesta educativa local. Gemini informó un límite de cuota.',
+      timeout: 'Respuesta educativa local. Gemini no respondió dentro del tiempo permitido.',
+      'empty-response': 'Respuesta educativa local. Gemini no devolvió texto utilizable.',
+      'provider-unavailable': 'Respuesta educativa local. No fue posible obtener una respuesta de Gemini.',
+    };
+    return res.json({
+      reply: generatePedagogicalFallback(messages.at(-1)!.content),
+      source: 'orientia-educational-engine',
+      mode: reason === 'not-configured' ? 'local' : 'fallback',
+      reason, note: notes[reason], timestamp: new Date().toISOString(),
     });
   } catch {
-    try {
-      return String(obj);
-    } catch {
-      return '[Unserializable]';
+    if (!controller.signal.aborted && !res.headersSent) {
+      return res.status(503).json({ error: 'El servicio no pudo procesar la consulta. Inténtalo más tarde.', code: 'CHAT_UNAVAILABLE' });
     }
-  }
-}
-
-interface StructuredQuotaInfo {
-  quotaMetric?: string;
-  quotaId?: string;
-  retryDelay?: string | number;
-  isDaily: boolean;
-  isPerMinute: boolean;
-}
-
-// Helper to extract structured Google API quota details (google.rpc.QuotaFailure, google.rpc.ErrorInfo, google.rpc.RetryInfo)
-function extractStructuredQuota(error: any): StructuredQuotaInfo {
-  let quotaMetric: string | undefined =
-    error?.quotaMetric ||
-    error?.error?.quotaMetric ||
-    error?.quota_metric ||
-    error?.error?.quota_metric;
-
-  let quotaId: string | undefined =
-    error?.quotaId ||
-    error?.error?.quotaId ||
-    error?.quota_id ||
-    error?.error?.quota_id;
-
-  let retryDelay: string | number | undefined =
-    error?.retryDelay ||
-    error?.error?.retryDelay ||
-    error?.retry_delay ||
-    error?.error?.retry_delay;
-
-  const rawDetails: any[] = [];
-  if (Array.isArray(error?.details)) rawDetails.push(...error.details);
-  if (Array.isArray(error?.error?.details)) rawDetails.push(...error.error.details);
-  if (Array.isArray(error?.response?.data?.error?.details)) rawDetails.push(...error.response.data.error.details);
-
-  for (const detail of rawDetails) {
-    if (!detail || typeof detail !== 'object') continue;
-
-    if (!quotaMetric) {
-      quotaMetric = detail.quotaMetric || detail.quota_metric || detail.metadata?.quota_metric;
-    }
-    if (!quotaId) {
-      quotaId = detail.quotaId || detail.quota_id || detail.metadata?.quota_id;
-    }
-    if (!retryDelay) {
-      retryDelay = detail.retryDelay || detail.retry_delay;
-    }
-
-    if (Array.isArray(detail.violations)) {
-      for (const violation of detail.violations) {
-        if (!violation || typeof violation !== 'object') continue;
-        if (!quotaMetric && (violation.quotaMetric || violation.quota_metric)) {
-          quotaMetric = violation.quotaMetric || violation.quota_metric;
-        }
-        if (!quotaId && (violation.quotaId || violation.quota_id)) {
-          quotaId = violation.quotaId || violation.quota_id;
-        }
-      }
-    }
-  }
-
-  const metricStr = `${quotaMetric || ''} ${quotaId || ''}`.toLowerCase();
-
-  const isDaily =
-    metricStr.includes('per_day') ||
-    metricStr.includes('per-day') ||
-    metricStr.includes('requests_per_day') ||
-    metricStr.includes('queries_per_day') ||
-    metricStr.includes('daily') ||
-    metricStr.includes('rpd');
-
-  const isPerMinute =
-    metricStr.includes('per_minute') ||
-    metricStr.includes('per-minute') ||
-    metricStr.includes('requests_per_minute') ||
-    metricStr.includes('queries_per_minute') ||
-    metricStr.includes('tokens_per_minute') ||
-    metricStr.includes('rpm') ||
-    metricStr.includes('tpm') ||
-    Boolean(retryDelay);
-
-  return {
-    quotaMetric,
-    quotaId,
-    retryDelay,
-    isDaily,
-    isPerMinute,
-  };
-}
-
-// Helper to parse status and error message from API response with deep inspection of nested structures
-function parseErrorInfo(error: any): {
-  status?: number;
-  message: string;
-  code: string;
-  deepDetails: string;
-  quotaDetails: StructuredQuotaInfo;
-} {
-  const status =
-    typeof error?.status === 'number'
-      ? error.status
-      : typeof error?.statusCode === 'number'
-      ? error.statusCode
-      : typeof error?.response?.status === 'number'
-      ? error.response.status
-      : typeof error?.error?.code === 'number'
-      ? error.error.code
-      : undefined;
-
-  const code =
-    error?.code ||
-    error?.error?.status ||
-    error?.statusText ||
-    error?.name ||
-    '';
-
-  const primaryMsg = error?.message ? String(error.message) : '';
-  const nestedMsg = error?.error?.message ? String(error.error.message) : '';
-  const responseData = error?.response?.data ? safeStringify(error.response.data) : '';
-  const details = error?.error?.details ? safeStringify(error.error.details) : '';
-  const cause = error?.cause ? safeStringify(error.cause) : '';
-  const serialized = safeStringify(error);
-
-  // Consolidated deep text for comprehensive pattern matching across all nested structures
-  const deepDetails = [primaryMsg, nestedMsg, responseData, details, cause, serialized]
-    .filter(Boolean)
-    .join(' ');
-
-  const quotaDetails = extractStructuredQuota(error);
-
-  return {
-    status,
-    message: primaryMsg || nestedMsg || 'Error desconocido',
-    code: String(code),
-    deepDetails,
-    quotaDetails,
-  };
-}
-
-interface ErrorEvaluation {
-  isRecoverable: boolean;
-  reason: string;
-}
-
-// Distinguish recoverable transient errors (503, 429 rate limit per minute, 500, 502, 504, timeout) from definitive errors (401, 403, 400, quota diaria o de cuenta agotada)
-function isRecoverableGeminiError(error: any): ErrorEvaluation {
-  const { status, message, code, deepDetails, quotaDetails } = parseErrorInfo(error);
-  const lowerDeep = deepDetails.toLowerCase();
-  const lowerCode = String(code).toLowerCase();
-
-  // Errores definitivos de autenticación o permisos (no reintentar)
-  if (
-    status === 401 ||
-    status === 403 ||
-    lowerDeep.includes('api_key_invalid') ||
-    lowerDeep.includes('api key not valid') ||
-    lowerDeep.includes('permission_denied') ||
-    lowerCode.includes('permission_denied') ||
-    lowerDeep.includes('unauthorized') ||
-    lowerDeep.includes('forbidden')
-  ) {
-    return {
-      isRecoverable: false,
-      reason: 'Error definitivo de autenticación o permisos (API Key inválida o no autorizada)',
-    };
-  }
-
-  // Errores de solicitud inválida o recurso inexistente (no reintentar)
-  if (
-    status === 400 ||
-    status === 404 ||
-    lowerDeep.includes('invalid_argument') ||
-    lowerCode.includes('invalid_argument')
-  ) {
-    return {
-      isRecoverable: false,
-      reason: 'Solicitud rechazada (parámetros no válidos o recurso no encontrado)',
-    };
-  }
-
-  // Error 429: diferenciar cuota diaria/de cuenta vs cuota por minuto/transitoria
-  if (
-    status === 429 ||
-    lowerDeep.includes('429') ||
-    lowerDeep.includes('resource_exhausted') ||
-    lowerCode.includes('resource_exhausted')
-  ) {
-    const isHardQuota =
-      quotaDetails.isDaily ||
-      lowerDeep.includes('per_day') ||
-      lowerDeep.includes('requests per day') ||
-      lowerDeep.includes('daily quota') ||
-      lowerDeep.includes('rpd limit') ||
-      lowerDeep.includes('quota_exceeded') ||
-      lowerDeep.includes('quota exceeded') ||
-      lowerDeep.includes('insufficient_quota') ||
-      lowerDeep.includes('insufficient quota') ||
-      lowerDeep.includes('exceeded your current quota') ||
-      lowerDeep.includes('free tier limit') ||
-      lowerDeep.includes('free_tier_limit') ||
-      lowerDeep.includes('check your plan and billing') ||
-      lowerDeep.includes('billing not active') ||
-      lowerDeep.includes('project_billing_not_active');
-
-    if (isHardQuota) {
-      const metricLabel = quotaDetails.quotaMetric ? ` [métrica: ${quotaDetails.quotaMetric}]` : '';
-      return {
-        isRecoverable: false,
-        reason: `Cuota diaria o de cuenta agotada en Gemini API${metricLabel} (no reintentable)`,
-      };
-    }
-
-    const metricInfo = quotaDetails.quotaMetric
-      ? ` [métrica: ${quotaDetails.quotaMetric}]`
-      : quotaDetails.retryDelay
-      ? ` [retryDelay: ${quotaDetails.retryDelay}]`
-      : '';
-
-    return {
-      isRecoverable: true,
-      reason: `Límite de tasa por minuto o saturación temporal recuperable (429/RESOURCE_EXHAUSTED)${metricInfo}`,
-    };
-  }
-
-  // Errores 503, 500, 502, 504, timeout y caídas de red transitorias
-  if (
-    status === 503 ||
-    status === 500 ||
-    status === 502 ||
-    status === 504 ||
-    lowerDeep.includes('503') ||
-    lowerDeep.includes('unavailable') ||
-    lowerDeep.includes('high demand') ||
-    lowerDeep.includes('overloaded') ||
-    lowerDeep.includes('deadline_exceeded') ||
-    lowerDeep.includes('timeout') ||
-    lowerDeep.includes('aborterror') ||
-    lowerDeep.includes('timeouterror') ||
-    lowerDeep.includes('econnreset') ||
-    lowerDeep.includes('etimedout') ||
-    lowerDeep.includes('fetch failed')
-  ) {
-    return {
-      isRecoverable: true,
-      reason: 'Indisponibilidad transitoria del servicio o saturación temporal de Gemini (503/504/timeout)',
-    };
-  }
-
-  return {
-    isRecoverable: false,
-    reason: `Error no catalogado como recuperable: ${message.slice(0, 120)}`,
-  };
-}
-
-// Timeout wrapper that guarantees real network cancellation via AbortController and native @google/genai httpOptions
-async function callGeminiWithTimeout(
-  ai: GoogleGenAI,
-  contents: any[],
-  timeoutMs: number = 15000
-): Promise<any> {
-  const controller = new AbortController();
-  let timer: NodeJS.Timeout | null = null;
-
-  try {
-    const timeoutPromise = new Promise<never>((_, reject) => {
-      timer = setTimeout(() => {
-        // Cancelar activamente la solicitud HTTP subyacente para liberar sockets y recursos
-        controller.abort();
-        const timeoutErr = new Error(`Tiempo de espera de ${timeoutMs}ms superado en llamada a Gemini`);
-        (timeoutErr as any).name = 'TimeoutError';
-        reject(timeoutErr);
-      }, timeoutMs);
-    });
-
-    const apiCallPromise = ai.models.generateContent({
-      model: 'gemini-3.8-flash',
-      contents,
-      config: {
-        systemInstruction: ORIENTIA_SYSTEM_INSTRUCTION,
-        abortSignal: controller.signal,
-        httpOptions: {
-          timeout: timeoutMs,
-        },
-      },
-    });
-
-    return await Promise.race([apiCallPromise, timeoutPromise]);
   } finally {
-    if (timer) {
-      clearTimeout(timer);
-    }
-  }
-}
-
-// Secure Chat endpoint
-app.post('/api/chat', async (req, res) => {
-  try {
-    const { messages } = req.body;
-
-    if (!Array.isArray(messages) || messages.length === 0) {
-      return res.status(400).json({ error: 'La conversación debe contener al menos un mensaje.' });
-    }
-
-    const lastMessage = messages[messages.length - 1];
-    const userPrompt = lastMessage?.content || '';
-
-    // If Gemini API Key is available, invoke Gemini 3.8 Flash server-side with controlled retries
-    if (process.env.GEMINI_API_KEY) {
-      try {
-        const ai = new GoogleGenAI({
-          apiKey: process.env.GEMINI_API_KEY,
-          httpOptions: {
-            headers: {
-              'User-Agent': 'aistudio-build',
-            },
-          },
-        });
-
-        // Ensure Gemini contents start with a 'user' message and alternate properly
-        const userAndModelMessages = messages
-          .filter((m: { role: string; content: string }) => m.content && m.content.trim().length > 0)
-          .map((m: { role: string; content: string }) => ({
-            role: m.role === 'assistant' ? 'model' : 'user',
-            parts: [{ text: m.content }],
-          }));
-
-        // Remove any leading 'model' messages since Gemini contents must start with 'user'
-        while (userAndModelMessages.length > 0 && userAndModelMessages[0].role === 'model') {
-          userAndModelMessages.shift();
-        }
-
-        // If after cleaning there are no user messages, use default
-        if (userAndModelMessages.length === 0) {
-          userAndModelMessages.push({
-            role: 'user',
-            parts: [{ text: userPrompt || 'Hola OrientIA' }],
-          });
-        }
-
-        const MAX_RETRIES = 2; // Intento 0 inicial + hasta 2 reintentos (máximo 3 llamadas)
-        let replyText: string | null = null;
-
-        for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
-          try {
-            if (attempt > 0) {
-              // Espera progresiva: ~1500ms en intento 1 y ~3000ms en intento 2, con variación aleatoria (+/- 150ms)
-              const baseDelay = attempt === 1 ? 1500 : 3000;
-              const jitter = Math.floor(Math.random() * 300) - 150;
-              const waitTime = Math.max(1000, baseDelay + jitter);
-
-              console.warn(`[OrientIA Gemini] Reintento ${attempt}/${MAX_RETRIES} programado tras espera de ${waitTime}ms...`);
-              await new Promise((resolve) => setTimeout(resolve, waitTime));
-            }
-
-            const response: any = await callGeminiWithTimeout(ai, userAndModelMessages, 15000);
-            replyText = response?.text || 'No fue posible generar una respuesta en este momento.';
-            break; // Éxito
-          } catch (geminiError: any) {
-            const { isRecoverable, reason } = isRecoverableGeminiError(geminiError);
-            console.warn(
-              `[OrientIA Gemini] Intento ${attempt + 1}/${MAX_RETRIES + 1} no completado: ${reason}. Detalle: ${geminiError?.message || geminiError}`
-            );
-
-            // Detener reintentos si el error no es transitorio/recuperable
-            if (!isRecoverable) {
-              console.warn('[OrientIA Gemini] Error clasificado como no recuperable; se suspenden reintentos adicionales.');
-              break;
-            }
-
-            if (attempt === MAX_RETRIES) {
-              console.warn('[OrientIA Gemini] Se agotaron los 2 reintentos adicionales sin éxito.');
-            }
-          }
-        }
-
-        if (replyText) {
-          return res.json({
-            reply: replyText,
-            source: 'gemini-3.8-flash',
-            timestamp: new Date().toISOString(),
-          });
-        }
-
-        console.warn('[OrientIA Gemini] Conectando con fallback pedagógico tras agotar intentos con Gemini.');
-      } catch (geminiInitError: any) {
-        console.error('Error al inicializar cliente de Gemini:', geminiInitError);
-      }
-    }
-
-    // Pedagogical Fallback / Educational Simulator when key is pending
-    const simulatedResponse = generatePedagogicalFallback(userPrompt);
-    return res.json({
-      reply: simulatedResponse,
-      source: 'orientia-educational-engine',
-      note: 'Conexión del servidor activa. Puedes configurar tu clave de Gemini en el panel de secretos si deseas respuestas en vivo generadas por el modelo.',
-      timestamp: new Date().toISOString(),
-    });
-  } catch (error: any) {
-    console.error('Internal server error in /api/chat:', error);
-    return res.status(500).json({
-      error: 'Ocurrió un error en el servidor de OrientIA al procesar la consulta.',
-      details: error.message,
-    });
+    permit.release();
+    res.off('close', disconnect);
   }
 });
 
 // Helper for pedagogical context when testing in development without external API calls
 function generatePedagogicalFallback(query: string): string {
-  const lower = query.toLowerCase();
+  const lower = query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
   let advice = '';
-  if (lower.includes('dat') || lower.includes('aptitud') || lower.includes('batería')) {
+  if ((/\bdat\b/.test(lower)) || lower.includes('aptitud') || lower.includes('bateria')) {
     advice = `### Sobre el Differential Aptitude Tests (DAT)
 En la cátedra de **Orientación Vocacional y Profesional**, la batería **DAT** se analiza como una herramienta multifactorial integrada por **ocho pruebas independientes**:
 1. Razonamiento Abstracto (AR)
@@ -572,7 +212,7 @@ El PDF disponible contiene **60 actividades distribuidas en 10 secciones A–J**
 Las áreas de su clasificación son: al aire libre, mecánico, cálculo, científico, persuasivos, artístico-plásticos, literarios, musicales, servicio social y oficina. No debe confundirse con los 17 campos del IPP.
 
 La autoría original, edición y tiempo de aplicación requieren confirmación de la cátedra. Su uso es de apoyo a la reflexión vocacional; no constituye un diagnóstico automático.`;
-  } else if (lower.includes('hábito') || lower.includes('estudio')) {
+  } else if (lower.includes('habito') || lower.includes('estudio')) {
     advice = `### Sobre el Test de Hábitos de Estudio
 El PDF publicado contiene **40 preguntas** con tres respuestas: **Siempre (3), Algunas veces (2) y Nunca (1)**.
 
@@ -580,7 +220,22 @@ La clave de la hoja de respuestas menciona **Hábitos Higiénicos**, **Condicion
 
 **Acción orientadora:**
 - Es el punto de partida para programas de tutoría pedagógica y prevención del abandono universitario en los primeros semestres de la UAGRM.`;
-  } else if (lower.includes('rol') || lower.includes('educación') || lower.includes('pedagogo') || lower.includes('docente')) {
+  } else if (lower.includes('orientacion') || lower.includes('vocacion') || lower.includes('proyecto de vida')) {
+    advice = `### ¿Qué es la orientación vocacional?
+La **orientación vocacional** es un proceso de acompañamiento que ayuda a conocer tus intereses, habilidades, valores y circunstancias para tomar decisiones informadas sobre estudios, trabajo y proyecto de vida. No consiste en que un test o una persona elija una carrera por ti.
+
+### ¿Cómo se trabaja?
+1. **Autoconocimiento:** explorar qué actividades disfrutas, qué aprendes con facilidad y qué valoras.
+2. **Información:** investigar carreras, planes de estudio, tareas profesionales, costos y oportunidades reales.
+3. **Contraste:** relacionar esa información con tus capacidades, hábitos y condiciones personales.
+4. **Decisión y seguimiento:** elegir una alternativa, planificar pasos concretos y revisar la decisión con nuevas experiencias.
+
+**Ejemplo:** Si te gusta ayudar a otras personas, puedes comparar tareas de educación, salud o trabajo social. Conversar con profesionales y participar en actividades de esas áreas aporta información que un resultado de test aislado no ofrece.
+
+En Ciencias de la Educación, el orientador facilita esta reflexión mediante entrevistas, actividades y uso responsable de instrumentos. Los seis instrumentos de OrientIA son recursos de apoyo; no producen una decisión ni un diagnóstico automático.
+
+¿Qué te gustaría profundizar: autoconocimiento, comparación de carreras o elaboración de un proyecto de vida?`;
+  } else if (lower.includes('rol') || lower.includes('educacion') || lower.includes('pedagogo') || lower.includes('docente')) {
     advice = `### El Rol del Licenciado en Ciencias de la Educación en la Orientación
 El orientador educativo no "elige" la carrera del estudiante; su función esencial es **acompañar la toma de decisiones conscientes, informadas y autónomas**.
 

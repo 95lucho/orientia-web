@@ -141,7 +141,44 @@ test('production API returns a local educational reply without contacting Gemini
   assert.equal(response.status, 200);
   const data = await response.json();
   assert.equal(data.source, 'orientia-educational-engine');
+  assert.equal(data.mode, 'local');
+  assert.equal(data.reason, 'not-configured');
+  assert.match(data.note, /local/);
   assert.match(data.reply, /ocho pruebas/);
+});
+
+test('API validates malformed input and returns JSON errors with CORS', async () => {
+  for (const payload of ['{', 'null', '{"messages":[{"role":"user","content":42}]}', '{"messages":[]}']) {
+    const response = await fetch(api + '/api/chat', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', Origin: 'https://95lucho.github.io' }, body: payload,
+    });
+    assert.equal(response.status, 400);
+    assert.equal(response.headers.get('access-control-allow-origin'), 'https://95lucho.github.io');
+    const data = await response.json(); assert.ok(data.code); assert.equal(data.details, undefined);
+  }
+  const oversized = await fetch(api + '/api/chat', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages: [{ role: 'user', content: 'x'.repeat(70000) }] }),
+  });
+  assert.equal(oversized.status, 413); assert.equal((await oversized.json()).code, 'BODY_TOO_LARGE');
+});
+
+test('API rejects unauthorized browser origins before processing chat', async () => {
+  const response = await fetch(api + '/api/chat', {
+    method: 'POST', headers: { Origin: 'https://untrusted.example', 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages: [{ role: 'user', content: 'hola' }] }),
+  });
+  assert.equal(response.status, 403); assert.equal(response.headers.get('access-control-allow-origin'), null);
+  assert.equal((await response.json()).code, 'ORIGIN_NOT_ALLOWED');
+});
+
+test('local vocational guidance provides an explanation and example', async () => {
+  const response = await fetch(api + '/api/chat', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages: [{ role: 'user', content: 'háblame sobre orientación vocacional' }] }),
+  });
+  const data = await response.json(); assert.equal(response.status, 200);
+  assert.match(data.reply, /Autoconocimiento/); assert.match(data.reply, /Ejemplo/);
 });
 
 test('production API does not serve frontend HTML for missing resources or endpoints', async () => {
@@ -170,4 +207,21 @@ test('educational replies distinguish the published instrument versions and IPP 
     assert.equal(data.source, 'orientia-educational-engine');
     for (const pattern of patterns) assert.match(data.reply, pattern, content);
   }
+});
+
+test('API enforces a request limit and returns Retry-After', async () => {
+  let limited = false;
+  for (let attempt = 0; attempt < 13; attempt++) {
+    const response = await fetch(api + '/api/chat', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: [{ role: 'user', content: 'hola' }] }),
+    });
+    const data = await response.json();
+    if (response.status === 429) {
+      assert.ok(Number(response.headers.get('retry-after')) > 0);
+      assert.equal(data.code, 'CHAT_LIMIT'); limited = true; break;
+    }
+    assert.equal(response.status, 200);
+  }
+  assert.equal(limited, true);
 });

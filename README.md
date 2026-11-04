@@ -27,11 +27,12 @@ No es necesario configurar Gemini para revisar la interfaz o usar las respuestas
 
 ```sh
 npm run lint
+npm run test:backend
 npm run build
 npm run test:deployment
 ```
 
-Las pruebas arrancan procesos locales temporales y comprueban JS/CSS bajo `/orientia-web/`, los seis PDF, ambos enlaces PDF del HTML de Hábitos, salud de la API, CORS para Pages, chat local y respuestas 404 de la API. No llaman a Gemini. Verifican que los PDF se sirven como archivos PDF, no su integridad documental completa.
+Las pruebas de backend ejercitan validación, contexto, límites, reintentos, cancelación y fallos simulados de Gemini. El runner usa `--test-isolation=none` para ejecutar y contabilizar los casos que importan TypeScript nativo en Node 24. Las pruebas de despliegue arrancan procesos locales temporales y comprueban JS/CSS bajo `/orientia-web/`, los seis PDF, ambos enlaces PDF del HTML de Hábitos, salud de la API, CORS, chat local, entradas inválidas, límite de solicitudes y respuestas 404. No llaman a Gemini. Verifican que los PDF se sirven como archivos PDF, no su integridad documental completa.
 
 No hay lockfile versionado todavía. Las instalaciones pueden resolver versiones diferentes; fijarlas se abordará en la fase de reproducibilidad.
 
@@ -66,7 +67,20 @@ Para configurar el servicio existente manualmente, revisar:
 
 Render suministra `PORT`; el servidor escucha en `0.0.0.0`. Para este servicio no se necesita ejecutar `vite build`. La integración Vite se carga únicamente en desarrollo.
 
-Configurar `GEMINI_API_KEY` en los secretos del servicio si se desea Gemini. Sin clave, el servidor devuelve respuestas educativas locales. `/api/health` informa la presencia de la clave, pero no acredita su validez ni la disponibilidad del modelo. La validación de Gemini pertenece a una fase posterior.
+La clave existente `GEMINI_API_KEY` permanece protegida en Render: no copiarla al frontend, al repositorio ni a los registros. Sin clave, el servidor devuelve respuestas educativas locales. `GEMINI_MODEL` es una variable no secreta opcional; por defecto usa `gemini-3.8-flash`, identificador mencionado en la [documentación oficial](https://ai.google.dev/gemini-api/docs/models). Su presencia en la documentación no garantiza acceso, cuota ni disponibilidad en el proyecto concreto.
+
+`/api/health` devuelve `geminiStatus=configured-unverified` cuando existe una clave, junto al modelo y la versión (`RENDER_GIT_COMMIT`). Solo una respuesta de `/api/chat` con `source=gemini` acredita una llamada con texto utilizable. La respuesta incluye el modelo real. Si falla, se conserva la respuesta educativa con `mode=fallback`, una razón segura y un aviso visible. Las respuestas locales no consultan los PDF ni mantienen una conversación generativa.
+
+Para revisar una publicación autorizada, enviar una consulta breve desde Pages y comprobar su fuente y aviso. Si cae al modo local, revisar el motivo indicado (acceso, modelo, cuota, timeout o respuesta vacía). Los registros propios solo muestran la categoría de fallo, nunca la clave ni el error completo del SDK. No mostrar ni compartir variables secretas para diagnosticarlo.
+
+## Límites de la API
+
+- JSON de hasta 64 KB; entre 1 y 24 mensajes, último mensaje del estudiante.
+- Consulta de hasta 4000 caracteres; respuesta de hasta 8000; contexto total de hasta 24000.
+- 12 consultas por dirección IP por minuto, 200 consultas globales por día UTC y 4 peticiones concurrentes, por proceso. La respuesta de rechazo usa HTTP 429 y `Retry-After`.
+- Hasta dos intentos de Gemini de 10 segundos, espera de un segundo y máximo de 1500 tokens de salida por intento. Se desactivan los reintentos internos del SDK para evitar multiplicarlos. Los fallos definitivos no se reintentan. La desconexión del cliente cancela el trabajo pendiente.
+- Las solicitudes de orígenes web ajenos se rechazan, pero CORS no autentica clientes. Los límites viven en memoria, se reinician al reiniciar el servidor y no se comparten entre réplicas. No son una garantía de facturación: cada consulta puede producir dos intentos, y quien acceda directamente a la API comparte el presupuesto global. Para escalar, harán falta almacenamiento compartido y controles de acceso o presupuesto del proveedor.
+- En Render (`RENDER=true`) se confía en un salto de proxy para obtener la IP. Validar esa topología antes de añadir otros proxies; no establecer confianza ilimitada en `X-Forwarded-For`.
 
 El origen de Pages permitido por CORS es `https://95lucho.github.io`, sin la subruta del repositorio. Un dominio personalizado requerirá actualizar los orígenes permitidos.
 

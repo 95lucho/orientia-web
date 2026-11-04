@@ -54,5 +54,7 @@ export interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
   timestamp: string;
-  source?: 'gemini-3.8-flash' | 'orientia-educational-engine' | 'system';
+  source?: 'gemini' | 'gemini-3.8-flash' | 'orientia-educational-engine' | 'system';
+  model?: string;
+  note?: string;
 }
