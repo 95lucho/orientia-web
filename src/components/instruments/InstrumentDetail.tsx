@@ -21,6 +21,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { VocationalInstrument } from '../../types/vocational';
+import { resolveAssetUrl } from '../../utils/assetPaths';
 
 interface InstrumentDetailProps {
   instrument: VocationalInstrument;
@@ -50,7 +51,7 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
         <div className="flex flex-wrap items-center gap-2">
           {instrument.pdfPath && (
             <a
-              href={instrument.pdfPath}
+              href={resolveAssetUrl(instrument.pdfPath)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#023273] hover:bg-[#012250] text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
@@ -171,7 +172,7 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
 
             <div className="flex flex-wrap items-center gap-2.5">
               <a
-                href={instrument.pdfPath}
+                href={resolveAssetUrl(instrument.pdfPath)}
                 download
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#023273] hover:bg-[#012250] text-white text-xs sm:text-sm font-bold transition-all shadow-xs cursor-pointer"
               >
@@ -182,7 +183,7 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
               </a>
 
               <a
-                href={instrument.pdfPath}
+                href={resolveAssetUrl(instrument.pdfPath)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold transition-all border border-slate-300 cursor-pointer"

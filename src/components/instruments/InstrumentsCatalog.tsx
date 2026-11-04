@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { VOCATIONAL_INSTRUMENTS } from '../../data/instruments';
 import { VocationalInstrument } from '../../types/vocational';
+import { resolveAssetUrl } from '../../utils/assetPaths';
 
 interface InstrumentsCatalogProps {
   onSelectInstrument: (instrumentId: string) => void;
@@ -237,7 +238,7 @@ export const InstrumentsCatalog: React.FC<InstrumentsCatalogProps> = ({ onSelect
                 <div className="flex items-center gap-1.5">
                   {instrument.pdfPath && (
                     <a
-                      href={instrument.pdfPath}
+                      href={resolveAssetUrl(instrument.pdfPath)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 p-2 rounded-xl bg-white hover:bg-slate-100 text-[#023273] border border-slate-200 text-xs font-bold transition-all shadow-2xs cursor-pointer"
