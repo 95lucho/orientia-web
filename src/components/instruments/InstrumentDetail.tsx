@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { VocationalInstrument } from '../../types/vocational';
 import { resolveAssetUrl } from '../../utils/assetPaths';
+import { ApplicationPractice } from './ApplicationPractice';
 
 interface InstrumentDetailProps {
   instrument: VocationalInstrument;
@@ -49,6 +50,10 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
         </button>
 
         <div className="flex flex-wrap items-center gap-2">
+          <button type="button" onClick={() => setActiveSubTab('estructura')} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 text-[#023273] text-xs font-bold border border-blue-200">
+            <Play className="w-3.5 h-3.5" />
+            Practicar como aplicador
+          </button>
           {instrument.pdfPath && (
             <a
               href={resolveAssetUrl(instrument.pdfPath)}
@@ -251,7 +256,7 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
           }`}
         >
           <Layers className="w-4 h-4" />
-          <span>C. Estructura y demostración</span>
+          <span>C. Practica la aplicación</span>
         </button>
       </div>
 
@@ -416,18 +421,16 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
             </div>
             <div>
               <h3 className="text-base sm:text-lg font-bold text-slate-900">
-                Estructura de la Prueba y Espacio de Demostración
+                Aprende a administrar {instrument.shortName}
               </h3>
               <p className="text-xs text-slate-500">
-                Familiarización con el formato de {instrument.shortName}
+                Práctica del rol de aplicador: preparación, consignas y decisiones de procedimiento
               </p>
             </div>
           </div>
 
           <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 text-xs sm:text-sm text-slate-700 space-y-3 leading-relaxed">
-            <p>
-              <strong>Estado de la demostración interactiva:</strong> De acuerdo con la planificación por fases, las demostraciones interactivas fieles se integrarán en la <strong>Fase 4</strong>, una vez revisados los ejemplos demostrativos oficiales de cada instrumento.
-            </p>
+            <p>Primero revisa las características del material. Después ensaya cómo orientarías a otra persona durante la administración, sin responder el instrumento ni calcular resultados.</p>
             <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-1 text-xs">
               <span className="font-bold text-[#023273] block uppercase text-[10px]">Especificación técnica del instrumento:</span>
               <p>• Formato esperado: <strong>{instrument.itemFormatDescription}</strong></p>
@@ -438,6 +441,8 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
               )}
             </div>
           </div>
+
+          <ApplicationPractice key={instrument.id} instrumentId={instrument.id} />
 
           {/* Context consultation shortcut */}
           <div className="p-4 rounded-2xl bg-blue-50 border border-blue-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">

@@ -4,6 +4,8 @@ Aplicación de apoyo académico para Orientación Vocacional y Profesional de Ci
 
 La [revisión de instrumentos](docs/revision-instrumentos.md) registra los datos contrastados con los seis PDF, sus límites y los pendientes académicos. IPP requiere una copia íntegra de su hoja de respuestas.
 
+Cada ficha incluye **C. Practica la aplicación**: una situación didáctica para el estudiante que aprende a administrar, con preparación, ensayo de consigna, elección de actuación y orientación formativa. Incluye DAT e IPP con sus límites de material. No contiene reactivos, cronometraje de pruebas, puntuaciones ni perfiles psicométricos. Las selecciones no se guardan; reiniciar o abandonar la ficha las descarta. El HTML independiente de Hábitos incluye una práctica de consigna con orientación desplegable.
+
 ## Arquitectura de despliegue
 
 - **GitHub Pages** publica el frontend y los documentos de `public/` en `https://95lucho.github.io/orientia-web/`.
