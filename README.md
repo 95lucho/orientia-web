@@ -73,7 +73,15 @@ La clave existente `GEMINI_API_KEY` permanece protegida en Render: no copiarla a
 
 Para revisar una publicación autorizada, enviar una consulta breve desde Pages y comprobar su fuente y aviso. Si cae al modo local, revisar el motivo indicado (acceso, modelo, cuota, timeout o respuesta vacía). Los registros propios solo muestran la categoría de fallo, nunca la clave ni el error completo del SDK. No mostrar ni compartir variables secretas para diagnosticarlo.
 
-## Límites de la API
+## Demostración con respuestas locales
+
+En Chatbot, el botón **Usar respuestas locales · Sin cuota** activa contenidos educativos preparados en el navegador, sin enviar consultas a Gemini ni a Render. Incluye autoconocimiento, proyecto de vida, elección de carrera, entrevista, rol del orientador, ética, hábitos y los seis instrumentos. Puede retomar el último tema identificado cuando se pide un ejemplo o una actividad; no es una conversación generativa ni una lectura automática de documentos. El botón permite volver a intentar Gemini.
+
+La misma base se usa en el servidor como respuesta de respaldo. Cuando Render devuelve una respuesta local, el frontend utiliza la base local publicada y mantiene el aviso del proveedor. Por ello una actualización de Pages permite demostrar estos contenidos aunque el despliegue manual de Render esté pendiente. El backend necesita su propio despliegue para actualizar respuestas a otros clientes de la API.
+
+Ejemplos para presentar: «Explícame el autoconocimiento», «Dame una actividad», «Compara OTIS e IPP», «¿Cómo construyo mi proyecto de vida?» y «Dame un ejemplo». Las actividades son de reflexión y no reactivos ni resultados psicométricos.
+
+## Límites de la API (por proceso)
 
 - JSON de hasta 64 KB; entre 1 y 24 mensajes, último mensaje del estudiante.
 - Consulta de hasta 4000 caracteres; respuesta de hasta 8000; contexto total de hasta 24000.

@@ -12,6 +12,7 @@ import {
 import { ChatMessage } from '../../types/vocational';
 import { MarkdownContent } from './MarkdownContent';
 import { buildChatPayload } from '../../utils/chatPayload';
+import { generateLocalReply } from '../../data/localGuidance';
 
 // Backend base URL: uses Render deployment in production, relative path in local development
 const API_BASE_URL = (import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://orientia-web.onrender.com' : '')).replace(/\/+$/, '');
@@ -45,6 +46,7 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
 
   const [inputPrompt, setInputPrompt] = useState(initialPrompt || '');
   const [isLoading, setIsLoading] = useState(false);
+  const [useLocal, setUseLocal] = useState(false);
   const [serverStatus, setServerStatus] = useState<{ online: boolean | null; gemini: boolean }>({
     online: null,
     gemini: false,
@@ -103,6 +105,15 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
     setIsLoading(true);
 
     try {
+      if (useLocal) {
+        setMessages((prev) => [...prev, {
+          id: crypto.randomUUID(), role: 'assistant', content: generateLocalReply(updatedMessages),
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          source: 'orientia-educational-engine',
+          note: 'Contenido educativo local preparado. Esta consulta no usa Gemini ni consume su cuota.',
+        }]);
+        return;
+      }
       const response = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: {
@@ -122,7 +133,7 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
       const assistantMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: data.reply || 'No se obtuvo respuesta del asistente.',
+        content: data.source === 'orientia-educational-engine' ? generateLocalReply(updatedMessages) : data.reply,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         source: ['gemini', 'gemini-3.8-flash', 'orientia-educational-engine'].includes(data.source) ? data.source : 'system',
         model: typeof data.model === 'string' ? data.model : undefined,
@@ -222,6 +233,15 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
+          <button
+            type="button"
+            aria-pressed={useLocal}
+            disabled={isLoading}
+            onClick={() => setUseLocal((value) => !value)}
+            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-blue-50 text-[#023273] border border-blue-200 disabled:opacity-50"
+          >
+            {useLocal ? 'Modo local activo · Volver a Gemini' : 'Usar respuestas locales · Sin cuota'}
+          </button>
           <button
             onClick={handleClearHistory}
             className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-[#023273] bg-slate-100 hover:bg-slate-200 transition-colors border border-slate-200 cursor-pointer"
