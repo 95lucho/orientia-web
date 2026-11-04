@@ -2,6 +2,43 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createChatLimits, failureReason, requestGemini, shouldRetryGemini, toGeminiContents, validateMessages } from '../backend/chat.ts';
 import { buildChatPayload } from '../src/utils/chatPayload.ts';
+import { generateLocalReply } from '../src/data/localGuidance.ts';
+
+const local = (...queries) => generateLocalReply(queries.map((content) => ({ role: 'user', content })));
+
+test('local guidance covers educational topics with examples and activities', () => {
+  for (const query of ['autoconocimiento', 'proyecto de vida', 'cómo elegir una carrera', 'entrevista', 'rol del orientador', 'ética', 'cómo estudiar']) {
+    const reply = local(query);
+    assert.match(reply, /Ejemplo/); assert.match(reply, /Actividad/); assert.match(reply, /Precaución/);
+  }
+});
+
+test('local follow-up uses the latest topic and changes its response for an activity', () => {
+  const first = local('proyecto de vida');
+  const second = local('proyecto de vida', 'dame una actividad');
+  assert.notEqual(first, second); assert.match(second, /Actividad: Construir un proyecto de vida/);
+  assert.match(second, /una meta/);
+  assert.match(local('proyecto de vida', 'autoconocimiento', 'dame un ejemplo'), /Ejemplo: Autoconocimiento/);
+});
+
+test('comparisons do not collapse into a single instrument reply', () => {
+  const reply = local('qué diferencia hay entre OTIS e IPP');
+  assert.match(reply, /50 preguntas/); assert.match(reply, /204 elementos/); assert.match(reply, /No miden lo mismo/);
+  const interests = local('compara IPP e intereses ocupacionales');
+  assert.match(interests, /60 actividades/); assert.match(interests, /17 campos/);
+});
+
+test('instrument follow-ups retain document limitations without inventing items', () => {
+  const reply = local('explica IPP', 'dame una actividad');
+  assert.match(reply, /página 11/); assert.match(reply, /sin fabricar reactivos/);
+  assert.match(local('explica el DAT', 'cómo se corrige'), /No calculo puntuaciones/);
+});
+
+test('unknown topics and greetings are transparent about the prepared local scope', () => {
+  assert.match(local('hola'), /contenidos educativos preparados/);
+  assert.match(local('explica física cuántica'), /fuera de esta base/);
+  assert.doesNotMatch(local('dame datos sobre autoconocimiento'), /Sobre el Differential/);
+});
 
 test('rejects malformed roles, non-text content, empty messages and oversized context', () => {
   const invalid = [null, {}, { messages: [] }, { messages: [null] },
