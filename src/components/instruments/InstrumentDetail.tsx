@@ -105,15 +105,7 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
         </p>
 
         {/* Quick Specs Badges */}
-        <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-          <div className="flex items-center gap-2.5 text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200">
-            <Users className="w-4 h-4 text-[#023273] shrink-0" />
-            <div>
-              <span className="text-slate-400 block text-[10px] uppercase font-bold">Autoría</span>
-              <span className="font-semibold text-slate-800">{instrument.academicAuthor}</span>
-            </div>
-          </div>
-
+        <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
           <div className="flex items-center gap-2.5 text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200">
             <Clock className="w-4 h-4 text-[#023273] shrink-0" />
             <div>
