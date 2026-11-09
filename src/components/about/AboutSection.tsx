@@ -1,19 +1,7 @@
 import React from 'react';
-import { 
-  Building2, 
-  GraduationCap, 
-  BookOpen, 
-  Code2, 
-  UserCheck, 
-  User, 
-  Bookmark, 
-  Calendar, 
-  Compass, 
-  FileText, 
-  Sparkles, 
-  CheckCircle2, 
-  ArrowRight
-} from 'lucide-react';
+import { ArrowRight, Building2, Compass, GraduationCap } from 'lucide-react';
+import teacherPortrait from '../../assets/credits/docente.webp';
+import developerPortrait from '../../assets/credits/desarrollador.webp';
 import { NavigationTab } from '../../types/vocational';
 
 interface AboutSectionProps {
@@ -115,7 +103,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Tarjeta 1: Docente de referencia académica */}
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-2xs space-y-4 flex flex-col justify-between">
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-2xs space-y-4">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
@@ -123,23 +111,15 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
                 </span>
               </div>
 
-              {/* Slot preparado para fotografía institucional o autorizada (sin imágenes ficticias) */}
-              <div className="w-full h-36 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/70 flex flex-col items-center justify-center text-center p-4 space-y-1.5">
-                <div className="w-10 h-10 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center">
-                  <UserCheck className="w-5 h-5" />
-                </div>
-                <span className="text-xs font-semibold text-slate-600">
-                  Espacio reservado para fotografía institucional de la docente
-                </span>
-                <span className="text-[10px] text-slate-400 max-w-xs">
-                  (Se incorporará durante la segunda revisión previa autorización)
-                </span>
-              </div>
+              <img
+                src={teacherPortrait}
+                alt="Lic. Delia Claudia Jaldín Arroyo"
+                width={128}
+                height={128}
+                className="h-32 w-32 rounded-2xl border border-slate-200 object-cover object-top"
+              />
 
               <div className="space-y-1">
-                <span className="text-[11px] text-slate-500 uppercase font-bold tracking-wider block">
-                  Docente de referencia académica
-                </span>
                 <h3 className="text-lg font-extrabold text-slate-900">
                   Lic. Delia Claudia Jaldín Arroyo
                 </h3>
@@ -147,83 +127,45 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
                   Catedrática de Orientación Vocacional y Profesional
                 </p>
                 <p className="text-xs text-slate-600 pt-1 leading-relaxed">
-                  Supervisión del marco conceptual, pertinencia pedagógica curricular de los instrumentos y selección de contenidos de la asignatura en Ciencias de la Educación (UAGRM).
+                  Referente académica de la asignatura, cuya orientación contribuye a mantener la coherencia curricular, la pertinencia pedagógica y la fundamentación conceptual de los contenidos educativos presentados en OrientIA.
                 </p>
               </div>
-            </div>
-
-            <div className="pt-3 border-t border-slate-100 text-[11px] text-slate-500 italic">
-              * Nota: La labor docente comprende la referencia académica y curricular de la cátedra; no atribuye autoría técnica ni programación del sistema informático.
             </div>
           </div>
 
           {/* Tarjeta 2: Creador y Desarrollador */}
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-2xs space-y-4 flex flex-col justify-between">
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-2xs space-y-4">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
-                  Autoría Técnica y Desarrollo
-                </span>
+                <h3 className="text-[10px] font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
+                  Creación y desarrollo tecnológico
+                </h3>
               </div>
 
-              {/* Slot preparado para fotografía o identificación visual del creador (sin imágenes ficticias) */}
-              <div className="w-full h-36 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/70 flex flex-col items-center justify-center text-center p-4 space-y-1.5">
-                <div className="w-10 h-10 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center">
-                  <Code2 className="w-5 h-5 text-slate-500" />
-                </div>
-                <span className="text-xs font-semibold text-slate-600">
-                  Espacio reservado para identificación visual del creador
-                </span>
-                <span className="text-[10px] text-slate-400 max-w-xs">
-                  (Se incorporará durante la segunda revisión de la plataforma)
-                </span>
-              </div>
+              <img
+                src={developerPortrait}
+                alt="Luis Enrique Justiniano Mercado"
+                width={128}
+                height={128}
+                className="h-32 w-32 rounded-2xl border border-slate-200 object-cover object-top"
+              />
 
               <div className="space-y-1">
-                <span className="text-[11px] text-slate-500 uppercase font-bold tracking-wider block">
-                  Creador y desarrollador
-                </span>
-                <h3 className="text-lg font-extrabold text-slate-900">
+                <h4 className="text-lg font-extrabold text-slate-900">
                   Luis Enrique Justiniano Mercado
-                </h3>
+                </h4>
                 <p className="text-xs text-[#023273] font-semibold">
-                  Diseño de arquitectura, programación y experiencia de usuario
+                  Creador de OrientIA
+                </p>
+                <p className="text-xs text-slate-600">
+                  Estudiante de Ciencias de la Educación – UAGRM.
                 </p>
                 <p className="text-xs text-slate-600 pt-1 leading-relaxed">
-                  Creación general del proyecto, desarrollo integral del frontend y backend en React/TypeScript/Express, estructuración de interfaces de usuario y adaptación de la identidad visual UAGRM.
+                  Responsable de la concepción, diseño y desarrollo tecnológico de OrientIA, incluyendo la arquitectura de la aplicación web, programación de sus funcionalidades, diseño de interfaces y experiencia de usuario, así como la integración de herramientas de inteligencia artificial aplicadas al ámbito educativo.
                 </p>
               </div>
             </div>
-
-            <div className="pt-3 border-t border-slate-100 text-[11px] text-slate-500 italic">
-              * Responsable técnico del diseño web, código fuente, módulos interactivos e integración de servicios.
-            </div>
           </div>
-        </div>
-      </section>
-
-      {/* Espacio Preparado para Segunda Revisión: Bibliografía en Formato APA 7 */}
-      <section className="bg-white rounded-3xl p-7 sm:p-9 border border-slate-200 shadow-2xs space-y-4">
-        <div className="flex items-center gap-2.5">
-          <Bookmark className="w-5 h-5 text-[#023273]" />
-          <div>
-            <h2 className="text-base sm:text-lg font-bold text-slate-900">
-              Referencias y Bibliografía Académica (Normas APA 7)
-            </h2>
-            <p className="text-xs text-slate-500">
-              Módulo preparado para incorporar la literatura oficial de la cátedra durante la segunda revisión
-            </p>
-          </div>
-        </div>
-
-        <div className="border-2 border-dashed border-slate-200 rounded-2xl p-6 sm:p-8 text-center bg-slate-50/60 space-y-2">
-          <FileText className="w-8 h-8 text-slate-400 mx-auto" />
-          <h3 className="text-sm font-bold text-slate-800">
-            Sección de Bibliografía en Proceso de Consolidación
-          </h3>
-          <p className="text-xs text-slate-600 max-w-xl mx-auto leading-relaxed">
-            En cumplimiento de las normas éticas y metodológicas de la investigación, <strong>este espacio no contiene citas ficticias ni referencias sin verificar</strong>. Queda estructurado para recibir las fuentes bibliográficas oficiales en formato APA 7 relacionadas con orientación vocacional, instrumentos de evaluación y orientación profesional una vez revisados los textos oficiales de la cátedra.
-          </p>
         </div>
       </section>
 

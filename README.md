@@ -77,7 +77,7 @@ Para revisar una publicación autorizada, enviar una consulta breve desde Pages 
 
 ## Demostración con respuestas locales
 
-En Chatbot, el botón **Usar respuestas locales · Sin cuota** activa contenidos educativos preparados en el navegador, sin enviar consultas a Gemini ni a Render. Incluye autoconocimiento, proyecto de vida, elección de carrera, entrevista, rol del orientador, ética, hábitos y los seis instrumentos. Puede retomar el último tema identificado cuando se pide un ejemplo o una actividad; no es una conversación generativa ni una lectura automática de documentos. El botón permite volver a intentar Gemini.
+El chat intenta consultar el servidor primero. Si la solicitud falla o el navegador no recibe una respuesta completa en 30 segundos, usa las respuestas educativas preparadas en el navegador. Estas abarcan autoconocimiento, proyecto de vida, elección de carrera, entrevista, rol del orientador, ética, hábitos y los seis instrumentos. Pueden retomar el último tema identificado cuando se pide un ejemplo o una actividad.
 
 La misma base se usa en el servidor como respuesta de respaldo. Cuando Render devuelve una respuesta local, el frontend utiliza la base local publicada y mantiene el aviso del proveedor. Por ello una actualización de Pages permite demostrar estos contenidos aunque el despliegue manual de Render esté pendiente. El backend necesita su propio despliegue para actualizar respuestas a otros clientes de la API.
 
