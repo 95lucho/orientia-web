@@ -21,7 +21,6 @@ export interface VocationalInstrument {
   name: string;
   shortName: string;
   category: InstrumentCategory;
-  academicAuthor: string;
   theoreticalFramework: string;
   targetAudience: string;
   estimatedDuration: string;

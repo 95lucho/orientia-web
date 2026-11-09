@@ -185,9 +185,6 @@ export const HomeSection: React.FC<HomeSectionProps> = ({ onNavigate }) => {
                   <h3 className="font-bold text-slate-900 text-base group-hover:text-[#023273] transition-colors leading-snug">
                     {inst.name}
                   </h3>
-                  <p className="text-xs text-slate-500 italic">
-                    {inst.academicAuthor}
-                  </p>
                 </div>
 
                 <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">

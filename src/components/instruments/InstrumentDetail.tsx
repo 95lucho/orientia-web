@@ -78,7 +78,7 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
           )}
 
           <button
-            onClick={() => onOpenChatWithContext(`Actúa como docente de la asignatura Orientación Vocacional y Profesional de la carrera Ciencias de la Educación en la UAGRM. Explícame en detalle la fundamentación teórica, características y precauciones para la administración del instrumento "${instrument.name}" (${instrument.academicAuthor}).`)}
+            onClick={() => onOpenChatWithContext(`Actúa como docente de la asignatura Orientación Vocacional y Profesional de la carrera Ciencias de la Educación en la UAGRM. Explícame en detalle la fundamentación teórica, características y precauciones para la administración del instrumento "${instrument.name}".`)}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#023273] text-xs font-bold transition-all border border-slate-300 cursor-pointer shadow-2xs"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#023273]" />
@@ -282,11 +282,6 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
                 <span className="text-slate-400 font-bold uppercase text-[10px] block">Marco Teórico</span>
                 <span className="font-semibold text-slate-800">{instrument.theoreticalFramework}</span>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-                <span className="text-slate-400 font-bold uppercase text-[10px] block">Autor / Referencia Documentada</span>
-                <span className="font-semibold text-slate-800">{instrument.academicAuthor}</span>
               </div>
 
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
