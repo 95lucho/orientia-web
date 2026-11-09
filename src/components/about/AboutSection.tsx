@@ -103,7 +103,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Tarjeta 1: Docente de referencia académica */}
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-2xs space-y-4 flex flex-col justify-between">
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-2xs space-y-4">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
@@ -120,9 +120,6 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
               />
 
               <div className="space-y-1">
-                <span className="text-[11px] text-slate-500 uppercase font-bold tracking-wider block">
-                  Docente de referencia académica
-                </span>
                 <h3 className="text-lg font-extrabold text-slate-900">
                   Lic. Delia Claudia Jaldín Arroyo
                 </h3>
@@ -130,23 +127,19 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
                   Catedrática de Orientación Vocacional y Profesional
                 </p>
                 <p className="text-xs text-slate-600 pt-1 leading-relaxed">
-                  Supervisión del marco conceptual, pertinencia pedagógica curricular de los instrumentos y selección de contenidos de la asignatura en Ciencias de la Educación (UAGRM).
+                  Referente académica de la asignatura, cuya orientación contribuye a mantener la coherencia curricular, la pertinencia pedagógica y la fundamentación conceptual de los contenidos educativos presentados en OrientIA.
                 </p>
               </div>
-            </div>
-
-            <div className="pt-3 border-t border-slate-100 text-[11px] text-slate-500 italic">
-              * Nota: La labor docente comprende la referencia académica y curricular de la cátedra; no atribuye autoría técnica ni programación del sistema informático.
             </div>
           </div>
 
           {/* Tarjeta 2: Creador y Desarrollador */}
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-2xs space-y-4 flex flex-col justify-between">
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-2xs space-y-4">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
-                  Autoría Técnica y Desarrollo
-                </span>
+                <h3 className="text-[10px] font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
+                  Creación y desarrollo tecnológico
+                </h3>
               </div>
 
               <img
@@ -158,23 +151,19 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
               />
 
               <div className="space-y-1">
-                <span className="text-[11px] text-slate-500 uppercase font-bold tracking-wider block">
-                  Creador y desarrollador
-                </span>
-                <h3 className="text-lg font-extrabold text-slate-900">
+                <h4 className="text-lg font-extrabold text-slate-900">
                   Luis Enrique Justiniano Mercado
-                </h3>
+                </h4>
                 <p className="text-xs text-[#023273] font-semibold">
-                  Diseño de arquitectura, programación y experiencia de usuario
+                  Creador de OrientIA
+                </p>
+                <p className="text-xs text-slate-600">
+                  Estudiante de Ciencias de la Educación – UAGRM.
                 </p>
                 <p className="text-xs text-slate-600 pt-1 leading-relaxed">
-                  Creación general del proyecto, desarrollo integral del frontend y backend en React/TypeScript/Express, estructuración de interfaces de usuario y adaptación de la identidad visual UAGRM.
+                  Responsable de la concepción, diseño y desarrollo tecnológico de OrientIA, incluyendo la arquitectura de la aplicación web, programación de sus funcionalidades, diseño de interfaces y experiencia de usuario, así como la integración de herramientas de inteligencia artificial aplicadas al ámbito educativo.
                 </p>
               </div>
-            </div>
-
-            <div className="pt-3 border-t border-slate-100 text-[11px] text-slate-500 italic">
-              * Responsable técnico del diseño web, código fuente, módulos interactivos e integración de servicios.
             </div>
           </div>
         </div>
