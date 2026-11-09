@@ -17,6 +17,8 @@ import { generateLocalReply } from '../../data/localGuidance';
 // Backend base URL: uses Render deployment in production, relative path in local development
 const API_BASE_URL = (import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://orientia-web.onrender.com' : '')).replace(/\/+$/, '');
 
+const CHAT_TIMEOUT_MS = 30_000;
+
 const OFFICIAL_WELCOME_MESSAGE = `¡Hola! Soy OrientIA, tu asistente académico para la asignatura Orientación Vocacional y Profesional de Ciencias de la Educación de la UAGRM.
 
 Puedo ayudarte a comprender los instrumentos de orientación vocacional, sus fundamentos teóricos, sus procedimientos de aplicación y los contenidos de la asignatura.
@@ -46,7 +48,6 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
 
   const [inputPrompt, setInputPrompt] = useState(initialPrompt || '');
   const [isLoading, setIsLoading] = useState(false);
-  const [useLocal, setUseLocal] = useState(false);
   const [serverStatus, setServerStatus] = useState<{ online: boolean | null; gemini: boolean }>({
     online: null,
     gemini: false,
@@ -104,23 +105,15 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
     setMessages(updatedMessages);
     setIsLoading(true);
 
+    const deadline = AbortSignal.timeout(CHAT_TIMEOUT_MS);
     try {
-      if (useLocal) {
-        setMessages((prev) => [...prev, {
-          id: crypto.randomUUID(), role: 'assistant', content: generateLocalReply(updatedMessages),
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          source: 'orientia-educational-engine',
-          note: 'Contenido educativo local preparado. Esta consulta no usa Gemini ni consume su cuota.',
-        }]);
-        return;
-      }
       const response = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(buildChatPayload(updatedMessages)),
-        signal: AbortSignal.timeout(25000),
+        signal: deadline,
       });
 
       const data = await response.json();
@@ -141,16 +134,18 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
       };
 
       setMessages((prev) => [...prev, assistantMsg]);
-    } catch (err: any) {
-      console.error('Error fetching chat response:', err);
-      const errorMsg: ChatMessage = {
+    } catch {
+      const localMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: `No se pudo conectar con el servidor de OrientIA en este momento (${err.message}). Por favor verifica la conexión o vuelve a intentar en unos instantes.`,
+        content: generateLocalReply(updatedMessages),
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        source: 'system',
+        source: 'orientia-educational-engine',
+        note: deadline.aborted
+          ? 'El servidor no respondió en 30 segundos. Se usó el contenido educativo local.'
+          : 'El servidor no pudo completar la consulta. Se usó el contenido educativo local.',
       };
-      setMessages((prev) => [...prev, errorMsg]);
+      setMessages((prev) => [...prev, localMessage]);
     } finally {
       setIsLoading(false);
     }
@@ -226,7 +221,7 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
           </p>
           <p className="text-xs text-slate-500" role="status">
             {serverStatus.online === null ? 'Comprobando disponibilidad del servidor.' : !serverStatus.online
-              ? 'No se pudo comprobar la conexión. Puedes volver a intentarlo con una consulta.' : serverStatus.gemini
+              ? 'La conexión está pendiente de confirmar. Las respuestas locales están disponibles si el servidor falla.' : serverStatus.gemini
               ? 'Servidor conectado. Gemini configurado; cada respuesta indica su fuente real.'
               : 'Servidor conectado en modo educativo local.'}
           </p>
@@ -234,17 +229,9 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
 
         <div className="flex flex-wrap items-center gap-2.5">
           <button
-            type="button"
-            aria-pressed={useLocal}
-            disabled={isLoading}
-            onClick={() => setUseLocal((value) => !value)}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-blue-50 text-[#023273] border border-blue-200 disabled:opacity-50"
-          >
-            {useLocal ? 'Modo local activo · Volver a Gemini' : 'Usar respuestas locales · Sin cuota'}
-          </button>
-          <button
             onClick={handleClearHistory}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-[#023273] bg-slate-100 hover:bg-slate-200 transition-colors border border-slate-200 cursor-pointer"
+            disabled={isLoading}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-[#023273] bg-slate-100 hover:bg-slate-200 transition-colors border border-slate-200 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
             title="Reiniciar conversación"
           >
             <RotateCcw className="w-3.5 h-3.5" />

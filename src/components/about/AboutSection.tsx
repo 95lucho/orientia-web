@@ -1,19 +1,7 @@
 import React from 'react';
-import { 
-  Building2, 
-  GraduationCap, 
-  BookOpen, 
-  Code2, 
-  UserCheck, 
-  User, 
-  Bookmark, 
-  Calendar, 
-  Compass, 
-  FileText, 
-  Sparkles, 
-  CheckCircle2, 
-  ArrowRight
-} from 'lucide-react';
+import { ArrowRight, Building2, Compass, GraduationCap } from 'lucide-react';
+import teacherPortrait from '../../assets/credits/docente.webp';
+import developerPortrait from '../../assets/credits/desarrollador.webp';
 import { NavigationTab } from '../../types/vocational';
 
 interface AboutSectionProps {
@@ -123,18 +111,13 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
                 </span>
               </div>
 
-              {/* Slot preparado para fotografía institucional o autorizada (sin imágenes ficticias) */}
-              <div className="w-full h-36 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/70 flex flex-col items-center justify-center text-center p-4 space-y-1.5">
-                <div className="w-10 h-10 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center">
-                  <UserCheck className="w-5 h-5" />
-                </div>
-                <span className="text-xs font-semibold text-slate-600">
-                  Espacio reservado para fotografía institucional de la docente
-                </span>
-                <span className="text-[10px] text-slate-400 max-w-xs">
-                  (Se incorporará durante la segunda revisión previa autorización)
-                </span>
-              </div>
+              <img
+                src={teacherPortrait}
+                alt="Lic. Delia Claudia Jaldín Arroyo"
+                width={128}
+                height={128}
+                className="h-32 w-32 rounded-2xl border border-slate-200 object-cover object-top"
+              />
 
               <div className="space-y-1">
                 <span className="text-[11px] text-slate-500 uppercase font-bold tracking-wider block">
@@ -166,18 +149,13 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
                 </span>
               </div>
 
-              {/* Slot preparado para fotografía o identificación visual del creador (sin imágenes ficticias) */}
-              <div className="w-full h-36 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/70 flex flex-col items-center justify-center text-center p-4 space-y-1.5">
-                <div className="w-10 h-10 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center">
-                  <Code2 className="w-5 h-5 text-slate-500" />
-                </div>
-                <span className="text-xs font-semibold text-slate-600">
-                  Espacio reservado para identificación visual del creador
-                </span>
-                <span className="text-[10px] text-slate-400 max-w-xs">
-                  (Se incorporará durante la segunda revisión de la plataforma)
-                </span>
-              </div>
+              <img
+                src={developerPortrait}
+                alt="Luis Enrique Justiniano Mercado"
+                width={128}
+                height={128}
+                className="h-32 w-32 rounded-2xl border border-slate-200 object-cover object-top"
+              />
 
               <div className="space-y-1">
                 <span className="text-[11px] text-slate-500 uppercase font-bold tracking-wider block">
@@ -199,31 +177,6 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
               * Responsable técnico del diseño web, código fuente, módulos interactivos e integración de servicios.
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Espacio Preparado para Segunda Revisión: Bibliografía en Formato APA 7 */}
-      <section className="bg-white rounded-3xl p-7 sm:p-9 border border-slate-200 shadow-2xs space-y-4">
-        <div className="flex items-center gap-2.5">
-          <Bookmark className="w-5 h-5 text-[#023273]" />
-          <div>
-            <h2 className="text-base sm:text-lg font-bold text-slate-900">
-              Referencias y Bibliografía Académica (Normas APA 7)
-            </h2>
-            <p className="text-xs text-slate-500">
-              Módulo preparado para incorporar la literatura oficial de la cátedra durante la segunda revisión
-            </p>
-          </div>
-        </div>
-
-        <div className="border-2 border-dashed border-slate-200 rounded-2xl p-6 sm:p-8 text-center bg-slate-50/60 space-y-2">
-          <FileText className="w-8 h-8 text-slate-400 mx-auto" />
-          <h3 className="text-sm font-bold text-slate-800">
-            Sección de Bibliografía en Proceso de Consolidación
-          </h3>
-          <p className="text-xs text-slate-600 max-w-xl mx-auto leading-relaxed">
-            En cumplimiento de las normas éticas y metodológicas de la investigación, <strong>este espacio no contiene citas ficticias ni referencias sin verificar</strong>. Queda estructurado para recibir las fuentes bibliográficas oficiales en formato APA 7 relacionadas con orientación vocacional, instrumentos de evaluación y orientación profesional una vez revisados los textos oficiales de la cátedra.
-          </p>
         </div>
       </section>
 
