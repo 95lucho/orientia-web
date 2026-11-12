@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <script src="../theme.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hábitos de Estudio · Instrumento de Orientación Vocacional | OrientIA - UAGRM</title>
   <meta name="description" content="Página independiente del instrumento Hábitos de Estudio para estudiantes de Ciencias de la Educación en la UAGRM.">
@@ -20,6 +21,21 @@
       --text-muted: #64748b;
     }
 
+    :root {
+      --text-body: #334155; --surface-muted: #f1f5f9;
+      --blue-surface: #eff6ff; --blue-border: #bfdbfe; --blue-text: #1e3a8a;
+      --red-surface: #fee2e2; --red-border: #fecaca; --red-text: #b91c1c;
+      --amber-text: #b45309; --accent-text: #023273;
+    }
+    :root.dark {
+      --bg-slate: #020617; --surface: #0f172a; --surface-muted: #1e293b;
+      --border-color: #334155; --text-main: #f1f5f9; --text-body: #cbd5e1;
+      --text-muted: #94a3b8; --accent-text: #93c5fd;
+      --blue-surface: #172554; --blue-border: #1e40af; --blue-text: #bfdbfe;
+      --red-surface: #450a0a; --red-border: #991b1b; --red-text: #fca5a5;
+      --amber-text: #fcd34d;
+    }
+    :focus-visible { outline: 2px solid #3b82f6; outline-offset: 3px; }
     * {
       box-sizing: border-box;
       margin: 0;
@@ -61,7 +77,7 @@
 
     /* Header de navegación */
     .site-header {
-      background-color: rgba(255, 255, 255, 0.98);
+      background-color: var(--surface);
       border-bottom: 1px solid var(--border-color);
       position: sticky;
       top: 0;
@@ -108,20 +124,20 @@
     .brand-name {
       font-size: 1.25rem;
       font-weight: 800;
-      color: #0f172a;
+      color: var(--text-main);
       letter-spacing: -0.02em;
     }
     .brand-name span {
-      color: var(--uagrm-blue);
+      color: var(--accent-text);
     }
     .brand-badge {
       font-size: 0.65rem;
       font-weight: 700;
-      background-color: #f1f5f9;
-      color: var(--uagrm-blue);
+      background-color: var(--surface-muted);
+      color: var(--accent-text);
       padding: 0.15rem 0.4rem;
       border-radius: 0.35rem;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-color);
       margin-left: 0.35rem;
       vertical-align: middle;
     }
@@ -135,9 +151,9 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background-color: #ffffff;
-      color: var(--uagrm-blue);
-      border: 1px solid #cbd5e1;
+      background-color: var(--surface);
+      color: var(--accent-text);
+      border: 1px solid var(--border-color);
       padding: 0.5rem 1rem;
       border-radius: 0.75rem;
       font-size: 0.825rem;
@@ -161,7 +177,7 @@
       margin: 1.5rem 0;
       position: relative;
       overflow: hidden;
-      border: 1px solid #1e3a8a;
+      border: 1px solid var(--blue-text);
       box-shadow: 0 10px 25px -5px rgba(2, 50, 115, 0.25);
     }
     .hero-badge {
@@ -208,14 +224,14 @@
       gap: 0.65rem;
       margin-bottom: 1.25rem;
       padding-bottom: 0.75rem;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid var(--surface-muted);
     }
     .section-icon {
       width: 2.25rem;
       height: 2.25rem;
       border-radius: 0.65rem;
-      background-color: #eff6ff;
-      color: var(--uagrm-blue);
+      background-color: var(--blue-surface);
+      color: var(--accent-text);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -224,7 +240,7 @@
     .section-title {
       font-size: 1.2rem;
       font-weight: 800;
-      color: #0f172a;
+      color: var(--text-main);
     }
     .section-subtitle {
       font-size: 0.8rem;
@@ -239,15 +255,15 @@
       margin-top: 1rem;
     }
     .qa-card {
-      background-color: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background-color: var(--bg-slate);
+      border: 1px solid var(--border-color);
       border-radius: 1rem;
       padding: 1.25rem;
     }
     .qa-question {
       font-size: 0.9rem;
       font-weight: 700;
-      color: var(--uagrm-blue);
+      color: var(--accent-text);
       margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
@@ -255,7 +271,7 @@
     }
     .qa-answer {
       font-size: 0.825rem;
-      color: #334155;
+      color: var(--text-body);
       line-height: 1.55;
     }
 
@@ -267,8 +283,8 @@
       margin-top: 1rem;
     }
     .spec-item {
-      background-color: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background-color: var(--bg-slate);
+      border: 1px solid var(--border-color);
       border-radius: 0.85rem;
       padding: 1rem;
     }
@@ -283,11 +299,11 @@
     .spec-value {
       font-size: 0.85rem;
       font-weight: 600;
-      color: #0f172a;
+      color: var(--text-main);
     }
     .spec-note {
       font-size: 0.75rem;
-      color: #d97706;
+      color: var(--amber-text);
       font-style: italic;
       margin-top: 0.2rem;
     }
@@ -305,11 +321,11 @@
       align-items: flex-start;
       gap: 0.75rem;
       font-size: 0.85rem;
-      color: #334155;
-      background-color: #f8fafc;
+      color: var(--text-body);
+      background-color: var(--bg-slate);
       padding: 0.9rem 1rem;
       border-radius: 0.85rem;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-color);
     }
     .guideline-num {
       width: 1.5rem;
@@ -328,8 +344,8 @@
 
     /* Contenedor preparado para la demostración */
     .placeholder-card {
-      border: 2px dashed #cbd5e1;
-      background-color: #f8fafc;
+      border: 2px dashed var(--border-color);
+      background-color: var(--bg-slate);
       border-radius: 1rem;
       padding: 2rem 1.5rem;
       text-align: center;
@@ -339,7 +355,7 @@
       width: 3rem;
       height: 3rem;
       border-radius: 50%;
-      background-color: #e2e8f0;
+      background-color: var(--border-color);
       color: var(--text-muted);
       display: flex;
       align-items: center;
@@ -350,7 +366,7 @@
     .placeholder-title {
       font-size: 0.95rem;
       font-weight: 700;
-      color: #1e293b;
+      color: var(--text-main);
       margin-bottom: 0.35rem;
     }
     .placeholder-text {
@@ -363,8 +379,8 @@
 
     /* Caja de descarga de documento PDF oficial */
     .pdf-document-box {
-      background-color: #ffffff;
-      border: 1px solid #cbd5e1;
+      background-color: var(--surface);
+      border: 1px solid var(--border-color);
       border-radius: 1.25rem;
       padding: 1.5rem;
       margin-top: 1rem;
@@ -376,7 +392,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid var(--surface-muted);
       padding-bottom: 1.25rem;
       margin-bottom: 1rem;
     }
@@ -389,9 +405,9 @@
       width: 3rem;
       height: 3rem;
       border-radius: 0.85rem;
-      background-color: #fee2e2;
-      color: #dc2626;
-      border: 1px solid #fecaca;
+      background-color: var(--red-surface);
+      color: var(--red-text);
+      border: 1px solid var(--red-border);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -420,9 +436,9 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      background-color: #f1f5f9;
-      color: #334155;
-      border: 1px solid #cbd5e1;
+      background-color: var(--surface-muted);
+      color: var(--text-body);
+      border: 1px solid var(--border-color);
       padding: 0.65rem 1rem;
       border-radius: 0.75rem;
       font-size: 0.825rem;
@@ -431,14 +447,14 @@
       transition: all 0.2s ease;
     }
     .btn-pdf-secondary:hover {
-      background-color: #e2e8f0;
-      color: #0f172a;
+      background-color: var(--border-color);
+      color: var(--text-main);
     }
 
     /* Nota de cierre ético */
     .ethical-closing {
-      background-color: #eff6ff;
-      border: 1px solid #bfdbfe;
+      background-color: var(--blue-surface);
+      border: 1px solid var(--blue-border);
       border-left: 4px solid var(--uagrm-blue);
       border-radius: 1rem;
       padding: 1.25rem 1.5rem;
@@ -449,11 +465,11 @@
     }
     .ethical-closing-text {
       font-size: 0.85rem;
-      color: #1e3a8a;
+      color: var(--blue-text);
       line-height: 1.6;
     }
     .ethical-closing-text strong {
-      color: var(--uagrm-blue);
+      color: var(--accent-text);
     }
 
     /* Barra de navegación de pie de página del instrumento */
@@ -485,7 +501,7 @@
       gap: 1rem;
     }
     .footer-credits {
-      color: #e2e8f0;
+      color: var(--border-color);
       font-size: 0.775rem;
       line-height: 1.6;
     }
@@ -546,6 +562,7 @@
           </div>
         </a>
 
+        <button type="button" id="theme-toggle" class="btn-return" aria-pressed="false">Modo oscuro</button>
         <!-- Botón para regresar al catálogo de instrumentos de OrientIA -->
         <a href="../?tab=tests" class="btn-return" title="Volver al catálogo completo de instrumentos en OrientIA">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -586,7 +603,7 @@
         </div>
       </div>
 
-      <p style="font-size: 0.875rem; color: #334155; margin-bottom: 0.75rem;">
+      <p style="font-size: 0.875rem; color: var(--text-body); margin-bottom: 0.75rem;">
         En la formación de los futuros pedagogos y orientadores educativos de la UAGRM, la evaluación y el acompañamiento en los hábitos de estudio constituyen un eje nodal para promover la permanencia académica y prevenir el fracaso escolar o la deserción universitaria.
       </p>
 
@@ -639,7 +656,7 @@
         </div>
       </div>
 
-      <p style="font-size: 0.875rem; color: #334155; line-height: 1.6;">
+      <p style="font-size: 0.875rem; color: var(--text-body); line-height: 1.6;">
         La clave de la hoja de respuestas del PDF disponible menciona las siguientes áreas. No se implementa corrección automática; la correspondencia de ítems y las siglas requieren revisión de la cátedra:
       </p>
 
@@ -647,31 +664,31 @@
         <div class="spec-item">
           <div class="spec-label">Dimensión 1</div>
           <div class="spec-value">Hábitos Higiénicos</div>
-          <p style="font-size: 0.775rem; color: #64748b; margin-top: 0.25rem;">Denominación que aparece como HH en la clave del documento.</p>
+          <p style="font-size: 0.775rem; color: var(--text-muted); margin-top: 0.25rem;">Denominación que aparece como HH en la clave del documento.</p>
         </div>
 
         <div class="spec-item">
           <div class="spec-label">Dimensión 2</div>
           <div class="spec-value">Condiciones Materiales</div>
-          <p style="font-size: 0.775rem; color: #64748b; margin-top: 0.25rem;">Denominación que aparece como CM en la clave del documento.</p>
+          <p style="font-size: 0.775rem; color: var(--text-muted); margin-top: 0.25rem;">Denominación que aparece como CM en la clave del documento.</p>
         </div>
 
         <div class="spec-item">
           <div class="spec-label">Dimensión 3</div>
           <div class="spec-value">Hábitos de Estudio</div>
-          <p style="font-size: 0.775rem; color: #64748b; margin-top: 0.25rem;">La clave usa HE y la fila de sumas usa ME. Esta discrepancia debe aclararse con la cátedra.</p>
+          <p style="font-size: 0.775rem; color: var(--text-muted); margin-top: 0.25rem;">La clave usa HE y la fila de sumas usa ME. Esta discrepancia debe aclararse con la cátedra.</p>
         </div>
 
         <div class="spec-item">
           <div class="spec-label">Dimensión 4</div>
           <div class="spec-value">Capacidad de Estudio</div>
-          <p style="font-size: 0.775rem; color: #64748b; margin-top: 0.25rem;">Denominación que aparece como CE en la clave del documento.</p>
+          <p style="font-size: 0.775rem; color: var(--text-muted); margin-top: 0.25rem;">Denominación que aparece como CE en la clave del documento.</p>
         </div>
       </div>
 
       <!-- Ficha Técnica con datos verificados y pendientes según norma del proyecto -->
-      <div style="margin-top: 1.5rem; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 1rem; padding: 1.25rem;">
-        <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--uagrm-blue); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em;">
+      <div style="margin-top: 1.5rem; background-color: var(--bg-slate); border: 1px solid var(--border-color); border-radius: 1rem; padding: 1.25rem;">
+        <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--accent-text); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em;">
           Ficha Técnica del Instrumento (Estado Curricular)
         </h3>
         <div class="specs-grid">
@@ -704,7 +721,7 @@
         </div>
       </div>
 
-      <p style="font-size: 0.875rem; color: #334155;">
+      <p style="font-size: 0.875rem; color: var(--text-body);">
         Para que los resultados de este instrumento sean verdaderamente útiles en tu proceso de orientación y formación docente, ten en cuenta las siguientes recomendaciones:
       </p>
 
@@ -782,14 +799,14 @@
             </div>
             <div>
               <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
-                <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin: 0;">
+                <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--text-main); margin: 0;">
                   Documento Oficial: Test de Hábitos de Estudio
                 </h3>
-                <span style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; background-color: #fee2e2; color: #b91c1c; padding: 0.2rem 0.5rem; border-radius: 0.35rem; border: 1px solid #fecaca;">
+                <span style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; background-color: var(--red-surface); color: var(--red-text); padding: 0.2rem 0.5rem; border-radius: 0.35rem; border: 1px solid var(--red-border);">
                   PDF Oficial
                 </span>
               </div>
-              <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.25rem;">
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
                 Protocolo formativo para la asignatura Orientación Vocacional y Profesional · UAGRM
               </p>
             </div>
@@ -816,13 +833,13 @@
           </div>
         </div>
 
-        <p style="font-size: 0.825rem; color: #475569; line-height: 1.6; margin: 0 0 0.75rem 0;">
+        <p style="font-size: 0.825rem; color: var(--text-body); line-height: 1.6; margin: 0 0 0.75rem 0;">
           Este archivo PDF contiene el protocolo y reactivos correspondientes al <strong>Test de Hábitos de Estudio</strong> para el acompañamiento y diagnóstico formativo de los estudiantes de la carrera Ciencias de la Educación. Puedes consultarlo directamente en el visor de tu navegador o descargarlo para su estudio y aplicación didáctica.
         </p>
 
-        <div style="font-size: 0.75rem; color: #64748b; background-color: #f8fafc; padding: 0.5rem 0.75rem; border-radius: 0.5rem; border: 1px solid #e2e8f0; display: inline-flex; align-items: center; gap: 0.5rem;">
-          <strong style="color: #334155;">Ruta del archivo:</strong>
-          <code style="font-family: monospace; color: var(--uagrm-blue); font-weight: 600;">/instruments/habitos-estudio.pdf</code>
+        <div style="font-size: 0.75rem; color: var(--text-muted); background-color: var(--bg-slate); padding: 0.5rem 0.75rem; border-radius: 0.5rem; border: 1px solid var(--border-color); display: inline-flex; align-items: center; gap: 0.5rem;">
+          <strong style="color: var(--text-body);">Ruta del archivo:</strong>
+          <code style="font-family: monospace; color: var(--accent-text); font-weight: 600;">/instruments/habitos-estudio.pdf</code>
         </div>
       </div>
     </section>
@@ -863,12 +880,24 @@
         <div class="footer-credits">
           <strong>OrientIA</strong> | Creado y desarrollado por <strong>Luis Enrique Justiniano Mercado</strong> | Referencia académica: <strong>Lic. Delia Claudia Jaldín Arroyo</strong> | UAGRM.
         </div>
-        <div style="font-size: 0.725rem; color: #cbd5e1;">
+        <div style="font-size: 0.725rem; color: var(--border-color);">
           Facultad de Humanidades · Carrera Ciencias de la Educación · Santa Cruz, Bolivia
         </div>
       </div>
     </div>
   </footer>
 
+<script>
+  const themeButton = document.getElementById('theme-toggle');
+  function syncThemeButton() {
+    const dark = document.documentElement.classList.contains('dark');
+    themeButton.textContent = dark ? 'Modo claro' : 'Modo oscuro';
+    themeButton.setAttribute('aria-label', dark ? 'Activar modo claro' : 'Activar modo oscuro');
+    themeButton.setAttribute('aria-pressed', String(dark));
+  }
+  themeButton.addEventListener('click', () => window.orientiaTheme.toggle());
+  window.addEventListener('orientia-theme-change', syncThemeButton);
+  syncThemeButton();
+</script>
 </body>
 </html>

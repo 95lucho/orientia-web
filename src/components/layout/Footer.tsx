@@ -14,8 +14,8 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab }) => {
           {/* Institutional Info */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-white text-[#023273] flex items-center justify-center shadow-md font-bold">
-                <Compass className="w-5 h-5 text-[#023273]" />
+              <div className="w-9 h-9 rounded-xl bg-white dark:bg-slate-900 text-[#023273] dark:text-blue-300 flex items-center justify-center shadow-md font-bold">
+                <Compass className="w-5 h-5 text-[#023273] dark:text-blue-300" />
               </div>
               <div>
                 <span className="font-bold text-xl text-white tracking-tight">
