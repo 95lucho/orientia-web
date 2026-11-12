@@ -43,14 +43,14 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <button
           onClick={onBack}
-          className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#023273] hover:underline transition-all w-fit group"
+          className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#023273] dark:text-blue-300 hover:underline transition-all w-fit group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           <span>Volver al catálogo de instrumentos</span>
         </button>
 
         <div className="flex flex-wrap items-center gap-2">
-          <button type="button" onClick={() => setActiveSubTab('estructura')} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 text-[#023273] text-xs font-bold border border-blue-200">
+          <button type="button" onClick={() => setActiveSubTab('estructura')} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 dark:bg-blue-950 text-[#023273] dark:text-blue-300 text-xs font-bold border border-blue-200 dark:border-blue-800">
             <Play className="w-3.5 h-3.5" />
             Practicar como aplicador
           </button>
@@ -70,7 +70,7 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
           {instrument.id === 'habitos-estudio' && (
             <a
               href={resolveAssetUrl('/tests/habitos-estudio.html')}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#023273] text-xs font-bold transition-all border border-slate-300 shadow-2xs cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-[#023273] dark:text-blue-300 text-xs font-bold transition-all border border-slate-300 dark:border-slate-600 shadow-2xs cursor-pointer"
             >
               <BookOpen className="w-3.5 h-3.5" />
               <span>Abrir página HTML independiente</span>
@@ -79,63 +79,63 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
 
           <button
             onClick={() => onOpenChatWithContext(`Actúa como docente de la asignatura Orientación Vocacional y Profesional de la carrera Ciencias de la Educación en la UAGRM. Explícame en detalle la fundamentación teórica, características y precauciones para la administración del instrumento "${instrument.name}".`)}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#023273] text-xs font-bold transition-all border border-slate-300 cursor-pointer shadow-2xs"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-[#023273] dark:text-blue-300 text-xs font-bold transition-all border border-slate-300 dark:border-slate-600 cursor-pointer shadow-2xs"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#023273]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#023273] dark:text-blue-300" />
             <span>Consultar sobre este test en OrientIA</span>
           </button>
         </div>
       </div>
 
       {/* Main Header Card UAGRM */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-2xs space-y-4">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-2xs space-y-4">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-3 py-1 rounded-md border border-blue-100">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-3 py-1 rounded-md border border-blue-100 dark:border-blue-800">
             {instrument.category}
           </span>
-          <span className="text-xs font-semibold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200">
+          <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700">
             Siglas: {instrument.shortName}
           </span>
-          <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700">
             UAGRM · Ciencias de la Educación
           </span>
         </div>
 
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-snug">
           {instrument.name}
         </h1>
 
-        <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed max-w-4xl">
+        <p className="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-4xl">
           {instrument.description}
         </p>
 
         {/* Quick Specs Badges */}
-        <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          <div className="flex items-center gap-2.5 text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200">
-            <Clock className="w-4 h-4 text-[#023273] shrink-0" />
+        <div className="pt-4 border-t border-slate-100 dark:border-slate-700 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div className="flex items-center gap-2.5 text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700">
+            <Clock className="w-4 h-4 text-[#023273] dark:text-blue-300 shrink-0" />
             <div>
               <span className="text-slate-400 block text-[10px] uppercase font-bold">Duración</span>
-              <span className="font-semibold text-slate-800">{instrument.estimatedDuration}</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">{instrument.estimatedDuration}</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5 text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200">
-            <Layers className="w-4 h-4 text-[#023273] shrink-0" />
+          <div className="flex items-center gap-2.5 text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700">
+            <Layers className="w-4 h-4 text-[#023273] dark:text-blue-300 shrink-0" />
             <div>
               <span className="text-slate-400 block text-[10px] uppercase font-bold">Población</span>
-              <span className="font-semibold text-slate-800 truncate block">{instrument.targetAudience}</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-200 truncate block">{instrument.targetAudience}</span>
             </div>
           </div>
         </div>
 
         {/* Specific Banner for DAT */}
         {instrument.id === 'dat-aptitudes' && (
-          <div className="bg-blue-50/80 border border-blue-200 rounded-2xl p-4 sm:p-5 text-xs text-slate-800 space-y-2">
-            <div className="flex items-center gap-2 font-bold text-[#023273]">
-              <Layers className="w-4 h-4 text-[#023273]" />
+          <div className="bg-blue-50/80 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 rounded-2xl p-4 sm:p-5 text-xs text-slate-800 dark:text-slate-200 space-y-2">
+            <div className="flex items-center gap-2 font-bold text-[#023273] dark:text-blue-300">
+              <Layers className="w-4 h-4 text-[#023273] dark:text-blue-300" />
               <span>Batería Multifactorial Integrada por 8 Pruebas</span>
             </div>
-            <p className="text-slate-700 leading-relaxed">
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
               <strong>Aviso de la cátedra:</strong> Los ocho cuadernillos de preguntas forman parte del texto físico de avance de la docente. Actualmente no se dispone de versión digital de dichos cuadernillos. La cátedra cuenta formalmente con la <strong>hoja de respuestas estandarizada</strong> y los <strong>dos baremos normativos de interpretación (masculino y femenino)</strong>. OrientIA no inventa preguntas, puntuaciones ni criterios de interpretación.
             </p>
           </div>
@@ -144,24 +144,24 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
 
       {/* Official PDF Document Card */}
       {instrument.pdfPath && (
-        <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-2xs space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-700 shadow-2xs space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-700 pb-4">
             <div className="flex items-start gap-3.5">
-              <div className="w-12 h-12 rounded-2xl bg-red-50 text-red-600 border border-red-100 flex items-center justify-center shrink-0">
-                <FileText className="w-6 h-6 text-red-600" />
+              <div className="w-12 h-12 rounded-2xl bg-red-50 dark:bg-red-950 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-800 flex items-center justify-center shrink-0">
+                <FileText className="w-6 h-6 text-red-600 dark:text-red-400" />
               </div>
               <div className="space-y-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h2 className="font-bold text-base sm:text-lg text-slate-900">
+                  <h2 className="font-bold text-base sm:text-lg text-slate-900 dark:text-slate-100">
                     {instrument.id === 'dat-aptitudes'
                       ? 'Hojas y material de corrección del DAT'
                       : `Documento PDF disponible · ${instrument.shortName}`}
                   </h2>
-                  <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-md bg-red-100 text-red-700 border border-red-200">
+                  <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-md bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800">
                     PDF
                   </span>
                 </div>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   Documento pedagógico de consulta para Orientación Vocacional y Profesional (UAGRM)
                 </p>
               </div>
@@ -183,33 +183,33 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
                 href={resolveAssetUrl(instrument.pdfPath)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold transition-all border border-slate-300 cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs sm:text-sm font-bold transition-all border border-slate-300 dark:border-slate-600 cursor-pointer"
               >
                 <span>Consultar en el navegador</span>
-                <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+                <ExternalLink className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
               </a>
             </div>
           </div>
 
           {instrument.pdfWarning && (
-            <div role="note" className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-sm text-amber-950">
+            <div role="note" className="bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-700 rounded-2xl p-4 text-sm text-amber-950 dark:text-amber-300">
               <strong>Revisión documental pendiente: </strong>{instrument.pdfWarning}
             </div>
           )}
 
           {instrument.pdfDescription && (
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               {instrument.pdfDescription}
             </p>
           )}
 
           {instrument.id === 'dat-aptitudes' && (
-            <div className="bg-amber-50/90 border border-amber-200 rounded-2xl p-4 text-amber-950 space-y-1.5">
-              <div className="flex items-center gap-2 font-bold text-xs text-amber-900">
-                <AlertCircle className="w-4 h-4 text-amber-700 shrink-0" />
+            <div className="bg-amber-50/90 dark:bg-amber-950/90 border border-amber-200 dark:border-amber-700 rounded-2xl p-4 text-amber-950 dark:text-amber-300 space-y-1.5">
+              <div className="flex items-center gap-2 font-bold text-xs text-amber-900 dark:text-amber-300">
+                <AlertCircle className="w-4 h-4 text-amber-700 dark:text-amber-300 shrink-0" />
                 <span>Precisiones del documento para la práctica pedagógica:</span>
               </div>
-              <p className="text-[11px] leading-relaxed text-amber-900">
+              <p className="text-[11px] leading-relaxed text-amber-900 dark:text-amber-300">
                 El archivo PDF reúne el material disponible de la batería DAT,
                 incluyendo hojas de respuestas, claves de corrección y baremos
                 masculino y femenino. No incluye los cuadernillos de preguntas.
@@ -222,13 +222,13 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
         </div>
       )}
       {/* Tabs */}
-      <div className="flex border-b border-slate-200 bg-white rounded-2xl p-1.5 shadow-2xs gap-1.5 overflow-x-auto">
+      <div className="flex border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-2xl p-1.5 shadow-2xs gap-1.5 overflow-x-auto">
         <button
           onClick={() => setActiveSubTab('conoce')}
           className={`flex-1 min-w-[160px] flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all ${
             activeSubTab === 'conoce'
               ? 'bg-[#023273] text-white shadow-xs'
-              : 'text-slate-700 hover:bg-slate-100'
+              : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
         >
           <BookOpen className="w-4 h-4" />
@@ -240,7 +240,7 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
           className={`flex-1 min-w-[160px] flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all ${
             activeSubTab === 'aplica'
               ? 'bg-[#023273] text-white shadow-xs'
-              : 'text-slate-700 hover:bg-slate-100'
+              : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
         >
           <FileCheck2 className="w-4 h-4" />
@@ -252,7 +252,7 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
           className={`flex-1 min-w-[160px] flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all ${
             activeSubTab === 'estructura'
               ? 'bg-[#023273] text-white shadow-xs'
-              : 'text-slate-700 hover:bg-slate-100'
+              : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
         >
           <Layers className="w-4 h-4" />
@@ -263,42 +263,42 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
       {/* Tab 1: CONOCE EL INSTRUMENTO */}
       {activeSubTab === 'conoce' && (
         <div className="space-y-6">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 space-y-6">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 space-y-6">
             <div>
-              <h3 className="font-bold text-lg text-slate-900">
+              <h3 className="font-bold text-lg text-slate-900 dark:text-slate-100">
                 Fundamentación y Ficha Técnica
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Identificación académica del instrumento para la asignatura
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
                 <span className="text-slate-400 font-bold uppercase text-[10px] block">Nombre Completo</span>
-                <span className="font-bold text-slate-900 text-sm">{instrument.name}</span>
+                <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">{instrument.name}</span>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
                 <span className="text-slate-400 font-bold uppercase text-[10px] block">Marco Teórico</span>
-                <span className="font-semibold text-slate-800">{instrument.theoreticalFramework}</span>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">{instrument.theoreticalFramework}</span>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
                 <span className="text-slate-400 font-bold uppercase text-[10px] block">Población Destinataria</span>
-                <span className="font-semibold text-slate-800">{instrument.targetAudience}</span>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">{instrument.targetAudience}</span>
               </div>
             </div>
 
             {/* Objectives */}
             <div className="space-y-3 pt-2">
-              <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
                 Objetivos del Instrumento en la Orientación Vocacional
               </h4>
               <div className="space-y-2">
                 {instrument.objectives.map((obj, i) => (
-                  <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200">
-                    <Check className="w-4 h-4 text-[#023273] shrink-0 mt-0.5" />
+                  <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <Check className="w-4 h-4 text-[#023273] dark:text-blue-300 shrink-0 mt-0.5" />
                     <span>{obj}</span>
                   </div>
                 ))}
@@ -307,31 +307,31 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
 
             {/* If DAT, display the 8 subtests list */}
             {instrument.subtests && (
-              <div className="space-y-4 pt-4 border-t border-slate-200">
+              <div className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-sm font-bold text-slate-900">
+                  <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
                     Las 8 Pruebas Integradas de la Batería DAT
                   </h4>
-                  <span className="text-xs font-bold text-[#023273] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-100">
+                  <span className="text-xs font-bold text-[#023273] dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2.5 py-0.5 rounded-full border border-blue-100 dark:border-blue-800">
                     8 Cuadernillos
                   </span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                   {instrument.subtests.map((sub, i) => (
-                    <div key={sub.id} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                    <div key={sub.id} className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-slate-900">
+                        <span className="font-bold text-slate-900 dark:text-slate-100">
                           {i + 1}. {sub.name}
                         </span>
                         <span className="text-[10px] font-bold bg-[#023273] text-white px-2 py-0.5 rounded-sm">
                           {sub.shortCode}
                         </span>
                       </div>
-                      <p className="text-[11px] text-[#023273] font-medium">
+                      <p className="text-[11px] text-[#023273] dark:text-blue-300 font-medium">
                         Área: {sub.evaluationArea}
                       </p>
-                      <p className="text-[11px] text-slate-600 leading-snug">
+                      <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-snug">
                         {sub.description}
                       </p>
                     </div>
@@ -347,16 +347,16 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
       {activeSubTab === 'aplica' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Instrucciones para el Orientador */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-2xs space-y-4">
-            <div className="flex items-center gap-3 border-b border-slate-100 pb-3">
-              <div className="w-9 h-9 rounded-xl bg-slate-100 text-[#023273] flex items-center justify-center font-bold">
-                <Users className="w-5 h-5 text-[#023273]" />
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-2xs space-y-4">
+            <div className="flex items-center gap-3 border-b border-slate-100 dark:border-slate-700 pb-3">
+              <div className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-[#023273] dark:text-blue-300 flex items-center justify-center font-bold">
+                <Users className="w-5 h-5 text-[#023273] dark:text-blue-300" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-slate-900">
+                <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">
                   Instrucciones para el Educador / Orientador
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   Procedimiento de administración y rol pedagógico
                 </p>
               </div>
@@ -364,7 +364,7 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
 
             <ul className="space-y-3">
               {instrument.applicatorInstructions.map((inst, index) => (
-                <li key={index} className="flex items-start gap-3 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                <li key={index} className="flex items-start gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
                   <span className="w-6 h-6 rounded-full bg-[#023273] text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                     {index + 1}
                   </span>
@@ -375,16 +375,16 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
           </div>
 
           {/* Consignas para el Estudiante / Orientado */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-2xs space-y-4">
-            <div className="flex items-center gap-3 border-b border-slate-100 pb-3">
-              <div className="w-9 h-9 rounded-xl bg-slate-100 text-[#023273] flex items-center justify-center font-bold">
-                <Target className="w-5 h-5 text-[#023273]" />
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-2xs space-y-4">
+            <div className="flex items-center gap-3 border-b border-slate-100 dark:border-slate-700 pb-3">
+              <div className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-[#023273] dark:text-blue-300 flex items-center justify-center font-bold">
+                <Target className="w-5 h-5 text-[#023273] dark:text-blue-300" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-slate-900">
+                <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">
                   Consignas para el Estudiante / Orientado
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   Pautas sobre cómo responder y completar el instrumento
                 </p>
               </div>
@@ -392,15 +392,15 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
 
             <ul className="space-y-3">
               {instrument.studentInstructions.map((inst, index) => (
-                <li key={index} className="flex items-start gap-3 text-xs sm:text-sm text-slate-700 leading-relaxed">
-                  <CheckCircle2 className="w-5 h-5 text-[#023273] shrink-0 mt-0.5" />
+                <li key={index} className="flex items-start gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                  <CheckCircle2 className="w-5 h-5 text-[#023273] dark:text-blue-300 shrink-0 mt-0.5" />
                   <span>{inst}</span>
                 </li>
               ))}
             </ul>
 
-            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1">
-              <span className="font-bold text-slate-800 block text-[11px] uppercase">Formato de respuesta:</span>
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 space-y-1">
+              <span className="font-bold text-slate-800 dark:text-slate-200 block text-[11px] uppercase">Formato de respuesta:</span>
               <p>{instrument.itemFormatDescription}</p>
             </div>
           </div>
@@ -409,30 +409,30 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
 
       {/* Tab 3: ESTRUCTURA Y DEMOSTRACIÓN */}
       {activeSubTab === 'estructura' && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-2xs space-y-6">
-          <div className="flex items-start gap-3 border-b border-slate-100 pb-4">
-            <div className="w-10 h-10 rounded-2xl bg-slate-100 text-[#023273] flex items-center justify-center shrink-0">
-              <Layers className="w-5 h-5 text-[#023273]" />
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-2xs space-y-6">
+          <div className="flex items-start gap-3 border-b border-slate-100 dark:border-slate-700 pb-4">
+            <div className="w-10 h-10 rounded-2xl bg-slate-100 dark:bg-slate-800 text-[#023273] dark:text-blue-300 flex items-center justify-center shrink-0">
+              <Layers className="w-5 h-5 text-[#023273] dark:text-blue-300" />
             </div>
             <div>
-              <h3 className="text-base sm:text-lg font-bold text-slate-900">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">
                 Aprende a administrar {instrument.shortName}
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Práctica del rol de aplicador: preparación, consignas y decisiones de procedimiento
               </p>
             </div>
           </div>
 
-          <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 text-xs sm:text-sm text-slate-700 space-y-3 leading-relaxed">
+          <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300 space-y-3 leading-relaxed">
             <p>Primero revisa las características del material. Después ensaya cómo orientarías a otra persona durante la administración, sin responder el instrumento ni calcular resultados.</p>
-            <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-1 text-xs">
-              <span className="font-bold text-[#023273] block uppercase text-[10px]">Especificación técnica del instrumento:</span>
+            <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1 text-xs">
+              <span className="font-bold text-[#023273] dark:text-blue-300 block uppercase text-[10px]">Especificación técnica del instrumento:</span>
               <p>• Formato esperado: <strong>{instrument.itemFormatDescription}</strong></p>
               <p>• Modalidad de administración: <strong>{instrument.applicationMode}</strong></p>
               <p>• Duración estimada: <strong>{instrument.estimatedDuration}</strong></p>
               {instrument.materialNotes && (
-                <p className="text-[#023273] font-medium pt-1">• {instrument.materialNotes}</p>
+                <p className="text-[#023273] dark:text-blue-300 font-medium pt-1">• {instrument.materialNotes}</p>
               )}
             </div>
           </div>
@@ -440,8 +440,8 @@ export const InstrumentDetail: React.FC<InstrumentDetailProps> = ({
           <ApplicationPractice key={instrument.id} instrumentId={instrument.id} />
 
           {/* Context consultation shortcut */}
-          <div className="p-4 rounded-2xl bg-blue-50 border border-blue-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-            <span className="text-[#023273] font-medium">
+          <div className="p-4 rounded-2xl bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+            <span className="text-[#023273] dark:text-blue-300 font-medium">
               ¿Tienes dudas sobre los fundamentos teóricos o cómo se administra {instrument.shortName}?
             </span>
             <button

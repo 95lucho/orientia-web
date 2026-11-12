@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Compass, Sparkles, BookOpen, MessageSquare, Menu, X, GraduationCap, Building2, Users } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 import { NavigationTab } from '../../types/vocational';
 
 interface NavbarProps {
@@ -18,7 +19,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab }) => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/98 backdrop-blur-md border-b border-slate-200 shadow-2xs">
+    <header className="sticky top-0 z-40 bg-white/98 dark:bg-slate-900/98 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-2xs">
       {/* Top institutional UAGRM thin banner */}
       <div className="bg-[#023273] text-white text-[11px] font-medium py-1 px-4 sm:px-8 border-b-2 border-[#C8102E] flex items-center justify-between">
         <div className="flex items-center gap-2 max-w-7xl mx-auto w-full justify-between">
@@ -47,28 +48,28 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab }) => {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-xl tracking-tight text-slate-900 group-hover:text-[#023273] transition-colors">
-                  Orient<span className="text-[#023273] font-extrabold">IA</span>
+                <span className="font-bold text-xl tracking-tight text-slate-900 dark:text-slate-100 group-hover:text-[#023273] dark:group-hover:text-blue-300 transition-colors">
+                  Orient<span className="text-[#023273] dark:text-blue-300 font-extrabold">IA</span>
                 </span>
-                <span className="text-[10px] font-semibold uppercase tracking-wider bg-slate-100 text-[#023273] px-2 py-0.5 rounded-md border border-slate-200">
+                <span className="text-[10px] font-semibold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-[#023273] dark:text-blue-300 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-700">
                   UAGRM
                 </span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#C8102E]" title="Acento institucional provisorio" />
               </div>
-              <p className="text-xs text-slate-500 font-medium hidden sm:block">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:block">
                 Orientación Vocacional y Profesional · Ciencias de la Educación
               </p>
             </div>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+          <nav className="hidden xl:flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-700">
             <button
               onClick={() => handleNav('inicio')}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
                 activeTab === 'inicio'
                   ? 'bg-[#023273] text-white shadow-sm'
-                  : 'text-slate-700 hover:text-[#023273] hover:bg-white/80'
+                  : 'text-slate-700 dark:text-slate-300 hover:text-[#023273] dark:hover:text-blue-300 hover:bg-white/80 dark:hover:bg-slate-900/80'
               }`}
             >
               <GraduationCap className="w-4 h-4" />
@@ -80,12 +81,12 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab }) => {
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
                 activeTab === 'tests'
                   ? 'bg-[#023273] text-white shadow-sm'
-                  : 'text-slate-700 hover:text-[#023273] hover:bg-white/80'
+                  : 'text-slate-700 dark:text-slate-300 hover:text-[#023273] dark:hover:text-blue-300 hover:bg-white/80 dark:hover:bg-slate-900/80'
               }`}
             >
               <BookOpen className="w-4 h-4" />
               <span>Test Vocacionales</span>
-              <span className="text-[10px] bg-slate-200 text-[#023273] font-bold px-1.5 py-0.2 rounded-full">
+              <span className="text-[10px] bg-slate-200 dark:bg-slate-700 text-[#023273] dark:text-blue-300 font-bold px-1.5 py-0.2 rounded-full">
                 6
               </span>
             </button>
@@ -95,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab }) => {
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
                 activeTab === 'chatbot'
                   ? 'bg-[#023273] text-white shadow-sm'
-                  : 'text-slate-700 hover:text-[#023273] hover:bg-white/80'
+                  : 'text-slate-700 dark:text-slate-300 hover:text-[#023273] dark:hover:text-blue-300 hover:bg-white/80 dark:hover:bg-slate-900/80'
               }`}
             >
               <MessageSquare className="w-4 h-4" />
@@ -111,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab }) => {
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
                 activeTab === 'acerca'
                   ? 'bg-[#023273] text-white shadow-sm'
-                  : 'text-slate-700 hover:text-[#023273] hover:bg-white/80'
+                  : 'text-slate-700 dark:text-slate-300 hover:text-[#023273] dark:hover:text-blue-300 hover:bg-white/80 dark:hover:bg-slate-900/80'
               }`}
             >
               <Users className="w-4 h-4" />
@@ -120,32 +121,35 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab }) => {
           </nav>
 
           {/* Right Action: Academic Badge */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden 2xl:flex items-center gap-3">
             <button
               onClick={() => handleNav('chatbot')}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold text-[#023273] bg-slate-50 hover:bg-slate-100 rounded-full border border-slate-300 transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold text-[#023273] dark:text-blue-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full border border-slate-300 dark:border-slate-600 transition-all cursor-pointer"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#023273]" />
+              <Sparkles className="w-3.5 h-3.5 text-[#023273] dark:text-blue-300" />
               <span>Asistente pedagógico activo</span>
             </button>
           </div>
 
+          <div className="ml-2 flex items-center gap-2">
+            <ThemeToggle />
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center">
+          <div className="flex xl:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
+              className="p-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               aria-label="Abrir menú"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6 text-[#023273]" /> : <Menu className="w-6 h-6 text-[#023273]" />}
+              {mobileMenuOpen ? <X className="w-6 h-6 text-[#023273] dark:text-blue-300" /> : <Menu className="w-6 h-6 text-[#023273] dark:text-blue-300" />}
             </button>
+          </div>
           </div>
         </div>
       </div>
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-200 bg-white px-4 pt-3 pb-5 space-y-2 animate-in slide-in-from-top duration-200 shadow-lg">
+        <div className="xl:hidden border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2 animate-in slide-in-from-top duration-200 shadow-lg">
           <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider px-3 pb-1">
             UAGRM · Orientación Vocacional y Profesional
           </p>
@@ -154,13 +158,13 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab }) => {
             className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
               activeTab === 'inicio'
                 ? 'bg-[#023273] text-white'
-                : 'text-slate-700 hover:bg-slate-50'
+                : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
             }`}
           >
             <GraduationCap className="w-5 h-5" />
             <div className="text-left">
               <div>Inicio</div>
-              <div className={`text-xs ${activeTab === 'inicio' ? 'text-slate-200' : 'text-slate-500'} font-normal`}>
+              <div className={`text-xs ${activeTab === 'inicio' ? 'text-slate-200' : 'text-slate-500 dark:text-slate-400'} font-normal`}>
                 Presentación de OrientIA y fundamentos
               </div>
             </div>
@@ -171,7 +175,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab }) => {
             className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
               activeTab === 'tests'
                 ? 'bg-[#023273] text-white'
-                : 'text-slate-700 hover:bg-slate-50'
+                : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
             }`}
           >
             <BookOpen className="w-5 h-5" />
@@ -182,7 +186,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab }) => {
                   6 instrumentos
                 </span>
               </div>
-              <div className={`text-xs ${activeTab === 'tests' ? 'text-slate-200' : 'text-slate-500'} font-normal`}>
+              <div className={`text-xs ${activeTab === 'tests' ? 'text-slate-200' : 'text-slate-500 dark:text-slate-400'} font-normal`}>
                 Catálogo de los 6 instrumentos y batería DAT
               </div>
             </div>
@@ -193,13 +197,13 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab }) => {
             className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
               activeTab === 'chatbot'
                 ? 'bg-[#023273] text-white'
-                : 'text-slate-700 hover:bg-slate-50'
+                : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
             }`}
           >
             <MessageSquare className="w-5 h-5" />
             <div className="text-left">
               <div>Chatbot OrientIA</div>
-              <div className={`text-xs ${activeTab === 'chatbot' ? 'text-slate-200' : 'text-slate-500'} font-normal`}>
+              <div className={`text-xs ${activeTab === 'chatbot' ? 'text-slate-200' : 'text-slate-500 dark:text-slate-400'} font-normal`}>
                 Consultas pedagógicas de la asignatura
               </div>
             </div>
@@ -210,13 +214,13 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab }) => {
             className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
               activeTab === 'acerca'
                 ? 'bg-[#023273] text-white'
-                : 'text-slate-700 hover:bg-slate-50'
+                : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
             }`}
           >
             <Users className="w-5 h-5" />
             <div className="text-left">
               <div>Acerca de OrientIA</div>
-              <div className={`text-xs ${activeTab === 'acerca' ? 'text-slate-200' : 'text-slate-500'} font-normal`}>
+              <div className={`text-xs ${activeTab === 'acerca' ? 'text-slate-200' : 'text-slate-500 dark:text-slate-400'} font-normal`}>
                 Créditos institucionales, referencia docente y autoría
               </div>
             </div>

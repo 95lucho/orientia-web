@@ -6,3 +6,11 @@
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   }
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  html { background: #f8fafc; }
+  html.dark { background: #020617; }
+  :focus-visible { outline: 2px solid #3b82f6; outline-offset: 3px; }
+}

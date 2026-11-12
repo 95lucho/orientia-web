@@ -48,9 +48,9 @@ export const HomeSection: React.FC<HomeSectionProps> = ({ onNavigate }) => {
           <div className="pt-2 flex flex-wrap items-center gap-3.5">
             <button
               onClick={() => onNavigate('tests')}
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white hover:bg-slate-100 text-[#023273] font-bold text-sm sm:text-base shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-[#023273] dark:text-blue-300 font-bold text-sm sm:text-base shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
             >
-              <BookOpen className="w-4 h-4 text-[#023273]" />
+              <BookOpen className="w-4 h-4 text-[#023273] dark:text-blue-300" />
               <span>Explorar los 6 instrumentos</span>
               <ArrowRight className="w-4 h-4" />
             </button>
@@ -83,55 +83,55 @@ export const HomeSection: React.FC<HomeSectionProps> = ({ onNavigate }) => {
       </section>
 
       {/* Purpose of OrientIA */}
-      <section className="bg-white rounded-3xl p-7 sm:p-10 border border-slate-200 shadow-2xs space-y-6">
+      <section className="bg-white dark:bg-slate-900 rounded-3xl p-7 sm:p-10 border border-slate-200 dark:border-slate-700 shadow-2xs space-y-6">
         <div className="max-w-3xl space-y-2">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#023273] dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-3 py-1 rounded-full border border-blue-100 dark:border-blue-800">
               Finalidad Académica
             </span>
             <span className="text-xs text-slate-400 font-medium">UAGRM · Santa Cruz</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
             Una Herramienta de Mediación Pedagógica
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
             OrientIA es una herramienta de apoyo al aprendizaje para los futuros educadores. No es un sistema de diagnóstico psicológico ni una plataforma de evaluación psicométrica automatizada. Su objetivo es enriquecer el proceso formativo de la asignatura:
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
-          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2.5">
             <div className="w-9 h-9 rounded-xl bg-[#023273] text-white flex items-center justify-center font-bold text-sm">
               1
             </div>
-            <h3 className="text-sm sm:text-base font-bold text-slate-900">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">
               Aprender Fundamentos y Aplicación
             </h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               Comprender qué evalúa cada instrumento, quiénes son sus autores, cuál es su marco teórico y cómo debe administrarlos el pedagogo orientador.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2.5">
             <div className="w-9 h-9 rounded-xl bg-[#023273] text-white flex items-center justify-center font-bold text-sm">
               2
             </div>
-            <h3 className="text-sm sm:text-base font-bold text-slate-900">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">
               Demostración y Familiarización
             </h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               Experimentar de primera mano cómo se responden los tipos de reactivos de cada prueba antes de consultar los materiales físicos y documentos completos.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2.5">
             <div className="w-9 h-9 rounded-xl bg-[#023273] text-white flex items-center justify-center font-bold text-sm">
               3
             </div>
-            <h3 className="text-sm sm:text-base font-bold text-slate-900">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">
               Tutoría Asistida con OrientIA
             </h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               Consultar dudas conceptuales sobre los 6 instrumentos, dilemas vocacionales de aula y contenidos teóricos y metodológicos de la asignatura.
             </p>
           </div>
@@ -143,21 +143,21 @@ export const HomeSection: React.FC<HomeSectionProps> = ({ onNavigate }) => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
                 Los 6 Instrumentos Vocacionales de la Cátedra
               </h2>
               <span className="text-[11px] font-bold bg-[#C8102E] text-white px-2 py-0.5 rounded-full">
                 UAGRM
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-slate-500">
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
               Accede a la ficha técnica, fundamentación teórica, pautas de aplicación y detalles de cada prueba.
             </p>
           </div>
 
           <button
             onClick={() => onNavigate('tests')}
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#023273] hover:underline w-fit"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#023273] dark:text-blue-300 hover:underline w-fit"
           >
             <span>Ver catálogo completo</span>
             <ArrowRight className="w-4 h-4" />
@@ -169,11 +169,11 @@ export const HomeSection: React.FC<HomeSectionProps> = ({ onNavigate }) => {
             <div
               key={inst.id}
               onClick={() => onNavigate('tests', inst.id)}
-              className="bg-white p-6 rounded-3xl border border-slate-200 hover:border-[#023273] hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
+              className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 hover:border-[#023273] dark:hover:border-blue-400 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2.5 py-1 rounded-md border border-blue-100 dark:border-blue-800">
                     {inst.category}
                   </span>
                   <span className="text-xs font-bold text-slate-400">
@@ -182,23 +182,23 @@ export const HomeSection: React.FC<HomeSectionProps> = ({ onNavigate }) => {
                 </div>
 
                 <div className="space-y-1">
-                  <h3 className="font-bold text-slate-900 text-base group-hover:text-[#023273] transition-colors leading-snug">
+                  <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base group-hover:text-[#023273] dark:group-hover:text-blue-300 transition-colors leading-snug">
                     {inst.name}
                   </h3>
                 </div>
 
-                <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed">
                   {inst.description}
                 </p>
 
                 {inst.id === 'dat-aptitudes' && (
-                  <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-[11px] text-[#023273] font-medium">
+                  <div className="bg-slate-50 dark:bg-slate-800 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-[11px] text-[#023273] dark:text-blue-300 font-medium">
                     Batería integrada por 8 subpruebas independientes
                   </div>
                 )}
               </div>
 
-              <div className="pt-4 mt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#023273]">
+              <div className="pt-4 mt-2 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between text-xs font-bold text-[#023273] dark:text-blue-300">
                 <span>Conocer instrumento</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
@@ -208,12 +208,12 @@ export const HomeSection: React.FC<HomeSectionProps> = ({ onNavigate }) => {
       </section>
 
       {/* Notice regarding DAT & physical text */}
-      <section className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-start gap-4">
+      <section className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-start gap-4">
         <div className="w-10 h-10 rounded-2xl bg-[#023273] text-white flex items-center justify-center shrink-0">
           <FileText className="w-5 h-5 text-white" />
         </div>
-        <div className="space-y-1.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
-          <h4 className="font-bold text-slate-900 text-sm sm:text-base">
+        <div className="space-y-1.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+          <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm sm:text-base">
             Compromiso Ético y Rigor Académico en Ciencias de la Educación
           </h4>
           <p>
@@ -223,22 +223,22 @@ export const HomeSection: React.FC<HomeSectionProps> = ({ onNavigate }) => {
       </section>
 
       {/* Sección Institucional y Créditos UAGRM */}
-      <section className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-4">
+      <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-3xl p-6 sm:p-7 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="space-y-1 text-center sm:text-left">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-100">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2.5 py-0.5 rounded-md border border-blue-100 dark:border-blue-800">
             Filiación Académica & Créditos
           </span>
-          <h4 className="font-bold text-slate-900 text-sm sm:text-base">
+          <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm sm:text-base">
             OrientIA · Universidad Autónoma Gabriel René Moreno (UAGRM)
           </h4>
-          <p className="text-xs text-slate-500">
-            Referencia académica: <strong className="text-slate-800">Lic. Delia Claudia Jaldín Arroyo</strong> · Creador y desarrollador: <strong className="text-slate-800">Luis Enrique Justiniano Mercado</strong>
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            Referencia académica: <strong className="text-slate-800 dark:text-slate-200">Lic. Delia Claudia Jaldín Arroyo</strong> · Creador y desarrollador: <strong className="text-slate-800 dark:text-slate-200">Luis Enrique Justiniano Mercado</strong>
           </p>
         </div>
 
         <button
           onClick={() => onNavigate('acerca')}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-[#023273] text-[#023273] hover:text-white font-bold text-xs transition-colors shrink-0 border border-slate-200 cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-[#023273] text-[#023273] dark:text-blue-300 hover:text-white font-bold text-xs transition-colors shrink-0 border border-slate-200 dark:border-slate-700 cursor-pointer"
         >
           <span>Conocer más acerca de OrientIA</span>
           <ArrowRight className="w-3.5 h-3.5" />

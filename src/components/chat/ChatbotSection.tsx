@@ -199,27 +199,27 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
   return (
     <div className="space-y-6 py-4 sm:py-6">
       {/* Chat Section Header */}
-      <div className="bg-white rounded-3xl p-5 sm:p-7 border border-slate-200 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-7 border border-slate-200 dark:border-slate-700 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1.5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="p-2 rounded-xl bg-slate-100 text-[#023273]">
+            <span className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-[#023273] dark:text-blue-300">
               <Bot className="w-5 h-5" />
             </span>
-            <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+            <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
               Chatbot OrientIA
             </h1>
-            <span className="text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-[#023273] px-2.5 py-0.5 rounded-full border border-slate-200">
+            <span className="text-[10px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-[#023273] dark:text-blue-300 px-2.5 py-0.5 rounded-full border border-slate-200 dark:border-slate-700">
               UAGRM
             </span>
-            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 bg-slate-50 px-2.5 py-0.5 rounded-full border border-slate-200">
-              <GraduationCap className="w-3.5 h-3.5 text-[#023273]" />
+            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 px-2.5 py-0.5 rounded-full border border-slate-200 dark:border-slate-700">
+              <GraduationCap className="w-3.5 h-3.5 text-[#023273] dark:text-blue-300" />
               Ciencias de la Educación
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
             Asistente pedagógico para consultas teóricas, análisis de los 6 instrumentos y contenidos curriculares de Orientación Vocacional y Profesional.
           </p>
-          <p className="text-xs text-slate-500" role="status">
+          <p className="text-xs text-slate-500 dark:text-slate-400" role="status">
             {serverStatus.online === null ? 'Comprobando disponibilidad del servidor.' : !serverStatus.online
               ? 'La conexión está pendiente de confirmar. Las respuestas locales están disponibles si el servidor falla.' : serverStatus.gemini
               ? 'Servidor conectado. Gemini configurado; cada respuesta indica su fuente real.'
@@ -231,7 +231,7 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
           <button
             onClick={handleClearHistory}
             disabled={isLoading}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-[#023273] bg-slate-100 hover:bg-slate-200 transition-colors border border-slate-200 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-[#023273] dark:hover:text-blue-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
             title="Reiniciar conversación"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -241,9 +241,9 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
       </div>
 
       {/* Main Conversation Container */}
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-2xs overflow-hidden flex flex-col h-[650px] max-h-[75vh]">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-2xs overflow-hidden flex flex-col h-[650px] max-h-[75vh]">
         {/* Messages Stream */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 bg-slate-50/60">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 bg-slate-50/60 dark:bg-slate-800/60">
           {messages.map((message) => {
             const isUser = message.role === 'user';
             const sourceInfo = !isUser && message.source ? getSourceDisplay(message.source, message.model) : null;
@@ -266,10 +266,10 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
 
                 {/* Message Body */}
                 <div className={`space-y-1.5 max-w-[85%] sm:max-w-[82%] ${isUser ? 'items-end' : 'items-start'}`}>
-                  <div className={`flex items-center gap-2 px-1 text-[11px] text-slate-500 font-medium ${isUser ? 'justify-end' : 'justify-start'}`}>
-                    <span className="font-semibold text-slate-700">{isUser ? 'Estudiante UAGRM' : 'OrientIA'}</span>
+                  <div className={`flex items-center gap-2 px-1 text-[11px] text-slate-500 dark:text-slate-400 font-medium ${isUser ? 'justify-end' : 'justify-start'}`}>
+                    <span className="font-semibold text-slate-700 dark:text-slate-300">{isUser ? 'Estudiante UAGRM' : 'OrientIA'}</span>
                     {!isUser && (
-                      <span className="text-[10px] bg-slate-200/80 text-slate-700 px-1.5 py-0.2 rounded font-medium">
+                      <span className="text-[10px] bg-slate-200/80 dark:bg-slate-700/80 text-slate-700 dark:text-slate-300 px-1.5 py-0.2 rounded font-medium">
                         Cátedra
                       </span>
                     )}
@@ -281,19 +281,19 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
                     className={`p-4 sm:p-5 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-2xs ${
                       isUser
                         ? 'bg-[#023273] text-white rounded-tr-xs'
-                        : 'bg-white text-slate-800 border border-slate-200/90 rounded-tl-xs space-y-2'
+                        : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200/90 dark:border-slate-700/90 rounded-tl-xs space-y-2'
                     }`}
                   >
                     <MarkdownContent content={message.content} isUser={isUser} />
-                    {message.note && <p className="text-xs text-amber-800 bg-amber-50 rounded-lg p-2">{message.note}</p>}
+                    {message.note && <p className="text-xs text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950 rounded-lg p-2">{message.note}</p>}
 
                     {sourceInfo && (
-                      <div className="pt-2.5 mt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-400">
+                      <div className="pt-2.5 mt-3 border-t border-slate-100 dark:border-slate-700 flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-400">
                         <span className="font-medium">
-                          Fuente: <span className="text-slate-600">{sourceInfo.label}</span>
+                          Fuente: <span className="text-slate-600 dark:text-slate-300">{sourceInfo.label}</span>
                         </span>
-                        <span className="flex items-center gap-1 text-slate-600 font-medium">
-                          <ShieldCheck className="w-3 h-3 text-emerald-600 shrink-0" />
+                        <span className="flex items-center gap-1 text-slate-600 dark:text-slate-300 font-medium">
+                          <ShieldCheck className="w-3 h-3 text-emerald-600 dark:text-emerald-400 shrink-0" />
                           <span>Entorno Académico UAGRM</span>
                         </span>
                       </div>
@@ -310,12 +310,12 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
               <div className="w-9 h-9 rounded-2xl bg-[#023273] text-white flex items-center justify-center shrink-0 animate-pulse">
                 <Bot className="w-4 h-4" />
               </div>
-              <div className="bg-white border border-slate-200 p-4 rounded-2xl rounded-tl-xs shadow-2xs space-y-2">
-                <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                  <Sparkles className="w-3.5 h-3.5 text-[#023273] animate-spin" />
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl rounded-tl-xs shadow-2xs space-y-2">
+                <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <Sparkles className="w-3.5 h-3.5 text-[#023273] dark:text-blue-300 animate-spin" />
                   <span>OrientIA está procesando la consulta pedagógica...</span>
                 </div>
-                <div className="h-1.5 w-48 bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-1.5 w-48 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                   <div className="h-full bg-[#023273] rounded-full w-2/3 animate-pulse" />
                 </div>
               </div>
@@ -327,16 +327,16 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
 
         {/* Suggested Quick Questions */}
         {messages.length <= 2 && (
-          <div className="px-4 py-2.5 bg-slate-100/80 border-t border-slate-200 flex items-center gap-2 overflow-x-auto text-xs">
-            <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider shrink-0 flex items-center gap-1">
-              <Lightbulb className="w-3 h-3 text-amber-600" />
+          <div className="px-4 py-2.5 bg-slate-100/80 dark:bg-slate-800/80 border-t border-slate-200 dark:border-slate-700 flex items-center gap-2 overflow-x-auto text-xs">
+            <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider shrink-0 flex items-center gap-1">
+              <Lightbulb className="w-3 h-3 text-amber-600 dark:text-amber-300" />
               <span>Sugerencias:</span>
             </span>
             {suggestedQuestions.map((q, i) => (
               <button
                 key={i}
                 onClick={() => setInputPrompt(q)}
-                className="px-3 py-1 rounded-full bg-white hover:bg-slate-50 text-slate-700 hover:text-[#023273] border border-slate-200 whitespace-nowrap text-xs transition-colors shrink-0 cursor-pointer shadow-2xs font-medium"
+                className="px-3 py-1 rounded-full bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-[#023273] dark:hover:text-blue-300 border border-slate-200 dark:border-slate-700 whitespace-nowrap text-xs transition-colors shrink-0 cursor-pointer shadow-2xs font-medium"
               >
                 {q}
               </button>
@@ -345,7 +345,7 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
         )}
 
         {/* Input Bar */}
-        <form onSubmit={handleSendMessage} className="p-3 sm:p-4 bg-white border-t border-slate-200 flex items-center gap-2 sm:gap-3">
+        <form onSubmit={handleSendMessage} className="p-3 sm:p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 flex items-center gap-2 sm:gap-3">
           <textarea
             value={inputPrompt}
             onChange={(e) => setInputPrompt(e.target.value)}
@@ -359,7 +359,7 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
             rows={1}
             maxLength={4000}
             aria-label="Consulta para OrientIA (máximo 4000 caracteres)"
-            className="flex-1 px-4 py-2.5 rounded-2xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#023273]/20 focus:border-[#023273] text-xs sm:text-sm text-slate-800 placeholder-slate-400 resize-none max-h-32 bg-slate-50/50"
+            className="flex-1 px-4 py-2.5 rounded-2xl border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-[#023273]/20 focus:border-[#023273] text-xs sm:text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 resize-none max-h-32 bg-slate-50/50 dark:bg-slate-800/50"
           />
 
           <button
@@ -367,7 +367,7 @@ export const ChatbotSection: React.FC<ChatbotSectionProps> = ({
             disabled={!inputPrompt.trim() || isLoading}
             className={`p-3 rounded-2xl flex items-center justify-center transition-all ${
               !inputPrompt.trim() || isLoading
-                ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                ? 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed'
                 : 'bg-[#023273] hover:bg-[#012250] text-white shadow-md shadow-[#023273]/20 hover:scale-105 active:scale-95 cursor-pointer'
             }`}
             title="Enviar mensaje a OrientIA"

@@ -30,62 +30,62 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
       </div>
 
       {/* Presentación Oficial de la Aplicación */}
-      <section className="bg-white rounded-3xl p-7 sm:p-9 border border-slate-200 shadow-2xs space-y-4">
+      <section className="bg-white dark:bg-slate-900 rounded-3xl p-7 sm:p-9 border border-slate-200 dark:border-slate-700 shadow-2xs space-y-4">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center text-[#023273] font-bold">
-            <Compass className="w-5 h-5 text-[#023273]" />
+          <div className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[#023273] dark:text-blue-300 font-bold">
+            <Compass className="w-5 h-5 text-[#023273] dark:text-blue-300" />
           </div>
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-100">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2.5 py-0.5 rounded-md border border-blue-100 dark:border-blue-800">
               Propósito Académico
             </span>
-            <h2 className="text-lg sm:text-xl font-bold text-slate-900">
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-slate-100">
               Presentación de OrientIA
             </h2>
           </div>
         </div>
 
-        <blockquote className="p-4 sm:p-5 rounded-2xl bg-slate-50 border-l-4 border-[#023273] text-slate-800 text-sm sm:text-base leading-relaxed italic">
+        <blockquote className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border-l-4 border-[#023273] dark:border-blue-400 text-slate-800 dark:text-slate-200 text-sm sm:text-base leading-relaxed italic">
           «OrientIA es una aplicación web de apoyo académico diseñada para acompañar el aprendizaje de los estudiantes de la asignatura Orientación Vocacional y Profesional, mediante recursos informativos sobre instrumentos de orientación vocacional y un chatbot de consulta académica».
         </blockquote>
 
-        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           La plataforma ha sido concebida como un entorno digital complementario para los futuros licenciados en <strong>Ciencias de la Educación</strong>, facilitando la familiarización con las pruebas psicopedagógicas, el análisis crítico de la toma de decisiones vocacionales y la construcción de proyectos de vida, sin reemplazar el diagnóstico psicométrico formal ni las sesiones presenciales de cátedra.
         </p>
       </section>
 
       {/* Marco Institucional UAGRM */}
-      <section className="bg-white rounded-3xl p-7 sm:p-9 border border-slate-200 shadow-2xs space-y-5">
-        <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-          <GraduationCap className="w-5 h-5 text-[#023273]" />
-          <h2 className="text-base sm:text-lg font-bold text-slate-900">
+      <section className="bg-white dark:bg-slate-900 rounded-3xl p-7 sm:p-9 border border-slate-200 dark:border-slate-700 shadow-2xs space-y-5">
+        <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-700 pb-3">
+          <GraduationCap className="w-5 h-5 text-[#023273] dark:text-blue-300" />
+          <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">
             Filiación Institucional
           </h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
             <span className="text-slate-400 font-bold uppercase text-[10px] block">Universidad</span>
-            <span className="font-bold text-slate-900 text-sm">UAGRM</span>
-            <p className="text-[11px] text-slate-600">Universidad Autónoma Gabriel René Moreno</p>
+            <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">UAGRM</span>
+            <p className="text-[11px] text-slate-600 dark:text-slate-300">Universidad Autónoma Gabriel René Moreno</p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
             <span className="text-slate-400 font-bold uppercase text-[10px] block">Facultad</span>
-            <span className="font-bold text-slate-900 text-sm">Facultad de Humanidades</span>
-            <p className="text-[11px] text-slate-600">Sede Santa Cruz de la Sierra, Bolivia</p>
+            <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">Facultad de Humanidades</span>
+            <p className="text-[11px] text-slate-600 dark:text-slate-300">Sede Santa Cruz de la Sierra, Bolivia</p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
             <span className="text-slate-400 font-bold uppercase text-[10px] block">Carrera</span>
-            <span className="font-bold text-slate-900 text-sm">Ciencias de la Educación</span>
-            <p className="text-[11px] text-slate-600">Formación docente y pedagógica</p>
+            <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">Ciencias de la Educación</span>
+            <p className="text-[11px] text-slate-600 dark:text-slate-300">Formación docente y pedagógica</p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
             <span className="text-slate-400 font-bold uppercase text-[10px] block">Asignatura</span>
-            <span className="font-bold text-slate-900 text-sm">Orientación Vocacional</span>
-            <p className="text-[11px] text-slate-600">Orientación Vocacional y Profesional</p>
+            <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">Orientación Vocacional</span>
+            <p className="text-[11px] text-slate-600 dark:text-slate-300">Orientación Vocacional y Profesional</p>
           </div>
         </div>
       </section>
@@ -93,20 +93,20 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
       {/* Créditos Oficiales y Autoría Diferenciada */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-lg sm:text-xl font-bold text-slate-900">
+          <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-slate-100">
             Créditos y Responsabilidad del Proyecto
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
             Diferenciación formal entre la referencia académica de la asignatura y el desarrollo técnico de la plataforma.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Tarjeta 1: Docente de referencia académica */}
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-2xs space-y-4">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-700 shadow-2xs space-y-4">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#023273] dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2.5 py-1 rounded-md border border-blue-100 dark:border-blue-800">
                   Referencia Académica
                 </span>
               </div>
@@ -116,17 +116,17 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
                 alt="Lic. Delia Claudia Jaldín Arroyo"
                 width={128}
                 height={128}
-                className="h-32 w-32 rounded-2xl border border-slate-200 object-cover object-top"
+                className="h-32 w-32 rounded-2xl border border-slate-200 dark:border-slate-700 object-cover object-top"
               />
 
               <div className="space-y-1">
-                <h3 className="text-lg font-extrabold text-slate-900">
+                <h3 className="text-lg font-extrabold text-slate-900 dark:text-slate-100">
                   Lic. Delia Claudia Jaldín Arroyo
                 </h3>
-                <p className="text-xs text-[#023273] font-semibold">
+                <p className="text-xs text-[#023273] dark:text-blue-300 font-semibold">
                   Catedrática de Orientación Vocacional y Profesional
                 </p>
-                <p className="text-xs text-slate-600 pt-1 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 pt-1 leading-relaxed">
                   Referente académica de la asignatura, cuya orientación contribuye a mantener la coherencia curricular, la pertinencia pedagógica y la fundamentación conceptual de los contenidos educativos presentados en OrientIA.
                 </p>
               </div>
@@ -134,10 +134,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
           </div>
 
           {/* Tarjeta 2: Creador y Desarrollador */}
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-2xs space-y-4">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-700 shadow-2xs space-y-4">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <h3 className="text-[10px] font-bold uppercase tracking-wider text-[#023273] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
+                <h3 className="text-[10px] font-bold uppercase tracking-wider text-[#023273] dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2.5 py-1 rounded-md border border-blue-100 dark:border-blue-800">
                   Creación y desarrollo tecnológico
                 </h3>
               </div>
@@ -147,20 +147,20 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
                 alt="Luis Enrique Justiniano Mercado"
                 width={128}
                 height={128}
-                className="h-32 w-32 rounded-2xl border border-slate-200 object-cover object-top"
+                className="h-32 w-32 rounded-2xl border border-slate-200 dark:border-slate-700 object-cover object-top"
               />
 
               <div className="space-y-1">
-                <h4 className="text-lg font-extrabold text-slate-900">
+                <h4 className="text-lg font-extrabold text-slate-900 dark:text-slate-100">
                   Luis Enrique Justiniano Mercado
                 </h4>
-                <p className="text-xs text-[#023273] font-semibold">
+                <p className="text-xs text-[#023273] dark:text-blue-300 font-semibold">
                   Creador de OrientIA
                 </p>
-                <p className="text-xs text-slate-600">
+                <p className="text-xs text-slate-600 dark:text-slate-300">
                   Estudiante de Ciencias de la Educación – UAGRM.
                 </p>
-                <p className="text-xs text-slate-600 pt-1 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 pt-1 leading-relaxed">
                   Responsable de la concepción, diseño y desarrollo tecnológico de OrientIA, incluyendo la arquitectura de la aplicación web, programación de sus funcionalidades, diseño de interfaces y experiencia de usuario, así como la integración de herramientas de inteligencia artificial aplicadas al ámbito educativo.
                 </p>
               </div>
@@ -173,7 +173,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
       <div className="pt-2 flex flex-wrap items-center justify-between gap-3">
         <button
           onClick={() => onNavigate('inicio')}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#023273] font-bold text-xs transition-colors border border-slate-200 cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-[#023273] dark:text-blue-300 font-bold text-xs transition-colors border border-slate-200 dark:border-slate-700 cursor-pointer"
         >
           <span>← Volver al Inicio</span>
         </button>
